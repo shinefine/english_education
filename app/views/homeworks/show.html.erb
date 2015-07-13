@@ -1,0 +1,39 @@
+<h1></h1>
+<div class="ui green horizontal label"><h2> 作业详细信息</h2></div>
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <strong>培训班:</strong>
+  <%= @training_class.name %>
+</p>
+<p>
+  <strong>作业内容:</strong>
+  <%= @homework.title %>
+</p>
+
+<p>
+  <strong>布置日期:</strong>
+  <%= @homework.distribution_date %>
+</p>
+
+<p>
+  <strong>上交日期:</strong>
+  <%= @homework.submit_date %>
+</p>
+
+<p>
+  <strong>讲师:</strong>
+  <%= @homework.teacher_id %>
+</p>
+
+<p>
+  <strong>科目:</strong>
+  <%= @homework.subject_type %>
+</p>
+
+
+
+
+
+<%= link_to '返回到作业列表', training_class_homeworks_path(@training_class),{class: 'ui blue button'} %>

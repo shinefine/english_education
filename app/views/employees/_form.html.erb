@@ -1,0 +1,49 @@
+
+
+<%= simple_form_for(@employee) do |f| %>
+    <%= f.error_notification %>
+
+    <%= f.fields_for(:user) do |user_f| %>
+
+        <div class="ui five fields">
+          <div class="field">
+            <%= user_f.input :name,label:"名称" %>
+          </div>
+
+          <div class="field">
+            <%= render 'shared/upload_user_photo', form_builder: user_f%>
+          </div>
+
+        </div>
+        <div class="ui five fields">
+          <div class="field">
+            <%= user_f.input :phone_number,label:"手机号" %>
+          </div>
+          <div class="field">
+            <%= user_f.input :identify_card,label:"身份证号" %>
+          </div>
+
+          <div class="field">
+            <%= user_f.input :email ,label:"Email"%>
+          </div>
+
+
+          <div class="field">
+            <%= user_f.input :tinypost_number ,label:"微信"%>
+          </div>
+
+          <div class="field">
+            <%= user_f.input :qq_number ,label:"QQ"%>
+          </div>
+        </div>
+
+    <% end %>
+
+    <%if current_user.can_manage_basic_data?%>
+    <%= f.input :admin ,label:"管理员"%>
+    <%end%>
+    <div class="form-actions">
+      <%= f.button :submit ,'保存',inner_html: {class:"ui blue submit button"} %>
+      <%= link_to '返回到员工列表', employees_path, {class:"ui blue submit button"} %>
+    </div>
+<% end %>

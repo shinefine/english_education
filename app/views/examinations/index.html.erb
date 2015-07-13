@@ -1,0 +1,57 @@
+<h1></h1>
+<!--该 模考的index 页面 不是展示所有模考记录,而是针对指定培训班展示其对应的模考记录-->
+<div class="ui green horizontal label"><h2> 培训班<%=@training_class.name %> 的模拟考</h2></div>
+<table class ="ui celled table segment">
+  <thead>
+    <tr>
+
+      <th>试卷</th>
+      <th>考试名称</th>
+      <th>考试时间</th>
+      <th>学员考试成绩</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @examinations.each do |exam| %>
+      <tr>
+        <td><%= exam.test_paper.name %></td>
+        <td><%= exam.name %></td>
+        <td><%= exam.test_date %></td>
+
+        <td><%= link_to '查看成绩列表',
+
+                        examination_scores_path(exam),{class:'ui green button'} %>
+        </td>
+
+        <% if current_user.can_set_training_class_examination?(@training_class) %>
+
+
+
+            <td><%= link_to(edit_training_class_examination_path(@training_class,exam),{class:'ui green icon button popup_tip_button',"data-content"=>"修改模考信息:#{exam.name}"}) do %>
+                   <i class="edit icon"> </i>
+              <%end%>
+
+              <%= link_to(training_class_examination_path(@training_class, exam),{class:'ui red icon button popup_tip_button',
+                                                                                  method: :delete,
+                                                                                  data: { confirm: '确认删除此模考?' ,content:"删除模考:#{exam.name}"}}) do%>
+              <i class="delete icon"> </i>
+                <%end%>
+            </td>
+
+        <% else %>
+            <td></td>
+
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% if current_user.can_set_training_class_examination?(@training_class) %>
+  <%= link_to '创建模拟考', new_training_class_examination_path(@training_class), {class:"ui blue  button"} %>
+<% end %>
+<%= link_to '返回到班级列表', training_classes_path , {class:"ui blue  button"}%>

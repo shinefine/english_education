@@ -1,0 +1,115 @@
+<!--本局部试图属于 index_for_all_students.html.erb ,用于显示所有学员的某次特定模拟考试的(TOEFL)成绩列表-->
+<table class ="ui celled table segment">
+  <thead>
+  <tr>
+
+    <th></th>
+    <th >总分</th>
+
+
+    <% if can_view_subject('Listening' , @training_class,current_user) %>
+    <th colspan="3" >听力 </th>
+    <% end %>
+
+    <%if can_view_subject('Speaking' , @training_class,current_user) %>
+    <th colspan="4" >口语 </th>
+    <% end %>
+    <%if can_view_subject('Reading' , @training_class,current_user) %>
+        <th colspan="3" >阅读</th>
+    <%end %>
+
+    <%if can_view_subject('Writing' , @training_class,current_user) %>
+    <th colspan="3" >写作 </th>
+    <% end %>
+
+    <th></th>
+  </tr>
+  </thead>
+  <tr>
+
+    <th>学员</th>
+    <th ></th>
+
+    <% if can_view_subject('Listening' , @training_class,current_user) %>
+    <th>听力总分 </th><th> <i class="green checkmark icon"></i> </th><th> <i class="red close icon"></i> </th>
+        <%end%>
+
+    <% if can_view_subject('Speaking' , @training_class,current_user) %>
+    <th>口语总分 </th><th>1,2题 </th><th>3,4题 </th><th>5,6题 </th>
+        <%end%>
+
+    <% if can_view_subject('Reading' , @training_class,current_user) %>
+        <th>阅读总分 </th><th> <i class="green checkmark icon"></i> </th> <th> <i class="red close icon"></i> </th>
+    <% end %>
+
+    <% if can_view_subject('Writing' , @training_class,current_user) %>
+    <th>作文总分 </th><th>综合写作 </th><th>独立写作 </th>
+
+    <%end%>
+    <th></th>
+  </tr>
+  <tbody>
+  <% @training_class_students.each do |student| %>
+
+      <% score = @scores.where(student_id: student).first %>
+
+      <tr>
+        <td><%= student.name %> </td>
+
+
+        <td class="lightgreen"><%= score.try(:final_score) %> </td>
+
+        <!--听力-->
+        <% if can_view_subject('Listening' , @training_class,current_user) %>
+        <td class="normal_blue"><%= score.try(:course_a_score) %></td>
+        <td><%= score.try(:stat_01) %></td>
+        <td><%= score.try(:stat_02) %></td>
+            <%end%>
+        <!--口语-->
+        <% if can_view_subject('Speaking' , @training_class,current_user) %>
+        <td class="orange"><%= score.try(:course_b_score) %></td>
+        <td><%= score.try(:stat_03) %></td>
+        <td><%= score.try(:stat_04) %></td>
+        <td><%= score.try(:stat_05) %></td>
+
+            <%end%>
+
+        <!--阅读-->
+        <% if can_view_subject('Reading' , @training_class,current_user) %>
+            <td class="green"><%= score.try(:course_c_score) %></td>
+            <td><%= score.try(:stat_06) %></td>
+            <td><%= score.try(:stat_07) %></td>
+        <%end%>
+
+        <% if can_view_subject('Writing' , @training_class,current_user) %>
+        <!--写作-->
+        <td class="purple_gray"><%= score.try(:course_d_score) %></td>
+        <td><%= score.try(:stat_08) %></td>
+        <td><%= score.try(:stat_09) %></td>
+
+        <%end%>
+        <% if current_user.teacher? %>
+            <td></td>
+
+        <% else %>
+            <td>
+              <%=
+                 if score.nil?
+                   link_to(new_student_examination_score_path(student,@examination),{class:'ui green icon button popup_tip_button',"data-content"=>"录入#{student.name}的模拟考试成绩"})do
+                     raw( '<i class="edit icon"> </i>')
+                   end
+                 else
+                   link_to(edit_student_examination_score_path(student,@examination,score) ,{class:'ui green icon button popup_tip_button',"data-content"=>"修改#{student.name}的模拟考试成绩"}) do
+                     raw( '<i class="edit icon"> </i>')
+                   end
+
+                 end
+              %>
+            </td>
+        <% end %>
+
+
+      </tr>
+  <% end %>
+  </tbody>
+</table>

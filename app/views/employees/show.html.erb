@@ -1,0 +1,31 @@
+
+<h1></h1>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>姓名:</strong>
+  <%= @employee.user.name %>
+</p>
+<p>
+  <strong>手机:</strong>
+  <%= @employee.user.phone_number %>
+</p>
+
+<p>
+  <strong>邮箱:</strong>
+  <%= @employee.user.email %>
+</p>
+<p>
+  <strong>管理员:</strong>
+  <%= @employee.admin ? '是':'否'%>
+</p>
+
+
+<% if current_user.can_set_employee_info?(@employee) %>
+    <%= link_to '修改信息', edit_employee_path(@employee), {class: 'ui blue button'}%>
+    <%= link_to '设置密码', set_password_user_path(@employee.user), {class: 'ui blue button'}%>
+<% end %>
+
+<% if current_user.employee? %>
+    <%= link_to '返回到员工列表', employees_path,{class: 'ui blue button'} %>
+<% end %>

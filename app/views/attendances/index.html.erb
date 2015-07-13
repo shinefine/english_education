@@ -1,0 +1,35 @@
+<h1></h1>
+<div class="ui green horizontal label"><h2> 培训班<%=@training_class.name %> 的考勤</h2></div>
+<table class ="ui padded table segment">
+  <thead>
+    <tr>
+      <th>日期</th>
+      <th>出勤情况</th>
+      <th ></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @attendances.each do |attendance| %>
+      <tr>
+        <td><%= attendance.attendance_date %></td>
+
+        <td><%= link_to  summary_training_class_attendance_text(attendance), edit_training_class_attendance_path(@training_class, attendance) %></td>
+
+        <td>
+          <%if current_user.is_training_class_master?(@training_class)%>
+            <%= link_to '删除考勤信息', training_class_attendance_path(@training_class,attendance), {class:'ui red button' , method: :delete, data: { confirm: '确定要删除此考勤信息?' }} %>
+          <%end%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%if current_user.is_training_class_master?(@training_class)%>
+    <%= link_to '创建考勤信息', new_training_class_attendance_path(@training_class),{class:'ui blue button'} %>
+<%end%>
+<br>
+<%= link_to '返回到班级列表', training_classes_path , {class:"ui blue  button"}%>

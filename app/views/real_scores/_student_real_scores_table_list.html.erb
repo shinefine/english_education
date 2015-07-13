@@ -1,0 +1,111 @@
+<!--局部视图用于显示学员的真实考试成绩-->
+<!-- 学员TOEFL成绩-->
+<div class="item">
+  <div class="active title">
+    <i class="dropdown icon"></i>
+    <a class="ui teal circular large label"> TOEFL成绩</a>
+  </div>
+  <div class="active content">
+    <table class ="ui celled collapsing table">
+      <thead>
+      <tr>
+        <th >真实考试成绩 </th>
+
+        <th >入口成绩和期望成绩</th>
+
+      </tr>
+      </thead>
+
+
+      <tr>
+        <td>
+          <%=render 'real_scores/show',{
+                  exam_type_filter:'TOEFL',
+                  var_real_scores:@student.real_scores.toefl.true_real }%>
+        </td>
+        <td>
+          <%=render 'real_scores/show', {
+                  exam_type_filter:'TOEFL',
+                  var_real_scores:@student.real_scores.toefl.entry_and_target_and_month_target }%>
+
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <% if current_user.can_set_student_info?(@student) %>
+              <%= link_to '输入 TOEFL 真实考试成绩', set_real_scores_student_path(@student,exam_type:'TOEFL',score_type:'true_real'), {class: 'ui green button'}%>
+              <br><br>
+          <%end%>
+        </td>
+        <td>
+          <% if current_user.can_set_student_info?(@student) %>
+              <%= link_to '输入 TOEFL 入口成绩和目标成绩', set_entry_and_target_scores_student_path(@student,exam_type:'TOEFL',score_type:'entry_and_target'), {class: 'ui green button'}%>
+              <br><br>
+          <%end%>
+        </td>
+      </tr>
+
+    </table>
+
+
+
+
+  </div>
+
+
+</div>
+
+<!--学员SAT考试成绩-->
+<div class="item">
+  <div class="active title">
+    <i class="dropdown icon"></i>
+    <a class="ui teal circular large label">SAT成绩</a>
+  </div>
+  <div class="active content">
+
+    <table class="ui celled collapsing table">
+      <thead>
+      <tr>
+        <th>真实考试成绩</th>
+
+        <th>入口成绩和期望成绩</th>
+
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+        <td>
+          <%= render 'real_scores/show', {
+                  exam_type_filter: 'SAT',
+                  var_real_scores: @student.real_scores.sat.true_real} %>
+        </td>
+        <td>
+          <%= render 'real_scores/show', {
+                  exam_type_filter: 'SAT',
+                  var_real_scores: @student.real_scores.sat.entry_and_target_and_month_target} %>
+
+        </td>
+
+      </tr>
+
+      <tr>
+        <td>
+          <% if current_user.can_set_student_info?(@student) %>
+              <%= link_to '输入 SAT 真实考试成绩', set_real_scores_student_path(@student, exam_type: 'SAT', score_type: 'true_real'), {class: 'ui green button'} %>
+
+          <% end %>
+        </td>
+        <td>
+          <% if current_user.can_set_student_info?(@student) %>
+              <%= link_to '输入 SAT 入口成绩和目标成绩', set_entry_and_target_scores_student_path(@student, exam_type: 'SAT', score_type: 'entry_and_target'), {class: 'ui green button'} %>
+
+          <% end %>
+        </td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

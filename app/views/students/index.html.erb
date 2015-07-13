@@ -1,0 +1,141 @@
+<h1>index page</h1>
+<!---->
+
+<div class="ui horizontal green label"><h2>学员列表</h2></div>
+<div class="ui blue label">
+  共有学员 <%= @students.length %> 人
+
+</div>
+
+
+<br>
+<div class="ui input">
+  <%= form_tag search_students_path, method: 'get' do %>
+        <span class="input-icon">
+          <%= text_field_tag :q, params[:q], placeholder: "搜索学员...", autocomplete: "off" %>
+          <i class="ace-icon fa fa-search nav-search-icon"></i>
+         </span>
+
+  <% end %>
+</div>
+
+
+<table class ="ui celled collapsing table segment">
+  <thead>
+    <tr>
+
+      <th>学员名称</th>
+      <th>培训班级</th>
+      <th>家长联系方式</th>
+
+
+      <th>创建者</th>
+      <%if current_user.employee?%>
+      <th colspan="2"></th>
+      <%end%>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td>
+          <div class="ui divided items">
+
+            <div class="item">
+            <div class="ui tiny image">
+              <%=image_tag(student.user.photo.thumb.url) %>
+
+            </div>
+            <div class="content">
+             <%= link_to(student, {class: 'header'}) do %>
+                  <%=student.user.try(:name)%>
+
+                  <%if current_user.can_view_student_personal_info? %>
+                      <i class="mobile icon large"></i>
+                      <%=student.user.try(:phone_number) %>
+                  <%end%>
+             <%end%>
+
+              <%if current_user.can_view_student_personal_info? %>
+                  <div class="description">
+
+                    <i class="yellow qq icon large"></i><%= student.user.try(:qq_number) || "(无)" %>
+                    <i class="teal wechat icon large"></i><%= student.user.try(:tinypost_number) ||"(无)"  %>
+                    <br>
+                    <i class="mail outline icon large"></i>:<%= student.user.try(:email) || "(无)" %>
+                    <br>
+                    身份证:<%= student.user.try(:identify_card) || "(无)" %>
+                  </div>
+              <%end%>
+            </div>
+          </div>
+          </div>
+        </td>
+        <td>
+
+          <%summary_info =summary_student_joined_training_class_names_list(student) %>
+
+          <%=raw build_accordion_block("已参加班级 "+summary_info[0].to_s,summary_info[1]) %>
+
+
+
+
+
+        </td>
+        <td>
+          <!--家长联系方式 单元表格-->
+          <%if current_user.can_view_student_personal_info? %>
+              <table class ="ui celled collapsing table segment">
+                <tbody>
+                <% unless student.parent_name.blank? %>
+                    <tr>
+                      <td><%=student.parent_name%></td>
+                      <td><%=student.parent_tel%></td>
+                    </tr>
+                <%end%>
+                <%unless student.parent2_name.blank?  %>
+                    <tr>
+                      <td><%=student.parent2_name%></td>
+                      <td><%=student.parent2_tel%></td>
+                    </tr>
+                <%end%>
+                </tbody>
+              </table>
+          <%end%>
+
+        </td>
+
+
+
+        <td><%= student.creator.try(:name) %></td>
+        <%if current_user.employee?%>
+        <td>
+          <%= link_to '修改', edit_student_path(student) ,{class: 'ui green button'}%>
+          <%= link_to '设置密码', set_password_user_path(student.user), {class: 'ui blue button'}%>
+        </td>
+        <td>
+          <%if student.freezing_flag%>
+            <%= link_to '解冻', unfreezing_student_path(student),{class: 'ui green button', method: :patch }%>
+          <%else%>
+            <%= link_to '冻结', freezing_student_path(student),{class: 'ui blue button', method: :patch }%>
+          <%end%>
+
+          <%= link_to '删除', student,{class: 'ui red button', method: :delete, data: { confirm: '确定删除?' } }%>
+
+        </td>
+
+        <%end%>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= paginate @students %>
+
+<%if current_user.employee?%>
+<%= link_to '新建学员', new_student_path,{class: 'ui blue button'} %>
+<%end%>

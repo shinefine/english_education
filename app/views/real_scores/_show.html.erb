@@ -1,0 +1,101 @@
+
+<%if exam_type_filter =='TOEFL'%>
+    <table class ="ui celled collapsing table segment">
+      <thead>
+      <tr>
+
+
+        <th></th>
+
+        <th></th>
+        <th>总分</th>
+
+        <th >听力 </th>
+        <th >口语 </th>
+        <th >阅读</th>
+        <th >写作 </th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% var_real_scores.each do |score|%>
+          <tr>
+
+            <td><%= score.score_type %></td>
+            <td>
+              <%= "#{score.year}年" if score.year%><%="#{score.month}月" if score.month%>
+            </td>
+
+            <td class="lightgreen"><%= score.try(:final_score) %></td>
+
+
+            <!--听力-->
+            <td class="lightgray"><%= score.try(:course_a_score) %></td>
+
+            <!--口语-->
+            <td class="lightgray"><%= score.try(:course_b_score) %></td>
+
+            <!--阅读-->
+            <td class="lightgray"><%= score.try(:course_c_score) %></td>
+
+
+            <!--写作-->
+            <td class="lightgray"><%= score.try(:course_d_score) %></td>
+
+          </tr>
+      <%end%>
+      </tbody>
+    </table>
+
+<%elsif exam_type_filter=='SAT'%>
+
+    <table class ="ui celled collapsing table segment">
+      <thead>
+      <tr>
+
+        <th></th>
+        <th></th>
+        <th>总分</th>
+        <th  >Critical Reading</th>
+        <th  >Mathematics</th>
+        <th >Writing </th>
+        <th >ESSAY </th>
+
+
+
+      </tr>
+      </thead>
+      <tbody>
+      <% var_real_scores.each do |score|%>
+          <tr>
+            <td>
+              <%= score.score_type %>
+            </td>
+
+            <td>
+              <%= "#{score.year}年" if score.year%><%="#{score.month}月" if score.month%>
+            </td>
+
+            <td class="lightgreen"><%= score.try(:final_score) %></td>
+
+            <td class="lightgray"><%= score.try(:course_a_score) %></td>
+
+            <td class="lightgray"><%= score.try(:course_b_score) %></td>
+
+            <td class="lightgray"><%= score.try(:course_c_score) %></td>
+
+            <td class="lightgray"><%= score.try(:course_d_score) %></td>
+
+
+          </tr>
+      <%end%>
+      </tbody>
+    </table>
+<%end%>
+
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+这些配置没有用到，仅仅作为示例
+
+defaults: &defaults
+
+
+  #其它配置用法 demo
+  cool:
+    saweet: nested settings
+
+  neat_setting: 24
+  awesome_setting: <%= "Did you know 5 + 5 = #{5 + 5}?" %>
+
+
+
+development:
+  <<: *defaults
+  neat_setting: 800
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

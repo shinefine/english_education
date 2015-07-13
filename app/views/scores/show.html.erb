@@ -1,0 +1,41 @@
+<h1></h1>
+<div class="ui horizontal label"><h2> </h2></div>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Simulate test:</strong>
+  <%= @score.simulate_test_id %>
+</p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @score.student_id %>
+</p>
+
+<p>
+  <strong>Cr score:</strong>
+  <%= @score.cr_score %>
+</p>
+
+<p>
+  <strong>Math score:</strong>
+  <%= @score.math_score %>
+</p>
+
+<p>
+  <strong>Writing score:</strong>
+  <%= @score.writing_score %>
+</p>
+
+<p>
+  <strong>Essay writing score:</strong>
+  <%= @score.essay_writing_score %>
+</p>
+
+<p>
+  <strong>Final score:</strong>
+  <%= @score.final_score %>
+</p>
+
+<%= link_to 'Edit', edit_simulate_test_score_path(@score) %> |
+<%= link_to 'Back', simulate_test_scores_path %>

@@ -1,0 +1,77 @@
+
+<h1></h1>
+<div class="ui green horizontal label"><h2>学员<%=@student.name %>在培训班 <%=@training_class.name %> 的考勤情况</h2>
+  <h4>
+    <%= helper__summary_text_attendance_for_student_in_training_class(@student,@training_class) %>
+  </h4>
+</div>
+
+
+<br>
+<br>
+
+<div class="ui purple horizontal label"> 班级开课时间:<%=@training_class.start_date %> 至 <%= @training_class.end_date %></div>
+<br>
+<br>
+
+<div class="ui green label">
+  出勤
+</div>
+<div class="ui red label">
+  未出勤
+</div>
+<div class="ui blue label">
+  迟到
+</div>
+<div class="ui yellow label">
+  早退
+</div>
+
+<table class ="ui celled collapsing table segment">
+  <thead>
+  <tr>
+    <th>周日</th>
+    <th>周一</th>
+    <th>周二</th>
+    <th>周三</th>
+    <th>周四</th>
+    <th>周五</th>
+    <th>周六</th>
+
+
+  </tr>
+  </thead>
+
+  <tbody>
+
+  <% @week_dates.each  do |week| %>
+      <tr>
+        <% 7.times do |i|%>
+            <% str_css,str_description ='','' %>
+
+            <%  if week.has_day_attendance?(i)  %>
+                <% stu_attendance = week.get_student_attendance_with_day(i)%>
+                <% str_css =helper__css_color_style_student_attendance(stu_attendance) %>
+                <% str_description =  stu_attendance.description %>
+            <%end%>
+
+            <% atten_record = week.get_student_attendance_with_day(i)%>
+        <td class="<%=str_css %>">
+          <%=week.get_day(i).strftime("%m-%d")   if week.get_day(i) >= @training_class.start_date &&  week.get_day(i)<= @training_class.end_date%>
+          <%unless atten_record.nil?%>
+            <br>上午:<%=raw helper__html_attendance_status_icon(atten_record.status_morning)%>
+            <br>下午:<%=raw helper__html_attendance_status_icon(atten_record.status_afternoon)%>
+            <br>晚上:<%=raw helper__html_attendance_status_icon(atten_record.status_evening)%>
+          <%end%>
+        </td>
+        <%end%>
+      <tr>
+  <%end%>
+
+  </tbody>
+</table>
+
+
+
+
+<%=link_to '返回到我的培训班列表', training_classes_path,{class:'ui blue button'} %>

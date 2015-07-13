@@ -1,0 +1,9 @@
+<h1></h1>
+<div class="ui horizontal label"><h2> 修改学员 <%=@student.name %> 的模考成绩</h2></div>
+<%= render 'form' %>
+
+
+<%= link_to '返回到班级模考成绩列表',
+            examination_scores_path(@examination),
+         {class:"ui blue  button"}
+%>

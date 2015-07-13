@@ -1,0 +1,67 @@
+#展示学员的所在模拟班的所有模考成绩
+<h1>[学员]<%=@student.name %> 的所有模考成绩</h1>
+
+<%if @student.scores.count ==0 %>
+    <h3>你目前还没有模考成绩信息</h3>
+<% end %>
+
+<% @student.scores.group_by {|sts| sts.examination.training_class } .each do |key_training_class,value_simulate_test_scores|  %>
+    <p>[<%=key_training_class.exam_type%>培训班]<%=key_training_class.name %></p>
+
+    <table class ="ui celled table segment">
+      <thead>
+      <tr>
+        <th>考试时间</th>
+        <th>试卷</th>
+        <% if  key_training_class.exam_type == 'SAT' %>
+            <th>Cr 得分</th>
+            <th>Math 得分</th>
+            <th>Writing 得分</th>
+            <th>Essay writing 得分</th>
+
+        <% elsif key_training_class.exam_type == 'TOEFL' %>
+
+            <th>听 </th>
+            <th>说 </th>
+            <th>读 </th>
+            <th>写 </th>
+        <% end %>
+        <th>总分</th>
+      </tr>
+      </thead>
+      <tbody>
+
+    <% value_simulate_test_scores.each do |score| %>
+
+              <tr>
+                <td><%= score.examination.name %>[<%=score.simulate_test.test_date %>]</td>
+                <td><%= score.simulate_test.test_paper.name %></td>
+
+                <%if  key_training_class.exam_type == 'SAT' %>
+                    <td><%= score.try(:cr_score) %></td>
+                    <td><%= score.try(:math_score) %></td>
+                    <td><%= score.try(:writing_score) %></td>
+                    <td><%= score.try(:essay_writing_score) %></td>
+
+                <%elsif @training_class.exam_type == 'TOEFL' %>
+
+                    <td><%= score.try(:toefl_listen_score) %></td>
+                    <td><%= score.try(:toefl_talk_score) %></td>
+                    <td><%= score.try(:toefl_read_score) %></td>
+                    <td><%= score.try(:toefl_write_score) %></td>
+
+                <%end%>
+
+                <td><%= score.try(:final_score) %></td>
+
+              </tr>
+
+
+
+
+    <% end %>
+
+      </tbody>
+    </table>
+
+<% end %>

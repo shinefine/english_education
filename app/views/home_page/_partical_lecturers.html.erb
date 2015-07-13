@@ -1,0 +1,30 @@
+<section class="section-content section-bg" style="background-color:#f5f5f5;">
+  <div class="container clearfix">
+    <div class="entry-content">
+      <div class="title1 clearfix">
+        <div class="text"><h2>讲师</h2></div>
+        <div class="sub-title">我们的专业讲师将使你的课程丰富多彩。我们的讲师皆具备丰富的教学经验与技能。
+        </div>
+      </div>
+
+      <div class="lecturers-grid clearfix">
+        <div class="lecturer column-1 first-row">
+
+          <%= render 'shared/lecturer_profile',object: @lecturers[1] %>
+
+        </div>
+        <div class="lecturer column-2 first-row">
+          <%= render 'shared/lecturer_profile',object: @lecturers[2] %>
+
+        </div>
+        <div class="lecturer column-1 last-row">
+          <%= render 'shared/lecturer_profile',object: @lecturers[3] %>
+
+        </div>
+        <div class="lecturer column-2 last-row">
+          <%= render 'shared/lecturer_profile',object: @lecturers[4] %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

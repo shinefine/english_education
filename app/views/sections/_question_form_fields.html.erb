@@ -1,0 +1,22 @@
+<fieldset>
+
+
+  <div class="inline fields">
+
+
+    <div class="field">
+      <%= f.label :index_number, "题目序号" %>
+      <%= f.text_field :index_number %>
+    </div>
+
+    <div class="field">
+      <%= f.label :difficulty, "难度系数" %>
+      <%= f.text_field :difficulty %>
+    </div>
+
+
+    <%= f.hidden_field :_destroy %>     <!-- accepts_nested_attributes_for的删除操作需要提供"_destroy" -->
+    <%= link_to "[删除]", "#", class: "remove_nest_form_field_link" %>
+  </div>
+
+</fieldset>

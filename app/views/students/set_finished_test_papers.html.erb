@@ -1,0 +1,58 @@
+<h1></h1>
+<div class="ui horizontal label"><h2>设置已做试卷 </h2></div>
+
+<%= simple_form_for @student,wrapper: :semantic do |f| %>
+
+    <div class="ui  basic vertical fluid accordion">
+      <!--已做过的TOEFL试卷-->
+
+        <div class="title">
+          <i class="dropdown icon"></i>
+          <a class="ui teal circular large label">已做过的TOEFL试卷</a>
+
+        </div>
+        <div class="content">
+          <div class ="field">
+            <%= collection_check_boxes(:student,
+                                       :test_paper_ids,
+                                       TestPaper.where(exam_type: 'TOEFL'),
+                                       :id,
+                                       :name,{},{class:'ui'} ) do |b| %>
+                <div class='ui slider checkbox'>
+                  <%= b.check_box + b.label %>
+                </div>
+            <% end%>
+          </div>
+        </div>
+
+
+      <!--已做过的SAT试卷-->
+
+        <div class="title">
+          <i class="dropdown icon"></i>
+          <a class="ui teal circular large label">已做过的SAT试卷</a>
+
+        </div>
+        <div class="content">
+          <div class ="field">
+            <%= collection_check_boxes(:student,
+                                       :test_paper_ids,
+                                       TestPaper.where(exam_type: 'SAT'),
+                                       :id,
+                                       :name,{},{class:'ui'} ) do |b| %>
+                <div class='ui slider checkbox'>
+                  <%= b.check_box + b.label %>
+                </div>
+            <% end%>
+          </div>
+        </div>
+
+
+
+    </div>
+
+
+<div class="form-actions">
+  <%= f.button :submit ,"保存"%>
+</div>
+<%end%>

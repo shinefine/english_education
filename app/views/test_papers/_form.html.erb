@@ -1,0 +1,26 @@
+<%= simple_form_for(@test_paper) do |f| %>
+    <%= f.error_notification %>
+    <div class="field">
+      <%= f.input_field :exam_type, type:'hidden' %>
+    </div>
+    <div class="field">
+      <%= f.input :name,label:"试卷名称" %>
+    </div>
+    <%if nil %>
+        <div class="ui teal ribbon label">sections数量:<%= @test_paper.sections.length %></div>
+        <br>
+
+        <div class="field">
+          <!--嵌套表单用于 增改删 相关试卷-->
+          <%= f.simple_fields_for :sections do |builder| %>
+              <%= render 'section_form_fields', f: builder %>
+          <% end %>
+        </div>
+
+        <p><%= link_to_add_nest_form_fields "增加Section", f, :sections %></p>
+    <%end%>
+
+    <div class="form-actions">
+      <%= f.button :submit ,"保存试卷"%>
+    </div>
+<% end %>

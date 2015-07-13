@@ -1,0 +1,10 @@
+<h1></h1>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @text_book.name %>
+</p>
+
+<%= link_to 'Edit', edit_text_book_path(@text_book) %> |
+<%= link_to 'Back', text_books_path %>

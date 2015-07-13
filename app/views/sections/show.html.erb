@@ -1,0 +1,25 @@
+<h1></h1>
+<div class="ui horizontal label"><h2> </h2></div>
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Name:</strong>
+  <%= @section.name %>
+</p>
+
+<p>
+  <strong>Test paper:</strong>
+  <%= @section.test_paper_id %>
+</p>
+
+<p>
+  <strong>Question number:</strong>
+  <%= @section.question_number %>
+</p>
+
+<p>
+  <strong>Course type:</strong>
+  <%= @section.course_type %>
+</p>
+
+<%= link_to 'Edit', edit_test_paper_section_path(@section) %> |
+<%= link_to 'Back', test_paper_sections_path %>

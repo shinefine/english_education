@@ -1,0 +1,42 @@
+<h1></h1>
+<div class="ui green horizontal label"><h2> 培训班<%=@training_class.name %> 的听写成绩</h2></div>
+<table class="ui celled collapsing table segment">
+  <thead>
+    <tr>
+      <th>听写日期</th>
+      <th>听写结果</th>
+      <%if current_user.is_training_class_master?(@training_class)%>
+        <th colspan="2"></th>
+      <%end%>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dictations.each do |dictation| %>
+      <tr>
+        <td><%= dictation.execute_date %></td>
+        <td>合格线:<%= dictation.passing_line %>
+            <br>
+          <%summary_info =helper__summary_dictation_text(dictation)%>
+
+          <%=raw build_accordion_block(summary_info[0],summary_info[1]) %>
+        </td>
+
+
+        <%if current_user.is_training_class_master?(@training_class)%>
+            <td><%= link_to "修改", edit_training_class_dictation_path(@training_class, dictation), {class:'ui green button' }  %></td>
+            <td><%= link_to '删除听写信息', training_class_dictation_path(@training_class,dictation), {class:'ui red button' ,method: :delete, data: { confirm: 'Are you sure?' }} %></td>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%if current_user.is_training_class_master?(@training_class)%>
+    <%= link_to '创建听写成绩', new_training_class_dictation_path(@training_class) ,{class:'ui blue button'}%>
+    <br>
+<%end%>
+
+<%= link_to '返回到班级列表', training_classes_path , {class:"ui blue  button"}%>
+

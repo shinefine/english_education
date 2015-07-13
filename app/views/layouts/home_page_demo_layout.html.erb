@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)http://educator.incrediblebytes.com/ -->
+<html lang="en-US" class=" js no-touch cssanimations csstransforms csstransitions">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--<link rel="profile" href="http://gmpg.org/xfn/11">-->
+  <!--<link rel="pingback" href="http://educator.incrediblebytes.com/xmlrpc.php">-->
+  <link type="text/css" media="all" href="/demo_files/demo_school.css" rel="stylesheet">
+  <title><%=@school_name%></title>
+
+
+
+  <!--<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://educator.incrediblebytes.com/wp-includes/wlwmanifest.xml">-->
+  <!--<meta name="generator" content="WordPress 4.2.2">-->
+  <!--<link rel="canonical" href="./demo_files/demo.html">-->
+  <!--<link rel="shortlink" href="./demo_files/demo.html">-->
+
+
+  <style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+  .en-markup-crop-options {
+      top: 18px !important;
+      left: 50% !important;
+      margin-left: -100px !important;
+      width: 200px !important;
+      border: 2px rgba(255, 255, 255, .38) solid !important;
+      border-radius: 4px !important;
+  }
+
+  .en-markup-crop-options div div:first-of-type {
+      margin-left: 0px !important;
+  }
+  </style>
+</head>
+<body class="home page page-id-115 page-template-default has-toolbar" ryt10859="1">
+<div id="page-container">
+  <div id="page-toolbar">
+    <div class="container clearfix">
+      <div class="toolbar-items">
+        <div class="item">
+          <div class="inner">
+            技术支持: 156-080-33579 | 2021273@QQ.COM
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header id="page-header" class="fixed-header">
+    <div id="page-header-inner" style="top: 0px; height: 60px;">
+      <div id="header-container">
+        <div class="container clearfix">
+          <div id="main-logo">
+            <a href="/" style="line-height: 60px;">
+              <img src="/demo_files/logo.png" srcset="/demo_files/logo.png 1x, /demo_files/logo@2x.png 2x" alt="">
+            </a>
+          </div>
+
+          <ul id="auth-nav">
+            <li>
+              <div class="auth-nav-register" style="line-height: 60px;">
+                <a class="button" href="/login">登陆</a></div>
+            </li>
+          </ul>
+
+          <nav id="main-nav">
+            <ul id="menu-main-menu" class="menu">
+              <li id="menu-item-778" class="menu-item menu-item-type-post_type menu-item-object-page <%=' current-menu-item current_page_item ' if params['action']=="index" %> page_item page-item-115  menu-item-778">
+                <a href="/" style="line-height: 60px;">首页</a></li>
+              <li id="menu-item-764" class="menu-item menu-item-type-custom <%=' current-menu-item current_page_item ' if params['action']=="course_list" %>menu-item-object-custom menu-item-764">
+                <%=link_to '课程',courseList_path({category: 'ALL'}),{style:"line-height: 60px;"}%>
+
+              <li id="menu-item-768" class="<%=' current-menu-item current_page_item ' if params['action']=="lecturer_profile" %> menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor menu-item-has-children menu-item-768">
+                <a href="#" style="line-height: 60px;">讲师</a>
+                <ul class="sub-menu">
+                  <%@lecturers.values.each do |teacher|%>
+                      <li class="menu-item menu-item-type-post_type menu-item-object-page ">
+                        <%= link_to teacher[:name],lecturer_profile_path(id: teacher[:id]) %>
+                        </li>
+                  <%end%>
+                </ul>
+              </li>
+
+              <li id="menu-item-769" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-769">
+                <a href="404.html" style="line-height: 60px;">联系我们</a>
+              </li>
+            </ul>
+          </nav>
+          <a id="mobile-nav-trigger" href="#"><span class="bar-1"></span><span class="bar-2"></span><span class="bar-3"></span></a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <%=yield%>
+
+  <footer id="footer-widgets">
+    <div class="container clearfix">
+      <div class="widgets widgets-4 one-fourth">
+        <aside id="text-3" class="widget widget_text"><h3 class="widget-title">关于我们</h3>
+
+          <div class="textwidget">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua.</p>
+
+            <p><a href="#">联系方式</a></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </footer>
+
+</div>
+<!-- #page-container -->
+
+
+
+
+<script type="text/javascript" defer="" src="/demo_files/demo_school.js"></script>
+<div id="page-overlay"></div>
+
+</body>
+</html>

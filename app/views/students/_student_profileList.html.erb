@@ -1,0 +1,6 @@
+
+<%Array(@students).each do |stu|%>
+
+    <%=render :partial => 'student_profile', :object => stu,locals:{buttonText:'添加到班级'}%>
+
+<%end%>

@@ -1,0 +1,29 @@
+<%= simple_form_for([@training_class,@student,@comment]) do |f| %>
+  <%= f.error_notification %>
+
+    <div class ="five fields">
+        <% if current_user.is_training_class_master?(@training_class)%>
+                <div class="field">
+                  <%= f.label '讲师'%>
+                  <%= f.collection_select :teacher_id, @training_class.teachers.distinct, :id, :name, {include_blank: false},{class:"select optional ui selection dropdown"} %>
+
+                </div>
+        <%end%>
+      <div class="field">
+        <%= f.label '评语日期'%>
+        <%= f.date_field :comment_date ,{class:'ui tiny input'}%>
+      </div>
+    </div>
+
+    <div class="filed">
+      <label>评语</label>
+      <%= f.text_area :text%>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit ,'保存',inner_html: {class:"ui blue submit button"} %>
+    </div>
+<% end %>
+
+
+

@@ -1,0 +1,223 @@
+<h1></h1>
+<div class="ui green horizontal label"><h2>培训班详细信息</h2></div>
+
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>培训班类型:</strong>
+  <%= @training_class.exam_type %>
+</p>
+<p>
+  <strong>班级名称:</strong>
+  <%= @training_class.name %>
+</p>
+
+<p>
+
+  <% days = @training_class.end_date.mjd - @training_class.start_date.mjd + 1  %>
+
+  <strong>从 </strong>
+  <%= @training_class.start_date %>
+
+  <strong>到 </strong>
+  <%= @training_class.end_date %> 共计<%=days%>天
+</p>
+<% today = Date.parse(Time.now.strftime("%Y/%m/%d"))%>
+<%if today.mjd - @training_class.end_date.mjd > 0 %>
+    <p>已结束</p>
+<%end%>
+
+<%if today.mjd - @training_class.start_date.mjd < 0 %>
+    <p>尚未开课</p>
+<%end%>
+
+    <%if today.mjd - @training_class.start_date.mjd >= 0  && today.mjd - @training_class.end_date.mjd <= 0%>
+
+        <div class="ui active blue striped progress">
+
+          <% days_passed = today.mjd - @training_class.start_date.mjd + 1 %>
+          <% percent =days_passed *100 / days %>
+          <div class="bar" style="width:<%="#{percent}"%>%" >
+
+          </div>
+        </div>
+
+    <% end %>
+
+<div class ="ui raised segment">
+
+  <div class="ui small items student_list">
+
+
+        <div class="item">
+          <div class="image">
+            <%=
+                image_tag @training_class.master_teacher.user.photo_url, class:"student_photo middle image"
+            %>
+          </div>
+
+          <div class="ui red circular label">班主任</div>
+
+          <div class="content">
+            <div class="name">  <%= @training_class.master_teacher.name || "未指定" %></div>
+          </div>
+        </div>
+
+  </div>
+
+
+
+
+
+
+
+  <p></p>
+
+
+
+  <div class="ui ribbon label">
+    课程讲师
+  </div>
+
+
+<div style="width: 800px">
+
+
+
+
+  <div class="ui four cards">
+
+    <% @training_class.subjects.each do |sub|  %>
+        <% next unless sub.teacher%>
+
+
+     <div class="ui card">
+      <div class="image dimmable">
+
+        <div class="ui dimmer animating transition fade out" style="-webkit-animation: 500ms;">
+          <div class="content">
+            <div class="center">
+              <div class="ui inverted button">--</div>
+            </div>
+          </div>
+        </div>
+        <%=
+            image_tag sub.teacher.user.photo_url, class:"student_photo middle image"
+        %>
+      </div>
+      <div class="content">
+        <div class="header"><%= sub.name %>讲师</div>
+        <div class="meta">
+          <a class="group"> <%= sub.teacher.try(:name)%></a>
+        </div>
+        <div class="description"></div>
+      </div>
+
+
+    </div>
+
+    <% end %>
+  </div>
+
+</div>
+
+
+
+
+
+  <div class="ui ribbon label">
+    学员数量：<%= @training_class.students.count %>人
+
+  </div>
+
+
+
+  <div style="width: 1000px">
+
+    <div class="ui five cards">
+
+      <% @training_class.students.each do|student| %>
+
+        <div class="ui card">
+            <div class="image dimmable">
+              <div class="ui dimmer animating transition fade out" style="-webkit-animation: 500ms;">
+                <div class="content">
+                  <div class="center">
+                    <div class="ui inverted button">Add Friend</div>
+                  </div>
+                </div>
+              </div>
+
+              <%=
+                  image_tag student.user.photo_url, class:"student_photo middle image"
+              %>
+            </div>
+            <div class="content">
+              <div class="header"><%=student.name %></div>
+              <div class="meta">
+                <a class="group">学员</a>
+              </div>
+
+              <%if current_user.can_view_student_info?(student)%>
+                  <div class="description">
+                  <% if current_user.can_view_student_personal_info? %>
+                      <p>
+                        <%= student.user.phone_number%>
+                      </p>
+                  <%end%>
+                  <ul>
+                    <li>
+                      <%= link_to '个人详细信息' ,student_path(student) %>
+                    </li>
+                    <li>
+                      <%= link_to "真实成绩统计",index_with_all_examinations_student_real_scores_path(student,training_class_id:@training_class) %>
+                    </li>
+
+                    <li>
+
+                      <%= link_to "模考成绩统计",training_class_student_scores_path(@training_class,student) %>
+                    </li>
+                    <li>
+                      <%comments= helper_get_student_comments(student)%>
+                      <%= link_to "讲师评语(#{comments.count})",training_class_student_comments_path(@training_class,student)%>
+
+                    </li>
+
+                    <li>
+
+
+
+
+                      <%= link_to "考勤统计",training_class_attendances_path(@training_class,student_id:student)%>
+                    </li>
+
+                    <li>
+
+                      <%= link_to "听写成绩统计", training_class_dictations_path(@training_class,student_id:student) %>
+                    </li>
+
+                  </ul>
+                  </div>
+              <%end%>
+            </div>
+
+          </div>
+
+      <% end %>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="ui small items student_list">
+
+  </div>
+</div>
+
+
+
+<%if current_user.can_set_training_class_info? %>
+    <%= link_to '修改', edit_training_class_path(@training_class),{class:'ui blue button'} %>
+    <%end%>
+<%= link_to '返回到培训班列表', training_classes_path ,{class:'ui blue button'}%>

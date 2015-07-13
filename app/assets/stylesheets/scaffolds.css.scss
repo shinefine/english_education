@@ -1,0 +1,231 @@
+
+th {
+  vertical-align:middle;
+  text-align:center;
+}
+
+.ui .checkbox {
+  display: block;
+}
+
+tr .operation_buttons  {
+  visibility: hidden;
+}
+tr:hover .operation_buttons{
+  visibility: visible;
+}
+
+
+fieldset {
+  display: block;
+  -webkit-margin-start: 2px;
+  -webkit-margin-end: 2px;
+  -webkit-padding-before: 0.35em;
+  -webkit-padding-start: 0.75em;
+  -webkit-padding-end: 0.75em;
+  -webkit-padding-after: 0.625em;
+  border: 0px groove threedface;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+  min-width: -webkit-min-content;
+}
+
+td,th
+{
+  white-space: nowrap;
+}
+//用户照片预览区域的大小
+img#image_photo_preview{
+  width:150px;
+  height: 150px;
+}
+
+//学员照片区域的大小
+img.student_photo.middle.image{
+  height:128px;
+  width:128px;
+}
+
+img.photo.table_list{
+  height: 64px;
+  width: 64px;
+}
+
+
+
+//为了显示背景图片,下面两条样式规则覆盖了semantic-ui的默认规则
+.pushable > .pusher {
+  background:  url(/images/polygon_bg.jpg) repeat !important;
+}
+
+.ui.table thead th {
+
+  background: inherit;
+}
+
+
+.main.container
+{
+  margin: 0px 20px 0px 20px;
+  padding-top: 50px;  //设置padding 值,避免页面内容被导航工具条挡住
+}
+
+
+body#home{
+  margin: 0px 0px 0px 0px;
+}
+
+p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+
+
+div {
+  &.field, &.actions {
+    margin-top: 10px !important;
+    margin-bottom: 10px;
+  }
+}
+
+.ui.items.student_list > .item {
+  width: 150px;
+
+  min-height: 300px;
+
+}
+
+ul.pagination li{
+  display: inline;
+}
+#notice {
+  color: green;
+}
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#example .container {
+  width: auto;
+  margin-left: 100px !important;
+}
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    margin-bottom: 0px;
+    background-color: #c00;
+    color: #fff;
+  }
+  ul li {
+    font-size: 12px;
+    list-style: square;
+  }
+}
+
+table {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+
+}
+
+
+th {
+  text-align:center  !important;
+}
+.ui.table {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+
+}
+
+.colored_content table:nth-child(1){
+  background-color: #4c7dff !important;
+}
+.colored_content table:nth-child(2){
+  background-color: #36c0ff !important;
+}
+.colored_content table:nth-child(3){
+  background-color: #2fffd0 !important;
+}
+.colored_content table:nth-child(4){
+  background-color: #a0ff52 !important;
+}
+.colored_content table:nth-child(5){
+  background-color: #dbff3c !important;
+}
+.colored_content table:nth-child(6){
+  background-color: #ffd443 !important;
+}
+.colored_content table:nth-child(7){
+  background-color: #FDD !important;
+}
+
+
+.ui.form {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+
+}
+
+.ui.table td.normal_blue {
+  background-color: #1f77b4;
+}
+.ui.table td.orange {
+  background-color: #ff7f0e;
+}
+.ui.table td.green {
+  background-color: #2ca02c;
+}
+.ui.table td.purple_gray {
+  background-color: #c5b0d5;
+}
+.ui.table td.lightgreen {
+  background-color: #A1CF64;
+
+}
+
+.ui.table td.lightred {
+  background-color: #D95C5C;
+
+}
+
+.ui.table td.lightyellow {
+  background-color: #CACE16;
+
+}
+
+.ui.table td.lightblue {
+  background-color: #6ECFF5 ;
+
+}
+.ui.table td.lightgray {
+  background-color: #D6D6D6;
+
+}
+
+.ui.yellow.labels .label, .ui.yellow.label {
+  background-color: #CACE16 !important;
+  border-color: #CACE16 !important;
+  color: #FFFFFF !important;
+}

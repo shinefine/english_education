@@ -1,0 +1,29 @@
+<h1></h1>
+<div class="ui horizontal label"><h2> 讲师信息</h2></div>
+<div class="ui segment">
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <strong>名字:</strong>
+  <%= @teacher.name %>
+</p>
+
+<p>
+  <strong>手机:</strong>
+  <%= @teacher.user.phone_number %>
+</p>
+
+
+</div>
+
+<% if current_user.can_set_teacher_info?(@teacher) %>
+    <%= link_to '修改信息', edit_teacher_path(@teacher), {class: 'ui blue button'}%>
+    <%= link_to '设置密码', set_password_user_path(@teacher.user), {class: 'ui blue button'}%>
+<% end %>
+
+
+<% if  current_user.employee? %>
+    <%= link_to '返回到讲师列表', teachers_path ,{class: 'ui blue button'}%>
+<% end %>
+

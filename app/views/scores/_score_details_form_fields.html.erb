@@ -1,0 +1,24 @@
+<% if f.object.question.section.name == section_name %>
+    <%= f.object.inspect %>
+<fieldset>
+  <div class="field">
+    <%= f.label :question_index_number, "试题序号：" + f.object.question_index_number.to_s %>
+  </div>
+  <div class="inline fields">
+
+
+
+    <div class="field">
+      <%= f.input :answer_result, collection:[['正确',"right"],['错误',"wrong"],['未答',"empty"]],label_method: :first,value_method: :last, as: :radio_buttons,label:"答题情况" %>
+    </div>
+
+  </div>
+  <div class="field">
+
+    <%= f.input :score_number,input_html:{value:"1"},as: :hidden%>
+    <%= f.input :section_question_id,as: :hidden%>
+
+  </div>s
+
+</fieldset>
+  <% end %>

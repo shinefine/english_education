@@ -1,0 +1,65 @@
+<%if @exam_type =='SAT'%>
+    <% months=[1,5,6,10,11,12]%>
+    <%subjects=[['CR','CR'],['数学','Math'],['写作','Writing'],['总','总分']]%>
+
+
+<%elsif @exam_type =='TOEFL'%>
+    <% months=[1,2,3,4,5,6,7,8,9,10,11,12]%>
+    <%subjects=[['听','Listening'],['说','Speaking'],['读','Reading'],['写','Writing'],['总','总分']]%>
+<%end%>
+
+<table class ="ui celled table segment">
+    <thead>
+    <tr>
+      <th ><%=@year%>年</th>
+
+
+      <%subjects.each do |subject_name_arr|%>
+        <th><%= subject_name_arr.first%></th>
+      <%end%>
+
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <td>入口</td>
+      <% value_score_results = hash_students_score_trend.first.last %>
+      <%entry_score = value_score_results[:entry_score]%>
+          <%if @exam_type =='SAT'%>
+              <td><%=entry_score.try(:course_a_score)%></td>
+              <td><%=entry_score.try(:course_b_score)%></td>
+              <td><%=entry_score.try(:course_c_score)%></td>
+              <td> <%=entry_score.try(:final_score)%></td>
+
+
+          <%elsif @exam_type =='TOEFL'%>
+              <td><%=entry_score.try(:course_a_score)%></td>
+              <td><%=entry_score.try(:course_b_score)%></td>
+              <td><%=entry_score.try(:course_c_score)%></td>
+              <td><%=entry_score.try(:course_d_score)%></td>
+              <td> <%=entry_score.try(:final_score)%></td>
+          <%end%>
+
+    </tr>
+    <% hash_students_score_trend.each do |key_stu,value_score_results| %>
+
+        <%real_scores = value_score_results[:real_scores]%>
+        <%months.each do |month|%>
+
+                <tr>
+                  <td ><%=month.to_s + '月'%></td>
+                  <%subjects.each do |subject_name_arr|%>
+                      <td >
+                        <%= seek_scores(real_scores,month,subject_name_arr.last,@exam_type) %>
+                      </td>
+                  <%end%>
+
+                </tr>
+        <%end%>
+
+    <% end %>
+    </tbody>
+
+
+</table>

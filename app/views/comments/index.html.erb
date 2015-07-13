@@ -1,0 +1,62 @@
+<h1></h1>
+<div class="ui green horizontal label"><h2> 对学员 <%=@student.name %>  的评语</h2></div>
+
+<br>
+<br>
+<div class="ui green label">
+  评语列表
+</div>
+
+<table class ="ui celled collapsing table segment">
+  <thead>
+  <tr>
+
+    <th>日期</th>
+    <th>评语</th>
+    <th>来自讲师</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @comments.each do |comment| %>
+      <%if current_user.can_see_comment?(comment)%>
+      <tr>
+
+        <td><%= comment.comment_date %></td>
+
+        <td>
+          <%if current_user.student?%>
+               <%=  simple_format(comment.text)%>
+          <%else%>
+              <%= link_to  simple_format(comment.text), edit_training_class_student_comment_path(@training_class, @student,comment) %>
+          <%end%>
+        </td>
+
+        <td><%= comment.teacher.name %></td>
+
+
+        <td><%= link_to '删除', training_class_student_comment_path(@training_class,@student,comment),{class: 'ui red button', method: :delete, data: { confirm: '确定删除?' } } if current_user.teacher? || current_user.employee? %></td>
+      </tr>
+      <%end %>
+  <% end %>
+  </tbody>
+</table>
+<!--讲师/班主任 可以新增一条评语-->
+
+<%if current_user.teacher? || current_user.is_training_class_master?(@training_class)%>
+
+    <%= link_to '创建讲师评语', new_training_class_student_comment_path(@training_class,@student),{class:'ui blue button'} %>
+
+    <br><br>
+<%end%>
+
+
+<%= link_to '返回到班级信息',
+            training_class_path(@training_class),
+            {class:"ui blue  button"}
+%>
+<%= link_to '返回到班级列表',
+            training_classes_path(),
+            {class:"ui blue  button"}
+%>

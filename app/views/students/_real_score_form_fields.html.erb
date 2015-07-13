@@ -1,0 +1,95 @@
+<fieldset>
+
+
+  <div class="ui two fields form segment">
+
+    <%= f.input_field :score_type, type:'hidden' %>
+    <%= f.input_field :exam_type, type:'hidden' %>
+
+
+    <div class="ui five fields">
+
+      <div class ="field">
+        <%= f.collection_select :year,
+                                @years,
+                                :first,
+                                :last,
+                                {:include_blank => false},
+                                {} %>
+
+
+
+
+      </div>
+      <div class ="field">
+        <%if f.object.exam_type=='SAT' %>
+            <%var_months=@sat_months %>
+        <%elsif f.object.exam_type=='TOEFL' %>
+
+            <%var_months=@toefl_months %>
+      <%end%>
+        <%= f.collection_select :month,
+                                var_months,
+                                :first,
+                                :last,
+                                {:include_blank => false},
+                                {} %>
+
+      </div>
+      <div class ="field">
+        <%= f.hidden_field :_destroy %>     <!-- accepts_nested_attributes_for的删除操作需要提供"_destroy" -->
+        <a href="#" class ="remove_nest_form_field_link"><i class="red close icon"></i></a>
+      </div>
+    </div>
+    <%if f.object.exam_type=='SAT' %>
+          <div class="ui five fields">
+              <div class="field">
+                <%= f.input :final_score ,label: '总分'%>
+              </div>
+              <div class="field">
+                <%= f.input :course_a_score, label: "CR" %>
+              </div>
+              <div class="field">
+                <%= f.input :course_b_score, label: "MATH" %>
+              </div>
+              <div class="field">
+                <%= f.input :course_c_score, label: "WRITING" %>
+              </div>
+
+            <div class="field">
+              <%= f.input :course_d_score, label: "ESSAY" %>
+            </div>
+
+          </div>
+
+
+
+    <%elsif f.object.exam_type=='TOEFL' %>
+
+        <div class="ui five fields">
+          <div class="field">
+            <%= f.input :final_score ,label: '总分'%>
+          </div>
+          <div class="field">
+            <%= f.input :course_a_score, label: "听" %>
+          </div>
+          <div class="field">
+            <%= f.input :course_b_score, label: "说" %>
+          </div>
+          <div class="field">
+            <%= f.input :course_c_score, label: "读" %>
+          </div>
+          <div class="field">
+            <%= f.input :course_d_score, label: "写" %>
+          </div>
+
+          </div>
+
+    <%end%>
+
+
+
+    </div>
+
+
+</fieldset>

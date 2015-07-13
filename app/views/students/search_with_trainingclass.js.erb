@@ -1,0 +1,6 @@
+<% txt = render :partial => 'student_profileList' %>
+
+$('#student_search_result_block').html('<%= escape_javascript(txt) %>');
+$('.ui.card .image').dimmer({
+    on: 'hover'
+});

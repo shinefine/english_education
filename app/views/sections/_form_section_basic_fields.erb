@@ -1,0 +1,11 @@
+<!--输出Section基本信息的模板-->
+
+<div class="field">
+  <%= f.input :name ,label: 'Section名称',inner_html:{readonly:true}%>
+</div>
+
+<div class="field">
+  <%= f.label "考核内容的类型" %>
+
+  <%= f.collection_radio_buttons :course_type, @section_types, :first, :last %>
+</div>

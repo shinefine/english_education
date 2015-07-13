@@ -1,0 +1,52 @@
+<!--#此页面展示 指定培训班的 某次模考的 所有学员的 模考成绩 列表-->
+<!--如果是校长,员工查看本页面,则可以看到所有科目成绩,以及进行所有操作-->
+<!--如果是讲师,则讲师只能看到自己负责科目的学员模考成绩-->
+
+<h1></h1>
+
+<div class="ui green horizontal label"><h2>[<%=@training_class.exam_type %>培训班]<%=@training_class.name %> 模考成绩列表</h2></div>
+<br>
+<br>
+
+<div class="ui purple horizontal label">[模拟考]<%=@examination.name %> <%=@examination.id %></div>
+<br><br>
+<div class="ui purple horizontal label">[试卷]<%= @examination.test_paper.name %></div>
+<br><br>
+<div class="ui purple horizontal label">[考试时间]<%= @examination.test_date %></div>
+<br><br>
+<div class="ui purple horizontal label">[学员数量]<%= @training_class.students.count %>人</div>
+<br><br>
+<h3>成绩列表:</h3>
+
+<script>
+    <%scores = all_student_simulate_scores_in_one_examation(@training_class.exam_type,@scores)%>
+
+    data_example =<%= raw wrap_scores_for_nvd3_chart(scores,@training_class,current_user).to_json%>
+
+</script>
+
+<div id='chart1'>
+  <svg style='height:500px'> </svg>
+  <!--生成统计报表-->
+</div>
+<br>
+<br>
+
+
+<%if  @training_class.exam_type == 'SAT' %>
+
+    <%= render 'index_for_all_students_sat'%>
+
+
+   <% elsif @training_class.exam_type == 'TOEFL' %>
+
+    <%= render 'index_for_all_students_toefl'%>
+
+<%end%>
+
+<%= link_to '返回到班级模考 列表', training_class_examinations_path(@training_class) , {class:"ui blue  button"}%>
+<%= link_to '返回到班级列表', training_classes_path , {class:"ui blue  button"}%>
+
+<script src="/assets/multiBar.js"></script>
+
+

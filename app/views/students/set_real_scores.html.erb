@@ -1,0 +1,39 @@
+<h1></h1>
+<div class="ui horizontal label"><h2>设置真实考试成绩 </h2></div>
+
+<%= simple_form_for @student,wrapper: :semantic do |f| %>
+
+
+    <div class="field">
+      <!--嵌套表单用于 增改删 相关月份目标期望成绩-->
+      <%= f.simple_fields_for :real_scores do |builder| %>
+          <%if builder.object.score_type=='真实考试成绩' && builder.object.exam_type == @real_score_exam_type %>
+              <%= render 'real_score_form_fields', f: builder %>
+          <%end%>
+      <% end %>
+    </div>
+
+    <% if @real_score_exam_type %>
+     <p>
+
+       <%if @score_type== 'entry_and_target'%>
+       <%= link_to_add_nest_form_fields "增加月份目标成绩", f, :real_scores ,{score_type:'月份目标成绩',exam_type:@real_score_exam_type} %>
+
+       <%elsif @score_type== 'true_real'%>
+       <%= link_to_add_nest_form_fields "增加真实考试成绩", f, :real_scores ,{score_type:'真实考试成绩',exam_type:@real_score_exam_type} %>
+       <%end%>
+     </p>
+
+    <% end %>
+
+
+    <div class="form-actions">
+      <%= f.button :submit ,"保存"%>
+    </div>
+
+    <% if current_user.can_manage_basic_data? %>
+        <%= link_to '返回到学员列表', students_path, {class:"ui blue submit button"} %>
+
+        <%= link_to '返回到学员详细信息', student_path(@student), {class:"ui blue submit button"} %>
+    <%end%>
+<%end%>

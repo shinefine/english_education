@@ -1,0 +1,36 @@
+<section class="section-content">
+  <div class="container clearfix">
+    <div id="page-title">
+      <h1>课程</h1>
+
+    </div>
+    <div id="courses-filter" class="clearfix">
+      <div class="drop-down">
+        <a href="#">
+          <span class="text">分类</span>
+          <span class="icon"></span>
+        </a>
+        <ul>
+          <li>
+            <a href="./course_list?category=ALL">全部课程</a>
+          </li>
+          <li>
+            <a href="./course_list?category=TOEFL">TOEFL</a>
+          </li>
+          <li>
+            <a href="./course_list?category=SAT">SAT</a>
+          </li>
+          <li>
+            <a href="./course_list?category=IELTS">IELTS</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="posts-grid posts-grid-3 clearfix">
+      <%@courses.each do |course|%>
+        <%= render partial: "course", object: course %>
+      <%end%>
+
+    </div>
+  </div>
+</section>

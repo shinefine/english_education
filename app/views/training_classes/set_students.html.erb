@@ -1,0 +1,162 @@
+
+<div class="ui teal ribbon label">新功能班级学员</div>
+<br>
+<div  id = 'student_list_block' class ='ui six special cards'>
+  <div class="ui card">
+    <div class="blurring dimmable image">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <div class="ui inverted button" id="addStudentButton">添加学员</div>
+          </div>
+        </div>
+      </div>
+      <img src="/images/default_user_photo.png">
+    </div>
+    <div class="content">
+      <a class="header">添加班级学员</a>
+      <div class="meta">
+        <span class="date">点击上方图像</span>
+      </div>
+    </div>
+
+  </div>
+
+  <%@training_class.students.each do |stu|%>
+      <%= render partial: 'students/student_profile',object: stu,locals:{buttonText:'移除'}%>
+  <%end%>
+
+</div>
+
+
+<div class="ui long large modal" id="dialog_pickStudents">
+  <div class="header">
+    指定班级学员
+
+    <%= form_tag('/posts', remote: true) do %>
+
+    <% end %>
+
+    <%= form_tag(search_with_trainingclass_students_path , remote: true,method: :get) do %>
+        <div class="ui action left icon input">
+          <input type="hidden" name="training_class_id" value="<%=@training_class.id%>" />
+          <i class="search icon"></i>
+
+          <input type="text" name='q' placeholder="学员姓名"/>
+          <button class ='ui teal button' type="submit">查询</button>
+
+        </div>
+    <% end %>
+
+
+  </div>
+
+
+  <div class="ui segment" style="height:500px; overflow: auto">
+    <!--ajax查询出的学员记录添加到这里-->
+    <div class='ui eight cards' id="student_search_result_block">
+
+
+
+    </div>
+  </div>
+
+  <div class="actions">
+    <div class="ui primary close button">
+      关闭
+    </div>
+  </div>
+</div>
+
+<script>
+
+    //弹出添加学员对话框
+    $('#addStudentButton').on('click',function(){
+        $('#dialog_pickStudents').modal('show');
+    });
+
+    //成功在对话框里添加了学员的后续处理函数
+    var success_add_student =function(data){
+        var result=data.result;
+        if (result ==='success'){
+            var studentId= data.student_id;
+            var element_id_name ='#studentProfileCard'+studentId;
+
+            //将按钮从添加到培训班 变更为 从培训班中移除
+            $(element_id_name + ' .operate_student_with_trainingClass_button')
+                    .text('移除')
+                    .removeData('operate')
+                    .removeClass('loading')
+                    .data("operate",'remove');
+            ;
+            $('#student_list_block').append($(element_id_name));
+        }
+    };
+
+    //成功从培训班中移除学员的后续处理函数
+    var success_remove_student =function(data){
+        var result=data.result;
+        if (result ==='success'){
+            var studentId= data.student_id;
+            var element_id_name ='#studentProfileCard'+studentId;
+
+            //将按钮从添加到培训班 变更为 从培训班中移除
+            $(element_id_name + ' .operate_student_with_trainingClass_button')
+                    .text('移除')
+                    .removeData('operate')
+                    .removeClass('loading')
+                    .data("operate",'remove');
+            ;
+            $(element_id_name).remove();
+        }
+    };
+
+    //对话框点击 添加学员进培训班 按钮的事件处理函数
+    $('#student_list_block').on('click','.operate_student_with_trainingClass_button',function(){
+
+        $(this).addClass('loading');
+
+        var traing_class_id =($(this).attr("data-trainingClassId"));
+        var student_id=($(this).attr("data-studentId"));
+
+        $.ajax({
+            url: '/training_classes/remove_student',
+            dataType: 'json',
+            data: {
+                training_class_id: traing_class_id,
+                student_id: student_id
+            },
+            success: success_remove_student
+        });
+
+    });
+
+
+    $('#student_search_result_block').on('click','.operate_student_with_trainingClass_button',function(){
+
+        $(this).addClass('loading');
+        var traing_class_id =($(this).attr("data-trainingClassId"));
+        var student_id=($(this).attr("data-studentId"));
+
+        $.ajax({
+            url: '/training_classes/add_student',
+            dataType: 'json',
+            data: {
+                training_class_id: traing_class_id,
+                student_id: student_id
+            },
+            success: success_add_student
+        });
+
+
+    });
+
+
+
+
+
+
+
+</script>
+
+

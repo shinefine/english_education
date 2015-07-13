@@ -1,0 +1,34 @@
+<%= simple_form_for(@user) do |user_f| %>
+    <%= user_f.error_notification %>
+
+
+    <div class="filed">
+      <%= user_f.input :name,label:"名称" %>
+    </div>
+
+    <div class="field">
+
+      <%= image_tag(@user.photo_url,style:"width:100px;height:100px",id:"image_photo") if @user.photo?%>
+
+      <%= user_f.label :photo %><br>
+      <%= user_f.file_field :photo %>
+      <%= user_f.hidden_field  :photo_cache %>
+
+    </div>
+
+    <div class="filed">
+      <%= user_f.input :phone_number,label:"手机号" %>
+    </div>
+
+    <%= user_f.input :password %>
+    </div>
+    <div class="field">
+      <%= user_f.input :role_name %>
+    </div>
+
+
+
+  <div class="form-actions">
+    <%= user_f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,52 @@
+<h1></h1>
+<div class="ui green horizontal label"><h2>讲师列表 </h2><h3>共有讲师 <%= @teachers.length %> 人</h3></div>
+
+<table class="ui padded table segment">
+  <thead>
+    <tr>
+
+      <th>姓名</th>
+
+      <th>身份证号</th>
+      <th>手机号</th>
+      <th>QQ</th>
+      <th>微信</th>
+      <th>电子邮箱</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teachers.each do |teacher| %>
+      <tr>
+
+        <td><%= teacher.name %></td>
+        <td><%= teacher.user.try(:identify_card)  %></td>
+        <td><%= teacher.user.try(:phone_number)  %></td>
+        <td><%= teacher.user.try(:qq_number) %></td>
+        <td><%= teacher.user.try(:tinypost_number)  %></td>
+        <td><%= teacher.user.try(:email)   %></td>
+
+        <%if current_user.can_manage_basic_data?%>
+        <td>
+          <%= link_to '修改', edit_teacher_path(teacher) ,{class: 'ui green button'}%>
+          <%= link_to '设置密码', set_password_user_path(teacher.user), {class: 'ui blue button'}%>
+        </td>
+        <td>
+            <%if teacher.freezing_flag%>
+                <%= link_to '解冻', unfreezing_teacher_path(teacher),{class: 'ui green button', method: :patch }%>
+            <%else%>
+                <%= link_to '冻结', freezing_teacher_path(teacher),{class: 'ui blue button', method: :patch }%>
+            <%end%>
+            <%= link_to '删除', teacher, {class:'ui red button',method: :delete, data: { confirm: '确认删除讲师?' }} %>
+            </td>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%if current_user.can_manage_basic_data?%>
+<%= link_to '新建 讲师', new_teacher_path ,{class: 'ui blue button'}%>
+<%end%>

@@ -1,0 +1,58 @@
+<h1></h1>
+<div class="ui green horizontal label"><h2>大数据: <%=@year%>年 学员<%=@exam_type%>考试成绩分析</h2></div>
+
+<br><br>
+
+<%= form_tag do %>
+
+    <%= select_tag(:exam_type, options_for_select([['SAT', 'SAT'], ['TOEFL', 'TOEFL']], @exam_type),   {class:"select optional ui selection dropdown"}) %>
+    <%= select_tag(:year, options_for_select([['2013年', '2013'], ['2014年', '2014'], ['2015年', '2015'],['2016年', '2016']], @year),   {class:"select optional ui selection dropdown"}) %>
+
+    <%= submit_tag("统计数据",{class:'ui green button'}) %>
+
+<%end%>
+
+<div class="ui  basic vertical fluid accordion">
+
+  <!--涨分情况 块-->
+    <div class="active title">
+      <i class="dropdown icon"></i>
+      <a class="ui teal circular large label">涨分情况</a>
+
+    </div>
+    <div class="active content">
+
+
+      <%= render 'big_data_report_partical_score_trend'%>
+
+    </div>
+
+
+  <!--最高分数 块-->
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a class="ui teal circular large label">最高分数</a>
+
+    </div>
+    <div class="content">
+
+      <%= render 'big_data_report_partical_score_max'%>
+
+
+    </div>
+
+  <!--成绩统计 块-->
+  <div class="title">
+    <i class="dropdown icon"></i>
+    <a class="ui teal circular large label"><%=@exam_type%>成绩统计</a>
+
+  </div>
+  <div class="content">
+
+    <%= render 'big_data_report_partical_summary_table',hash_students_score_trend:@hash_students_score_trend%>
+
+  </div>
+
+
+</div>
+

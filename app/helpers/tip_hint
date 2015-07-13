@@ -1,0 +1,37 @@
+一张试卷(TestPaper)包含多个部分(Sections),每个部分( Section ) 包含多个Question（试题,试卷题目）
+
+
+
+
+
+
+
+
+
+Simple Form
+
+在表单中显示一组radio button ，传递选中radio button 的文本值
+
+    <%= f.collection_radio_buttons :exam_type, [["SAT", 'SAT'] ,["TOEFL", 'TOEFL']], :first, :last %>
+
+
+自定义生成的 checkbox 的css
+<%= collection_check_boxes(:homework,
+                                 :student_ids,
+                                 @homework.training_class.students,
+                                 :id,
+                                 :name,{},{class:'ui'} ) do |b| %>
+          <div class='ui slider checkbox'>
+            <%= b.check_box + b.label %>
+          </div>
+      <% end%>
+
+
+需求:不同员工所能操作和看见的学员信息有限制
+    管理员:能看到所有学员资料
+    员工 :可以看到他自己创建出的学员的信息,但不能看到其它员工创建的学员信息.
+    但是当员工1是某班级的班主任时,班级包含的学员A是有员工2创建的,此时,员工1同样能够看到学员A的信息.
+    员工能看到学员的信息,就能操作学员,包括修改和删除等行为.
+
+    需求的功能实现通过 set_user_permission_students 方法完成
+

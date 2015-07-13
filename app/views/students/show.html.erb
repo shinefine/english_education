@@ -1,0 +1,56 @@
+<h1></h1>
+
+<div class="ui horizontal label"><h2> 学员信息</h2></div>
+
+
+<div class="ui  basic vertical fluid accordion">
+  <div>
+  <%=
+      image_tag @student.user.photo_url, class:"student_photo middle image"
+  %>
+  </div>
+
+<!--基本信息-->
+  <div class="item">
+    <div class="active title">
+      <i class="dropdown icon"></i>
+      <a class="ui teal circular large label">基本信息</a>
+
+    </div>
+    <div class="active content">
+      <p>
+        <strong>姓名:</strong>
+        <%= @student.name %>
+      </p>
+
+      <%if current_user.can_view_student_personal_info? %>
+      <p><strong>联系人电话:</strong><%=" #{@student.parent_name}:#{@student.parent_tel} " %></p>
+      <p><strong>联系人2电话:</strong><%=" #{@student.parent2_name}:#{@student.parent2_tel} " %></p>
+      <p><strong>身份证号:</strong><%= @student.user.try(:identify_card)  %></p>
+      <p><strong>手机号:</strong><%= @student.user.try(:phone_number)  %></p>
+      <p><strong>qq:</strong><%= @student.user.try(:qq_number) %></p>
+      <p><strong>微信号:</strong><%= @student.user.try(:tinypost_number)  %></p>
+      <p><strong>Email:</strong><%= @student.user.try(:email)   %></p>
+      <%end%>
+
+    </div>
+
+    <% if current_user.can_set_student_info?(@student) %>
+        <%= link_to '设置已考试卷', set_finished_test_papers_student_path(@student), {class: 'ui green button'}%>
+
+        <%= link_to '修改学员信息', edit_student_path(@student), {class: 'ui green button'}%>
+        <%= link_to '设置登录密码', set_password_user_path(@student.user), {class: 'ui green button'}%>
+        <br><br>
+    <% end %>
+
+  </div>
+
+  <!--显示学员的真实考试成绩(Toefl 和 SAT)-->
+    <%=render 'real_scores/student_real_scores_table_list' %>
+
+</div>
+
+
+<% if current_user.teacher? || current_user.employee? %>
+    <%= link_to '返回到学员列表', students_path,{class: 'ui blue button'} %>
+<% end %>

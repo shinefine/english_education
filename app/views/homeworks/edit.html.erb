@@ -1,0 +1,8 @@
+<h1></h1>
+
+<h1></h1>
+<div class="ui green horizontal label"><h2> 修改 班级<%= @training_class.name%>的作业</h2></div>
+<%= render 'form' %>
+
+<%= link_to '返回到班级作业 列表', training_class_homeworks_path(@training_class) ,{class: 'ui blue button'}%>
+

@@ -1,0 +1,104 @@
+<div class="ui two column grid">
+
+<div class="column">
+<%= simple_form_for @training_class ,wrapper:false do |f| %>
+<h4 class="ui dividing teal header">班级基本信息</h4>
+      <%= f.error_notification %>
+      <%= f.input_field :exam_type, type:'hidden' %>
+<div class="field">
+  <div class="two fields">
+
+
+
+    <div class="field">
+      <label>名称</label>
+      <%= f.input :name ,label:false,placeholder:'输入名称',wrapper:false%>
+    </div>
+
+    <div class="field">
+      <%=f.input :training_class_type,label:'培训班级别', collection:@training_class_types, prompt: '选择种类',wrapper:false,input_html:{class:'ui dropdown'}%>
+    </div>
+  </div>
+</div>
+<div class="field">
+    <div class="two fields">
+      <div class="field">
+        <%=f.input :text_book_ids,
+                   label:'教材',
+                   collection:TextBook.type_is(@training_class.exam_type),
+                   input_html:{class:'ui fluid search dropdown' ,multiple:""},
+                   prompt: '选择教材',
+                   wrapper:false
+        %>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="two fields">
+      <div class="field">
+        <%= f.label "开课时间" %>
+        <%= f.date_field :start_date %>
+      </div>
+
+      <div class="field">
+        <%= f.label "结束时间" %>
+        <%= f.date_field :end_date%>
+      </div>
+    </div>
+  </div>
+
+
+      <h4 class="ui dividing teal header">班主任</h4>
+      <div class="field">
+        <%if current_user.admin? %>
+        <div class="ui floating labeled  dropdown button">
+          <%= f.input_field :master_teacher_id, type:'hidden' %>
+          <span class="text">选择人员</span>
+          <div class="menu">
+            <%Employee.all.each do |emp|%>
+                <div class="item <%='active selected' if emp.id==@training_class.master_teacher_id%>" data-value="<%= emp.id%>">
+                  <img class="ui avatar image" src="/images/default_user_photo.png">
+                  <%= emp.name%> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            <%end%>
+          </div>
+        </div>
+        <%else%>
+        <p> 你没有权限设置班主任</p>
+
+        <%end%>
+      </div>
+      <h4 class="ui dividing teal header">科目讲师</h4>
+      <div class="field">
+        <!--嵌套表单用于 增改删 相关试卷-->
+        <%= f.simple_fields_for :subjects do |builder| %>
+
+            <%= render 'subject_form_fields', f: builder %>
+        <% end %>
+      </div>
+
+      <p><%= link_to_add_nest_form_fields '增加科目讲师', f, :subjects  %></p>
+
+
+    <h4 class="ui dividing teal header">班级学员</h4>
+    <div class="field">
+      <%=f.input :student_ids,label:'学员', collection:@students, input_html:{class:'ui fluid search dropdown' ,multiple:""},prompt: '选择学员',wrapper:false%>
+
+
+    </div>
+
+    <div class="form-actions" >
+      <%= f.button :submit ,'保存'%>
+    </div>
+
+    <%end%>
+
+    </div>
+
+
+
+<div class="column">
+</div>
+</div>

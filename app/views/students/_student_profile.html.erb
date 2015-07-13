@@ -1,0 +1,35 @@
+<div class="ui card" id="studentProfileCard<%= student_profile.id %>">
+
+  <div class="blurring dimmable image">
+    <div class="ui dimmer">
+      <div class="content">
+        <div class="center">
+          <div class="ui inverted button operate_student_with_trainingClass_button"  data-studentId="<%=student_profile.id%>" data-trainingClassId="<%=@training_class.id%>"><%=buttonText%></div>
+        </div>
+      </div>
+    </div>
+    <%=
+        image_tag student_profile.user.photo_url, class:"student_photo middle image"
+    %>
+  </div>
+
+
+  <div class="content">
+    <div class="header"><%=student_profile.name %></div>
+    <div class="meta">
+      <a class="group">学员</a>
+    </div>
+
+    <%if current_user.can_view_student_info?(student_profile)%>
+        <div class="description">
+          <% if current_user.can_view_student_personal_info? %>
+              <p>
+                <%= student_profile.user.phone_number%>
+              </p>
+          <%end%>
+        </div>
+    <%end%>
+  </div>
+
+</div>
+

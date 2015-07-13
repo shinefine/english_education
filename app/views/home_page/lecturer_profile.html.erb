@@ -1,0 +1,22 @@
+<div class="container clearfix">
+
+
+
+  <div id="page-title">
+    <h1>讲师详细信息</h1>
+  </div>
+
+
+  <section class="author-bio lecturer-bio clearfix">
+    <div class="photo">
+      <img src="/demo_files/<%= @lecturer[:img]%>" width="150" height="150" srcset="/demo_files/<%= @lecturer[:img]%> 150w, /demo_files/<%= @lecturer[:img]%>@2x.jpg 300w" sizes="(min-width: 768px) 150px, 96vw" alt="">
+    </div>
+
+    <div class="summary">
+      <h3><%= @lecturer[:name]%></h3>
+      <%= @lecturer[:description]%>
+    </div>
+  </section>
+
+
+</div>

@@ -1,0 +1,31 @@
+<h1></h1>
+<div class="ui green horizontal label"><h2>培训班教材 </h2></div>
+
+<table class="ui padded table segment">
+  <thead>
+    <tr>
+      <th>名称</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @text_books.each do |text_book| %>
+      <tr>
+        <td><%= text_book.name %></td>
+
+        <td><%= link_to '修改', edit_text_book_path(text_book),{class:'ui green button'} %></td>
+        <td><%= link_to '删除', text_book, {class:'ui red button' ,method: :delete, data: { confirm: '确认删除?' }} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<div class="ui buttons">
+  <%= link_to '新建 SAT 培训教材', new_text_book_path(exam_type: 'SAT'), {class:'ui blue button'}  %>
+  <div class="or"></div>
+  <%= link_to '新建 TOEFL 培训教材', new_text_book_path(exam_type: 'TOEFL') , {class:'ui blue button'}%>
+</div>
+

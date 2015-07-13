@@ -1,0 +1,116 @@
+
+<table class ="ui celled collapsing table segment">
+  <thead>
+  <tr>
+
+    <%if @exam_type =='SAT'%>
+        <th>CR涨分情况</th>
+        <th>Math涨分情况</th>
+        <th >Writing涨分情况</th>
+        <th >总分涨分情况</th>
+    <%elsif @exam_type =='TOEFL'%>
+        <th>Listening涨分情况</th>
+        <th>Speaking涨分情况</th>
+        <th >Reading涨分情况</th>
+        <th >Writing涨分情况</th>
+        <th >总分涨分情况</th>
+    <%end%>
+
+
+  </tr>
+  </thead>
+
+
+  <tbody>
+  <tr>
+
+    <%
+
+
+       if @exam_type=='SAT'
+         subject_names=['Reading','Math','Writing','Total']
+         trend_ranges = [0...50,50...100,100...150,150...200]
+       elsif @exam_type=='TOEFL'
+         subject_names=['Listening','Speaking','Reading','Writing','Total']
+         trend_ranges = [0...3,3...6,6...9,9...12,12...15,15...18,18...21,21...24,24...27]
+       end
+
+    %>
+
+
+    <% subject_names.each do|subject_name|%>
+
+
+        <td class="colored_content">
+          <!--此单元格显示多个表格,这些表格分组显示了语法涨分情况-->
+          <%students =@hash_students_score_trend.keys
+
+
+            hash_grp=students.group_by{|stu|
+              score_trend_result = @hash_students_score_trend[stu]
+              trend_result = stu.get_trend_result_by_subject_name(subject_name,score_trend_result,@exam_type)
+
+              helper__summary_value_in_which_range(trend_result,trend_ranges) #值为'0~50分'或'200分以上'或...
+            }
+          %>
+
+
+          <%score_block =helper__range_block_summary_text(trend_ranges).reverse %>
+
+          <%score_block.each do|key_string|%>
+              <%stu_list = hash_grp[key_string] ||[] %>
+              <table class ="ui celled collapsing table segment">
+
+                <thead>
+
+                <tr>
+                  <th colspan="3" >进步<%=key_string%> <%=stu_list.count%>个</th>
+                </tr>
+
+                <% if stu_list.count >0%>
+                    <tr>
+
+                      <th></th>
+                      <th>最高分</th>
+                      <th >分数变化</th>
+
+                    </tr>
+                <%end%>
+
+                </thead>
+
+
+                <tbody>
+
+                <%stu_list.each do |stu|%>
+                    <tr>
+                      <td>
+
+                        <%=stu.name%>
+                        <i class="popup_stu_score heart circular icon link " data-position="right center" data-html='<%= render 'big_data_report_partical_summary_table_for_student_score_popup',hash_students_score_trend:{stu=>@hash_students_score_trend[stu]}%>'></i>
+                      </td>
+                      <%method_name = subject_name.downcase%>
+
+                      <%if @exam_type=='SAT'%>
+                      <td><%=@hash_students_score_trend[stu].fetch(('max_real_score_sat_' + method_name).to_sym)%></td>
+                      <td><%=@hash_students_score_trend[stu].fetch(('score_trend_sat_'+ method_name).to_sym)%></td>
+
+                      <%elsif @exam_type=='TOEFL'%>
+                          <td><%=@hash_students_score_trend[stu].fetch(('max_real_score_toefl_' + method_name).to_sym)%></td>
+                          <td><%=@hash_students_score_trend[stu].fetch(('score_trend_toefl_'+ method_name).to_sym)%></td>
+
+                    <%end%>
+                    </tr>
+
+                <%end%>
+                </tbody>
+              </table>
+          <%end%>
+
+        </td>
+    <%end%>
+
+  </tr>
+
+  </tbody>
+</table>

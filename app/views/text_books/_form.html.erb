@@ -1,0 +1,13 @@
+<%= simple_form_for(@text_book) do |f| %>
+  <%= f.error_notification %>
+
+
+        <div class="field">
+    <%= f.input :name,label:"名称"  %>
+        </div>
+
+
+  <div class="form-actions">
+    <%= f.button :submit,"保存" %>
+  </div>
+<% end %>

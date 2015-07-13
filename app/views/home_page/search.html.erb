@@ -1,0 +1,32 @@
+<h1></h1>
+<div class="nav-search">
+    <%= form_tag 'search', method: 'get' do %>
+        <span class="input-icon">
+    <%= text_field_tag :q, params[:q], placeholder: "Search ...", autocomplete: "off", class: "nav-search-input" %>
+      <i class="ace-icon fa fa-search nav-search-icon"></i>
+  </span>
+        <% end %>
+  </div>
+
+
+<div class="search-result-page">
+    <table>
+      <tr>
+        <th class="name">Name</th>
+
+        <th></th>
+      </tr>
+
+      <% @users.each do |u| %>
+            <tr class="list">
+          <td class="name"><%= u.name %></td>
+              <td ><%= u.phone_number %></td>
+
+        </tr>
+          <% end %>
+    </table>
+
+    <%= link_to root_path, class: "back" do %>
+          <i class="fa fa-arrow-left"> Back</i>
+        <% end %>
+  </div>

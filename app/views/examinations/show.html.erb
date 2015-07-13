@@ -1,0 +1,24 @@
+<h1></h1>
+<div class="ui green horizontal label"><h2> </h2></div>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>培训班:</strong>
+  <%= @examination.training_class_id %>
+</p>
+
+<p>
+  <strong>试卷:</strong>
+  <%= @examination.test_paper_id %>
+</p>
+<p>
+  <strong>考试名称:</strong>
+  <%= @examination.name %>
+</p>
+<p>
+  <strong>考试日期:</strong>
+  <%= @examination.test_date %>
+</p>
+
+<%= link_to '修改', edit_simulate_test_path(@examination) %> |
+<%= link_to '返回', simulate_tests_path %>

@@ -1,0 +1,94 @@
+<table class ="ui celled collapsing table segment">
+  <thead>
+  <tr>
+
+    <th>学员</th>
+    <th>参加的培训班</th>
+    <th >类别</th>
+    <%if @exam_type =='SAT'%>
+    <th >1月</th>
+    <th >5月</th>
+    <th >6月</th>
+    <th >10月</th>
+    <th >11月</th>
+    <th >12月</th>
+    <%elsif @exam_type =='TOEFL'%>
+
+        <th >1月</th>
+        <th >2月</th>
+        <th >3月</th>
+        <th >4月</th>
+        <th >5月</th>
+        <th >6月</th>
+        <th >7月</th>
+        <th >8月</th>
+        <th >9月</th>
+        <th >10月</th>
+        <th >11月</th>
+        <th >12月</th>
+     <%end%>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% hash_students_score_trend.each do |key_stu,value_score_results| %>
+
+      <%real_scores = value_score_results[:real_scores]%>
+
+      <tr>
+        <td rowspan="5"><%= key_stu.name %></td>
+        <td rowspan="5"><%=simple_format(key_stu.training_classes.map{|tc| tc.training_class_type}.join("\n")) %></td>
+
+        <td >总分</td>
+
+        <%=raw helper__html_tds_monthes_real_score(real_scores,'总分',@exam_type)%>
+
+      </tr>
+
+      <%if @exam_type=='SAT'%>
+      <tr>
+        <td >CR</td>
+        <%=raw helper__html_tds_monthes_real_score(real_scores,'CR',@exam_type)%>
+      </tr>
+      <tr>
+
+        <td >Math</td>
+        <%=raw helper__html_tds_monthes_real_score(real_scores,'Math',@exam_type)%>
+      </tr>
+      <tr>
+
+        <td >Writing</td>
+        <%=raw helper__html_tds_monthes_real_score(real_scores,'Writing',@exam_type)%>
+      </tr>
+      <tr>
+
+        <td >Essay</td>
+        <%=raw helper__html_tds_monthes_real_score(real_scores,'Essay',@exam_type)%>
+      </tr>
+      <%elsif @exam_type=='TOEFL' %>
+          <tr>
+            <td >Listening</td>
+            <%=raw helper__html_tds_monthes_real_score(real_scores,'Listening',@exam_type)%>
+          </tr>
+          <tr>
+
+            <td >Speaking</td>
+            <%=raw helper__html_tds_monthes_real_score(real_scores,'Speaking',@exam_type)%>
+          </tr>
+          <tr>
+
+            <td >Reading</td>
+            <%=raw helper__html_tds_monthes_real_score(real_scores,'Reading',@exam_type)%>
+          </tr>
+          <tr>
+
+            <td >Writing</td>
+            <%=raw helper__html_tds_monthes_real_score(real_scores,'Writing',@exam_type)%>
+          </tr>
+      <%end%>
+
+  <% end %>
+  </tbody>
+
+
+</table>

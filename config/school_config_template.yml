@@ -1,0 +1,20 @@
+#这是模板文件，需将此文件在服务器上复制一份，更名为 school_config.yml 以使得关于学校的配置信息生效
+edu_school: &edu_school
+  school_name: '思达教育'
+  home_page_view_name: 'index'
+  home_page_layout_name: false
+
+#  school_name: '塞尔教育'
+#  home_page_view_name: 'index2'
+#  home_page_layout_name: 'home_page_demo_layout'
+
+
+development:
+  <<: *edu_school
+  neat_setting: 800
+
+test:
+  <<: *edu_school
+
+production:
+  <<: *edu_school

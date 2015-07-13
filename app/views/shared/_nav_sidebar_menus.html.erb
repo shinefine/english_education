@@ -1,0 +1,99 @@
+<!--子模板--文件名[ <%= __FILE__%> ]-->
+<!--本模板生成页面左侧的导航菜单栏和页面顶部工具栏，菜单栏里的菜单项是动态指定的（非静态固定不变）-->
+
+
+<!--导航菜单内容-->
+
+
+
+<div class="ui vertical left inverted labeled icon sidebar menu " id="menu">
+
+  <div class="item" >
+    <i class="inverted circular red awesome download cloud icon"></i>
+  </div>
+
+    <% nav_menus =build_nav_menus %>
+    <% nav_menus.each do |key,value| %>
+
+        <div class="item">
+          <b> <%= key %></b>
+          <div class="menu">
+          <% if value.any? %>
+
+                <% value.each { |isub_key,sub_value| %>
+                    <a class="item" href="<%= sub_value %>"><%= isub_key %></a>
+                <% } %>
+
+          <% else %>
+              <a class="item">无菜单项</a>
+          <% end %>
+
+          </div>
+        </div>
+
+    <% end %>
+
+</div>
+
+<!--顶端菜单条-->
+<div class="ui top brown fixed inverted main menu">
+  <a class="launch item"><i class="icon list layout"></i> 导航菜单</a>
+
+  <% main_nav_menus = build_main_nav_menu_items%>
+  <% main_nav_menus.each do |key,hash_value| %>
+
+      <a class="blue item" href="<%= hash_value[:link_path]%>">
+        <i class="<%=hash_value[:icon_name]%> icon"></i> <%=key%>
+      </a>
+  <%end%>
+
+  <div class="right item">
+    <% if current_user %>
+        <i class="user icon"></i><%=current_user.role_name1 + current_user.name %>
+        <%= link_to "登出",log_out_path,{class: 'ui small red button'} %>
+    <% else %>
+        当前用户尚未登陆
+    <% end %>
+
+  </div>
+  <%if current_user.password.empty?%>
+      <div class="right item">
+            <%=link_to  set_password_user_path(current_user) do %>
+                <div class="ui teal label ">设置登录密码</div>
+            <%end%>
+      </div>
+  <%end%>
+
+</div>
+<%if nil%>
+<div class="ui fixed transparent inverted main menu">
+  <div class="container">
+
+    <div class="title item">
+      <% if current_user %>
+          <i class="user icon"></i><%=current_user.role_name1 + current_user.name %>已登录
+          <%= link_to "登出",log_out_path,{class: 'ui small red button'} %>
+      <% else %>
+          当前用户尚未登陆
+      <% end %>
+
+    </div>
+    <div class="right menu">
+
+      <div class="item">
+        <%if current_user.password.empty?%>
+            <%=link_to  set_password_user_path(current_user) do %>
+                <div class="ui teal label ">设置登录密码</div>
+                <%end%>
+        <%end%>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<%end%>
+
+
+
+<!--子模板[ <%= __FILE__%> ]结束-->

@@ -1,0 +1,244 @@
+<!--员工,学员,讲师都使用本视图来查看 培训班信息-->
+
+<%if current_user.employee?%>
+    <div class="ui green horizontal label"><h2>培训班列表</h2></div>
+<%elsif current_user.student?%>
+    <div class="ui green horizontal label"><h2>学员<%=@student.name %>所属的培训班列表</h2></div>
+<%elsif current_user.teacher?%>
+    <div class="ui green horizontal label"><h2>讲师<%=@teacher.name %>所属的培训班列表</h2></div>
+
+<%end%>
+
+
+<%= grid(@training_classes_grid,html:{class: "ui celled collapsing table segment"}) do |g|
+
+    g.column name: '名称', attribute: 'name' ,ordering:false do |training_class|
+
+      color = training_class.exam_type =='SAT'? 'purple' :'teal'
+      link_to training_class.name, training_class , {class:"ui #{color} button"}
+    end
+
+    g.column name: '班级类型', attribute: 'training_class_type'  do |training_class|
+      html =''
+      html << training_class.exam_type if training_class.training_class_type.blank?
+      html << training_class.training_class_type
+      html
+    end
+
+    g.column name: '培训教材'  do |training_class|
+
+       simple_format(training_class.summary_text_book_names_list)
+    end
+
+
+    if current_user.teacher?
+
+      g.column name: '讲授课程科目'  do |training_class|
+        subs = training_class.subjects.where(teacher: @teacher)
+        subs.map{|sub| sub.name}.join('|')
+      end
+    end
+
+
+    g.column name: '班主任' do |training_class|
+      master_teacher = training_class.master_teacher
+      if master_teacher
+         image_tag(master_teacher.user.photo.thumb.url, class:"table_list photo") +
+                 raw('<br>') +
+          link_to(master_teacher.try(:name), employee_path(master_teacher))
+      else
+        '未指定'
+      end
+    end
+
+
+    g.column name: '学员数量'  do |training_class|
+      "#{training_class.students.count} 人"
+    end
+
+    #link 培训班的模拟考,听写成绩,出勤信息
+    if current_user.employee?||current_user.teacher?
+      g.column name: '模拟考试'  do |training_class|
+        link_to "#{training_class.examinations.count}次",training_class_examinations_path(training_class)
+      end
+      g.column name: '听写成绩'   do |training_class|
+        link_to "#{training_class.dictations.count}次",training_class_dictations_path(training_class)
+      end
+      g.column name: '考勤统计'  do |training_class|
+        link_to "#{training_class.attendances.count}次",training_class_attendances_path(training_class)
+      end
+    elsif current_user.student?
+
+      g.column name: '模拟考试'   do |training_class|
+        link_to "#{training_class.examinations.count}次",training_class_student_scores_path(training_class,@student)
+      end
+      g.column name: '听写成绩'   do |training_class|
+        link_to @student.summary_dictation_text(training_class), training_class_dictations_path(training_class,student_id:@student)
+      end
+      g.column name: '考勤统计'  do |training_class|
+        link_to helper__summary_text_attendance_for_student_in_training_class(@student,training_class),training_class_attendances_path(training_class,student_id:@student)
+      end
+    end
+
+
+
+
+    g.column name: '作业'  do |training_class|
+      link_to "#{training_class.homeworks.count}次",training_class_homeworks_path(training_class)
+    end
+    g.column name: '开课日期', attribute: 'start_date'  do |training_class|
+      training_class.start_date
+    end
+    g.column name: '结束日期', attribute: 'end_date'  do |training_class|
+      training_class.end_date
+    end
+
+    if current_user.student?
+      g.column name: '讲师评语'   do |training_class|
+        link_to "#{@student.comments.filter_by_training_class(training_class).count} 条",training_class_student_comments_path(training_class,@student)
+      end
+    end
+
+    g.column do |training_class|
+
+      html=''
+      if current_user.employee?
+
+            html = link_to(edit_training_class_path(training_class), {class:'ui green icon button popup_tip_button','data-content'=>"修改培训班:#{training_class.name}"}) do
+                raw('<i class="edit icon"> </i>')
+            end
+
+            html << link_to(set_students_training_class_path(training_class), {class:'ui blue icon button popup_tip_button','data-content'=>'设置学员'}) do
+                raw('<i class="edit icon"> </i>')
+            end
+            if current_user.admin?
+                html << link_to(training_class, {class:'ui red icon button popup_tip_button' ,
+                                                 method: :delete,
+                                                 data: { confirm: "确认删除培训班:#{training_class.name}?",content:"删除培训班:#{training_class.name}" } }) do
+                                                        raw('<i class="delete icon"> </i>')
+                                                    end
+            end
+
+       end
+      html= raw('<div class ="operation_buttons">') + html + raw('</div>')
+      html
+    end
+
+end %>
+
+<% if current_user.can_manage_basic_data? %>
+
+    <div class="ui bottom right pointing dropdown blue button" tabindex="0">
+      新建培训班
+      <div class="menu transition hidden" tabindex="-1">
+        <div class="ui blue item"><%= link_to 'SAT   培训班', new_training_class_path(exam_type: 'SAT')  %></div>
+        <div class="ui blue item"><%= link_to 'TOEFL 培训班', new_training_class_path(exam_type: 'TOEFL')%></div>
+
+        <div class=" item">(AP 培训班)</div>
+        <div class=" item">(西语 培训班)</div>
+      </div>
+    </div>
+
+
+<% end %>
+
+<%if nil%>
+    <table class ="ui celled collapsing table segment">
+      <thead>
+        <tr>
+          <th>名称</th>
+          <th>班级类型</th>
+          <th>培训教材</th>
+          <%if current_user.teacher?%>
+            <th>讲授课程科目</th>
+          <%end%>
+          <th>班主任</th>
+          <th>学员数量</th>
+          <th>模拟考试</th>
+          <th>听写成绩</th>
+          <th>考勤统计</th>
+          <th>作业</th>
+          <th>开课日期</th>
+          <th>结束日期</th>
+          <%if current_user.student?%>
+            <th>讲师评语</th>
+          <%end%>
+
+          <!--管理员操作区-->
+          <th ></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @training_classes.each do |training_class| %>
+              <tr>
+                <% color = training_class.exam_type =='SAT'? 'purple' :'teal'%>
+                <td><%= link_to training_class.name, training_class , {class:"ui #{color} button"} %></td>
+
+                <td>
+                  <%=training_class.exam_type if training_class.training_class_type.blank?%>
+                  <%=training_class.training_class_type%>
+                </td>
+                <td>
+                  <%= simple_format(training_class.summary_text_book_names_list)%>
+                </td>
+                <%if current_user.teacher?%>
+                    <% subs = training_class.subjects.where(teacher: @teacher) %>
+                    <td>
+                      <%= subs.map{|sub| sub.name}.join('|') %>
+                    </td>
+
+                <%end%>
+
+                <td>
+                  <%= link_to(training_class.master_teacher.try(:name), employee_path(training_class.master_teacher)) if training_class.master_teacher  %>
+                </td>
+
+                <td>
+                  <%= training_class.students.count %>人
+                </td>
+
+                <!--#link 培训班的模拟考,听写成绩,出勤信息-->
+                <%if current_user.employee?||current_user.teacher? %>
+
+                    <td><%=link_to "#{training_class.examinations.count}次",training_class_examinations_path(training_class) %></td>
+                    <td><%=link_to "#{training_class.dictations.count}次",training_class_dictations_path(training_class) %></td>
+                    <td><%=link_to "#{training_class.attendances.count}次",training_class_attendances_path(training_class) %></td>
+
+                <%elsif current_user.student?%>
+
+                    <td><%=link_to "#{training_class.examinations.count}次",training_class_student_scores_path(training_class,@student) %></td>
+                    <td><%= link_to @student.summary_dictation_text(training_class), training_class_dictations_path(training_class,student_id:@student) %></td>
+
+                    <td><%= link_to helper__summary_text_attendance_for_student_in_training_class(@student,training_class),training_class_attendances_path(training_class,student_id:@student) %></td>
+
+                <%end%>
+
+                <td><%=link_to "#{training_class.homeworks.count}次",training_class_homeworks_path(training_class) %></td>
+                <td><%= training_class.start_date %></td>
+                <td><%= training_class.end_date %></td>
+
+                <%if current_user.student?%>
+                    <td><%=link_to "#{@student.comments.filter_by_training_class(training_class).count} 条",training_class_student_comments_path(training_class,@student)%></td>
+                <%end%>
+
+
+                <!--管理员操作区-->
+                <td>
+                    <% if current_user.employee? %>
+
+                          <%= link_to '修改', edit_training_class_path(training_class), {class:'ui green button'} %>
+                          <%= link_to '设置学员', set_students_training_classes_path(training_class), {class:'ui green button'} %>
+                          <%if current_user.admin?%>
+                            <%= link_to '删除培训班', training_class, {class:'ui red button' ,method: :delete, data: { confirm: '确认删除?' } }%>
+                          <%end%>
+
+                    <% end %>
+                </td>
+              </tr>
+
+        <% end %>
+      </tbody>
+    </table>
+
+<%end%>

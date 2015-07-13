@@ -1,0 +1,27 @@
+<%= simple_form_for(@article) do |f| %>
+  <%= f.error_notification %>
+
+
+        <div class="field">
+    <%= f.input :Title %>
+        </div>
+        <div class="field">
+    <%= f.input :Content %>
+        </div>
+
+
+    <div class="field">
+      <%= f.input :tag_list,label: "标签(用逗号分割)" %>
+    </div>
+
+
+    <div class="field">
+      <%= f.label :student_ids, "students" %><br/>
+      <%= f.collection_select :student_ids, Student.all, :id, :name, {}, {multiple:true} %>
+    </div>
+
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

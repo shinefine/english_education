@@ -1,0 +1,54 @@
+<%= simple_form_for([@training_class,@homework]) do |f| %>
+  <%= f.error_notification %>
+
+    <div class="field">
+      <%= f.input_field :subject_type, type:'hidden' %>
+    </div>
+
+
+    <div class="field">
+      <%= f.input :title, label: "题目" %>
+    </div>
+    <div class ="five fields">
+    <div class="field">
+      <%= f.label "布置日期" %>
+      <%= f.date_field :distribution_date ,{class:'ui tiny input'}%>
+
+    </div>
+      <div class="field">
+        <%= f.label "上交日期" %>
+        <%= f.date_field :submit_date ,{class:'ui small input'}%>
+
+      </div>
+    </div>
+
+    <div class="ui ribbon green label">
+      <label>作业完成情况</label>
+    </div>
+
+        <%= f.fields_for(:homework_finishs) do |hw_finish_form|%>
+            <%student =hw_finish_form.object.student%>
+            <div class="ui inline fields">
+
+              <div class="field ">
+                <%= hw_finish_form.input_field :student_id, type:'hidden' %>
+              </div>
+
+              <div class="field ">
+
+                <%= f.label student.name %>
+                <%= hw_finish_form.collection_select :status, [['unsubmit','未交'],['submitted','已交']], :first, :last, {},{ class:"select optional ui selection dropdown"} %>
+              </div>
+
+
+                <%= hw_finish_form.input :description,{label: "备注:",}          %>
+
+            </div>
+        <% end %>
+
+
+
+    <div class="form-actions">
+    <%= f.button :submit ,'保存'%>
+  </div>
+<% end %>

@@ -1,0 +1,22 @@
+<div class="author-photo">
+  <%=link_to lecturer_profile_path(id: object[:id]) do %>
+      <img src="/demo_files/<%= object[:img]%>" width="150" height="150"
+           srcset="/demo_files/<%= object[:img]%> 150w, /demo_files/<%= object[:img]%>@2x.jpg 300w" sizes="(min-width: 768px) 150px, 96vw" alt=""></a>
+  <%end%>
+
+</div>
+
+
+<div class="summary"><h3><%= object[:name]%></h3>
+
+  <div class="author-description">
+    <%= object[:description]%>
+  </div>
+  <div class="author-links">
+    <%=link_to lecturer_profile_path(id: object[:id]) do%>
+        查看详情
+        <span class="fa fa-angle-double-right"></span>
+     <%end%>
+    </div>
+</div>
+

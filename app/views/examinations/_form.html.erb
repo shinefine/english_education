@@ -1,0 +1,84 @@
+<%= simple_form_for([@training_class, @examination]) do |f| %>
+  <%= f.error_notification %>
+
+
+
+  <div class ="five fields">
+
+
+
+      <%= f.input :name ,label: "模考名称"%>
+
+
+
+      <div class="field string required examination_date">
+
+        <label class="string optional" for="examination_test_date">考试时间</label>
+        <%= f.date_field :test_date ,{class:'string required'}%>
+      </div>
+
+
+
+
+
+      <div class="field select required examination_test_paper">
+        <label class="select required" for="examination_test_paper_id"><abbr title="required">*</abbr> 试卷111</label>
+
+        <%= f.collection_select :test_paper_id,
+                                TestPaper.type_is(@training_class.exam_type),
+                                :id,
+                                :name,
+                                {prompt: true},
+                                {class:"select optional ui selection dropdown"} %>
+
+
+      </div>
+
+
+   </div>
+    <!--模考试卷推荐建议区域-->
+    <div class="ui  basic vertical fluid accordion">
+
+      <div class="item">
+        <div class="title">
+          <i class="dropdown icon"></i>
+          <a class="ui teal circular large label">试卷建议</a>
+
+        </div>
+        <div class="content">
+          <table class="ui collapsing table segment">
+            <thead>
+            <tr>
+
+
+              <th>试卷</th>
+              <th>使用情况</th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            <% @suggest_test_papers.each do |tp| %>
+
+
+                <tr>
+                  <td><%=tp.name%></td>
+                  <td>
+                    <%if @testpaper_used_status[tp.id] == 0 %>
+                        <i class ="green checkmark icon"></i>
+                    <%end%>
+                    <%=@testpaper_used_status[tp.id]%>人使用
+                  </td>
+                </tr>
+            <%end%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  <div class="form-actions">
+    <%= f.button :submit,'保存' %>
+  </div>
+<% end %>

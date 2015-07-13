@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Standard Meta -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <!--页面小图标-->
+  <link href="/favicon.jpg" mce_href="/favicon.jpg" rel="bookmark" type="image/x-icon" />
+  <link href="/favicon.jpg" mce_href="/favicon.jpg" rel="icon" type="image/x-icon" />
+  <link href="/favicon.jpg" mce_href="/favicon.jpg" rel="shortcut icon" type="image/x-icon" />
+
+  <!-- 站点属性 -->
+  <title><%=@school_name%></title>
+
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <link rel="stylesheet" type="text/css" href="/semantic.min.css">
+
+
+  <%= javascript_include_tag "application" %>
+  <script src="/semantic.min.js"></script>
+
+
+  <!--<link rel="stylesheet" type="text/css" href="../dist/semantic.css">-->
+  <link rel="stylesheet" type="text/css" href="homepage.css">
+
+  <!--<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>-->
+  <!--<script src="../dist/semantic.js"></script>-->
+  <script src="homepage.js"></script>
+
+  <%= csrf_meta_tags %>
+</head>
+<body id="home">
+<div class="ui inverted masthead segment">
+  <div class="ui page grid">
+    <div class="column">
+      <div class="ui inverted blue menu">
+        <div class="header item"><%=@school_name%></div>
+
+        <div class="right menu">
+
+          <a class="browse item login_popup">
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登录
+            <i class="dropdown icon" tabindex="0"></i>
+          </a>
+          <div class="ui flowing popup">
+
+            <div class="ui shape">
+              <div class="ui form segment">
+                <form id="login_form">
+
+                  <div class="field" style="width: 250px;">
+
+                    <div class="ui left icon input">
+                      <i class="user icon"></i>
+                      <input name="user_name" type="text" placeholder="帐户">
+
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <div class="ui left icon action input">
+                      <i class="key icon"></i>
+                      <input name="password" type="password" placeholder="密码">
+                      <div class="ui black submit button">登录</div>
+                    </div>
+                  </div>
+
+                  <div class="ui login error message"></div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <% cat_pic= "cat#{rand(1..3)}.png" %>
+      <img src="images/<%=cat_pic%>" class="ui medium image">
+      <div class="ui hidden transition information">
+        <h1 class="ui inverted header">
+          2015火热招生中
+        </h1>
+        <h2>一对一教学领先品牌</h2>
+        <h4>SAT TOEFL 精品培训</h4>
+        <p>咨询电话 028-86958337</p>
+        <div class="large basic inverted animated fade ui button">
+          <div class="visible content">了解详情</div>
+          <div class="hidden content">更多信息</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ui vertical feature segment">
+  <div class="ui centered page grid">
+    <div class="fourteen wide column">
+      <div class="ui three column center aligned stackable divided grid">
+        <div class="column">
+          <div class="ui icon header">
+            <i class="student icon"></i>
+            课程介绍
+          </div>
+          <p>提供各种SAT Toefl IAIE 课程培训</p>
+          <p>
+            <a class="ui button" href="#">
+              详细
+            </a>
+          </p>
+        </div>
+        <div class="column">
+          <div class="ui icon header">
+            <i class="code icon"></i>
+            讲师介绍
+          </div>
+          <p>
+            来自五湖四海的精英讲师们
+          </p>
+          <p>
+            <a class="ui blue right labeled icon button" href="#">
+              详细
+              <i class="right chevron icon"></i>
+            </a>
+          </p>
+        </div>
+        <div class="column">
+          <div class="ui icon header">
+            <i class="user icon"></i>
+            成功案例
+          </div>
+          <p>优秀学员对我们的评价反馈</p>
+          <p>
+            <a class="ui button" href="#">
+              详细
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ui inverted vertical segment">
+  <div class="ui very relaxed stackable page grid">
+    <div class="row">
+      <div class="column">
+        <h1 class="center aligned ui inverted header">
+          英语学习技巧
+        </h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="ten wide column">
+        <h3 class="ui inverted header">托福考试备考辅导：提升10分的15个考试技巧</h3>
+        <p>托福考试也需要有一些小技巧的，以下为大家分享的15个托福考试技巧，将有助你提升托福考试成绩哦，快来看看吧。
+          <br>
+          1.在听力完成后会有5秒倒计时，结束后开始计时10分钟的休息，休息完后让监考输入密码进入口语部分，按完第一个NEXT后别按第二个NEXT，这样中间就有无限的时间听别人答完所有的题。第1，2题也要做笔记，虽然短而且简单，但这样可以防止到时万一因为某个词而卡住。
+        </p>
+        <div class="ui basic inverted animated button button">
+          <div class="visible content">更多</div>
+          <div class="hidden content"><i class="right arrow icon"></i></div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <h3 class="ui inverted header">更多文章</h3>
+        <div class="ui inverted animated selection list">
+          <div class="item">
+            美剧超流行的10句实用口语
+            <div class="right floated">Jan 20, 2014</div>
+          </div>
+          <div class="item">
+            美国习惯用语汇总
+            <div class="right floated">Jan 1, 2014</div>
+          </div>
+          <div class="item">
+            英语常用口语118句
+            <div class="right floated">Dec 20, 2013</div>
+          </div>
+        </div>
+      </div>
+      <div class="six wide column">
+        <div class="ui form segment">
+          <h3 class="ui header">Bi-Daily Newsletter</h3>
+          <p>Sign up and get spammed with cats every day. We have no unsubscribe button!</p>
+
+          <div class="ui error message"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="ui footer vertical segment">
+  <div class="ui stackable center aligned page grid">
+    <div class="ten wide column">
+      <div class="ui three column center aligned stackable grid">
+        <div class="column">
+          <h5 class="ui inverted header">Courses</h5>
+          <div class="ui inverted link list">
+            <a class="item">Registration</a>
+            <a class="item">Course Calendar</a>
+            <a class="item">Professors</a>
+          </div>
+        </div>
+        <div class="column">
+          <h5 class="ui inverted header">Library</h5>
+          <div class="ui inverted link list">
+            <a class="item">A-Z</a>
+            <a class="item">Most Popular</a>
+            <a class="item">Recently Changed</a>
+          </div>
+        </div>
+        <div class="column">
+          <h5 class="ui inverted header">Community</h5>
+          <div class="ui inverted link list">
+            <a class="item">BBS</a>
+            <a class="item">Careers</a>
+            <a class="item">Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="six wide teal inverted column">
+      <h3 class="ui inverted header">联系我们</h3>
+      <addr class="ui inverted">
+        237 二环路东三段35号 <br>
+        四川省 成都市 <br>
+      </addr>
+      <p class="ui inverted">(404) 867-5309</p>
+    </div>
+  </div>
+</div>
+
+<script>
+
+
+</script>
+<% unless flash[:notice].blank? %>
+    <script>
+        alert("<%= flash[:notice] %>");
+    </script>
+<% end%>
+
+<div class="ui dimmer page hidden">
+  <div class="ui test modal transition hidden" style="margin-top: -250px;">
+
+    <i class="close icon"></i>
+
+    <div class="content">
+      <div class="ui header">用户登陆
+      </div>
+
+      <%= form_tag action="session/create",{class:"login_form"} do%>
+          <div class="ui form">
+            <div class="ui three fields">
+              <div class="field">
+                <input type="text" name="login_name" placeholder="登陆账户名">
+              </div>
+              <div class="field">
+                <input class="password optional" id="user_password" name="password" type="password" placeholder="密码">
+              </div>
+
+            </div>
+          </div>
+
+
+          <div class="actions">
+            <div class="ui black button">
+              关闭
+            </div>
+            <%= submit_tag '登陆',{class:"ui positive right labeled icon button"} %>
+
+          </div>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>
+v>
+</body>
+
+</html>

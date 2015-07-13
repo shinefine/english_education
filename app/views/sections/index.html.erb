@@ -1,0 +1,26 @@
+<h1></h1>
+<div class="ui horizontal label"><h2> 试卷<%= link_to(@test_paper.name, edit_test_paper_path(@test_paper)) %> 包含的Sections</h2></div>
+
+<table class="ui celled table segment">
+  <thead>
+    <tr>
+      <th>Section名称</th>
+      <th>试题数量</th>
+      <th>类型</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sections.each do |test_paper_section| %>
+      <tr>
+        <td><%=  test_paper_section.name %></td>
+
+        <td><%= link_to test_paper_section.questions.count, edit_test_paper_section_path(@test_paper,test_paper_section) %></td>
+        <td><%= test_paper_section.course_type %></td>
+     </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

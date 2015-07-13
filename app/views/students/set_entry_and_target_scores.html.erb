@@ -1,0 +1,92 @@
+<h1></h1>
+<!---->
+
+<div class="ui horizontal green label"><h2>输入学员<%=@student.name%>的入口成绩和目标成绩</h2></div>
+<%= simple_form_for @student,wrapper: :semantic do |f| %>
+
+    <%= f.fields_for(:real_scores) do |target_score| %>
+
+        <%if target_score.object.exam_type== @real_score_exam_type  &&
+                (target_score.object.score_type=='入口成绩' || target_score.object.score_type=='最终期望成绩')  %>
+            <a class="ui teal circular large label"><%=target_score.object.exam_type %><%= target_score.object.score_type%> </a>
+
+
+            <div class="ui two fields">
+              <div class="ui five fields">
+
+
+                <%= target_score.input_field :exam_type, type:'hidden' %>
+                <%= target_score.input_field :score_type, type:'hidden' %>
+
+
+                <% if target_score.object.exam_type == 'TOEFL' %>
+                    <div class="field">
+                      <%= target_score.input :final_score, label: "总分" %>
+                    </div>
+
+                    <div class="field">
+                      <%= target_score.input :course_a_score, label: "听力" %>
+                    </div>
+
+                    <div class="field">
+                      <%= target_score.input :course_b_score, label: "口语" %>
+                    </div>
+
+                    <div class="field">
+                      <%= target_score.input :course_c_score, label: "阅读" %>
+                    </div>
+                    <div class="field">
+                      <%= target_score.input :course_d_score, label: "写作" %>
+                    </div>
+                <% elsif target_score.object.exam_type == 'SAT' %>
+
+                    <div class="field">
+                      <%= target_score.input :final_score, label: "SAT成绩(总分)" %>
+                    </div>
+
+                    <div class="field">
+                      <%= target_score.input :course_a_score, label: "CR" %>
+                    </div>
+                    <div class="field">
+                      <%= target_score.input :course_b_score, label: "MATH" %>
+                    </div>
+                    <div class="field">
+                      <%= target_score.input :course_c_score, label: "WRITING" %>
+                    </div>
+                    <div class="field">
+                      <%= target_score.input :course_d_score, label: "ESSAY" %>
+                    </div>
+                <% end %>
+
+              </div>
+            </div>
+        <%end%>
+
+
+    <% end %>
+
+    <%if @real_score_exam_type  =='SAT'%>
+        <a class="ui teal circular large label">SAT月份目标成绩</a>
+
+        <div class="field">
+          <!--嵌套表单用于 增改删 相关月份目标期望成绩-->
+          <%= f.simple_fields_for :real_scores do |builder| %>
+              <%if builder.object.score_type=='月份目标成绩' %>
+                  <%= render 'real_score_form_fields', f: builder %>
+              <%end%>
+          <% end %>
+        </div>
+
+        <p><%= link_to_add_nest_form_fields "增加月份目标", f, :real_scores ,{score_type:'月份目标成绩',exam_type:@real_score_exam_type  } %></p>
+
+    <%end%>
+
+    <div class="form-actions">
+      <%= f.button :submit ,'保存',inner_html: {class:"ui green submit button"} %>
+      <% if current_user.can_manage_basic_data? %>
+          <%= link_to '返回到学员列表', students_path, {class:"ui blue submit button"} %>
+
+          <%= link_to '返回到学员详细信息', student_path(@student), {class:"ui blue submit button"} %>
+      <%end%>
+    </div>
+<% end %>

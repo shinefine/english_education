@@ -1,0 +1,103 @@
+<table class ="ui celled collapsing table segment">
+  <thead>
+  <tr>
+    <%if @exam_type =='SAT'%>
+        <th>CR最高分</th>
+        <th>Math最高分</th>
+        <th >Writing最高分</th>
+        <th >总分最高分</th>
+    <%elsif @exam_type =='TOEFL'%>
+    <th>Listening最高分</th>
+    <th>Speaking最高分</th>
+    <th >Reading最高分</th>
+    <th >Writing最高分</th>
+    <th >总分最高分</th>
+
+    <%end%>
+
+  </tr>
+  </thead>
+
+
+  <tbody>
+  <tr>
+    <%
+       sat_subject_score_ranges = [0...350,350...400,400...450,450...500,500...550,550...600,600...650,650...700]
+       sat_total_score_ranges = [0...1900,1900...2000,2000...2100,2100...2200,2200...2300]
+
+       toefl_subject_score_ranges = [0...5,5...10,10...15,15...20,20...25]
+       toefl_total_score_ranges = [0...20,20...40,40...60,60...80,80...100]
+
+       if @exam_type=='SAT'
+
+       h_score_ranges={
+                       'Reading'=>sat_subject_score_ranges,
+                       'Math'=>sat_subject_score_ranges,
+                       'Writing'=>sat_subject_score_ranges,
+                       'Total'=>sat_total_score_ranges}
+
+       elsif @exam_type=='TOEFL'
+
+           h_score_ranges={
+                   'Listening'=>toefl_subject_score_ranges,
+
+                   'Speaking'=>toefl_subject_score_ranges,
+                   'Reading'=>toefl_subject_score_ranges,
+                   'Writing'=>toefl_subject_score_ranges,
+                   'Total'=>toefl_total_score_ranges}
+       end
+
+    %>
+
+
+    <% h_score_ranges.each do|key_subject_name,value_ranges|%>
+
+        <td class="colored_content">
+          <!--此单元格显示多个表格,这些表格分组显示了各科最高分情况-->
+          <%
+             students =@hash_students_score_trend.keys
+
+             hash_grp=students.group_by{|stu|
+               score_max_result = @hash_students_score_trend[stu]
+               max_value = stu.get_subject_max_by_subject_name(key_subject_name,score_max_result,@exam_type)
+               helper__summary_value_in_which_range(max_value,value_ranges) #值为'0~50分'或'200分以上'或...
+             }
+             score_block =helper__range_block_summary_text(value_ranges).reverse
+          %>
+
+          <%score_block.each do|key_string|%>
+              <%stu_list = hash_grp[key_string] ||[] %>
+              <table class ="ui celled collapsing table segment">
+                <thead>
+                <tr>
+                  <th colspan="3" ><%=key_string%> <%=stu_list.count%>个</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <%
+
+
+                   if @exam_type=='SAT'
+                     method_name ='max_real_score_sat_' + key_subject_name.downcase
+                    elsif @exam_type=='TOEFL'
+                      method_name ='max_real_score_toefl_' + key_subject_name.downcase
+                    end
+                   h_result =helper__sort_students_by_score(stu_list,@hash_students_score_trend,method_name.to_sym)
+                %>
+                <%h_result.each do |key_stu_name,value_subject_value|%>
+                    <tr>
+                      <td><%=key_stu_name %></td>
+                      <td><%=value_subject_value %></td>
+                    </tr>
+                <%end%>
+                </tbody>
+              </table>
+          <%end%>
+        </td>
+    <%end%>
+  </tr>
+
+  </tbody>
+</table>

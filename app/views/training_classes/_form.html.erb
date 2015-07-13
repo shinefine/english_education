@@ -1,0 +1,102 @@
+<%= simple_form_for @training_class,wrapper: :semantic do |f| %>
+
+    <div class="ui purple ribbon label">班级基本信息</div>
+    <%= f.error_notification %>
+    <div class="field">
+      <%= f.input_field :exam_type, type:'hidden' %>
+    </div>
+
+    <div class="ui five fields">
+      <div class="field">
+        <%= f.input :name ,label:"名称"%>
+      </div>
+
+
+
+      <div class="field">
+        <div class="field select optional training_class_type">
+          <label class="select optional" for="training_class_type_id">培训班种类</label>
+          <%= f.collection_select :training_class_type,
+                                  @training_class_types,
+                                  :to_s,
+                                  :to_s,
+                                  {prompt: true},
+                                  {class:"select optional ui selection dropdown"} %>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="ui five fields">
+      <div class="field">
+        <%= f.label "开课时间" %>
+        <%= f.date_field :start_date ,{class:'ui tiny input'}%>
+      </div>
+
+      <div class="field">
+        <%= f.label "结束时间" %>
+        <%= f.date_field :end_date ,{class:'ui tiny input'}%>
+      </div>
+    </div>
+
+    <%if current_user.admin? %>
+        <div class="ui red ribbon label">分配班主任</div>
+        <div class ="field">
+          <%= f.collection_select :master_teacher_id,
+                                  Employee.all,
+                                  :id,
+                                  :name,
+                                  {:include_blank => true},
+                                  {class:"select optional ui selection dropdown"}
+          %>
+        </div>
+    <%end%>
+    <div class="ui red ribbon label">分配科目讲师</div>
+    <div class="field">
+      <!--嵌套表单用于 增改删 相关试卷-->
+      <%= f.simple_fields_for :subjects do |builder| %>
+
+          <%= render 'subject_form_fields', f: builder %>
+      <% end %>
+    </div>
+
+    <p><%= link_to_add_nest_form_fields '增加科目讲师', f, :subjects  %></p>
+
+
+
+    <div class="ui teal ribbon label">培训教材</div>
+    <div class ="field">
+      <%= collection_check_boxes(:training_class,
+                                 :text_book_ids,
+                                 TextBook.type_is(@training_class.exam_type),
+                                 :id,
+                                 :name,{},{class:'ui'} ) do |b| %>
+          <div class='ui slider checkbox'>
+            <%= b.check_box + b.label %>
+          </div>
+      <% end%>
+    </div>
+
+    <div class="ui teal ribbon label">班级学员</div>
+    <div class ="field">
+      <%= collection_check_boxes(:training_class,
+                                 :student_ids,
+                                 @students,
+                                 :id,
+                                 :name,{},{class:'ui'} ) do |b| %>
+          <div class='ui slider checkbox'>
+            <%= b.check_box + b.label %>
+          </div>
+      <% end%>
+    </div>
+
+
+
+
+
+    <div class="form-actions">
+      <%= f.button :submit ,"保存"%>
+    </div>
+<% end %>
+

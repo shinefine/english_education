@@ -1,0 +1,9 @@
+<h1></h1>
+<div class="ui horizontal label"><h2>试卷详细信息 </h2></div>
+<p>
+  <strong>试卷名称:</strong>
+  <%= @test_paper.name %>
+</p>
+
+<%= link_to '修改信息', edit_test_paper_path(@test_paper) ,{class: 'ui blue button'} %>
+<%= link_to '返回到试卷列表', test_papers_path,{class:'ui blue button'} %>

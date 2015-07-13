@@ -1,0 +1,46 @@
+<%= simple_form_for([@training_class,@attendance]) do |f| %>
+  <%= f.error_notification %>
+
+    <div class="ui five fields">
+        <div class="field">
+          <%= f.label '考勤日期'%>
+          <%= f.date_field :attendance_date ,{class:'ui tiny input'}%>
+        </div>
+    </div>
+
+    <%= f.fields_for(:student_attendances) do |stu_atten_form|%>
+        <div class="ui inline fields">
+
+          <div class="field ">
+            <%= stu_atten_form.input_field :student_id, type:'hidden' %>
+          </div>
+          <div class="field ">
+
+          <label ><%=stu_atten_form.object.student.name%></label>
+          </div>
+
+          <div class="field ">
+
+            <label for="order_pay_type">上午 :</label>
+            <%= stu_atten_form.collection_select :status_morning,[['出勤'],['迟到'],['早退'],['未出勤']], :first, :last ,{include_blank:true} %>
+          </div>
+
+          <div class="field ">
+
+            <label for="order_pay_type">下午 :</label>
+            <%= stu_atten_form.collection_select :status_afternoon,[['出勤'],['迟到'],['早退'],['未出勤']], :first, :last ,{include_blank:true} %>
+          </div>
+
+          <div class="field ">
+
+            <label for="order_pay_type">晚上 :</label>
+            <%= stu_atten_form.collection_select :status_evening,[['出勤'],['迟到'],['早退'],['未出勤']], :first, :last,{include_blank:true}  %>
+          </div>
+        </div>
+    <% end %>
+
+  <div class="form-actions">
+    <%= f.button :submit,'保存考勤信息' %>
+  </div>
+<% end %>
+<%= link_to '返回到班级出勤统计列表', training_class_attendances_path(@training_class),{class:'ui blue button'} %>

@@ -1,0 +1,57 @@
+<h1></h1>
+<div class="ui green horizontal label"><h2>员工列表 </h2></div>
+<br><br>
+<div class="ui purple horizontal label">共有员工 <%= @employees.length %> 人</div>
+<table class="ui celled table segment">
+  <thead>
+  <tr>
+
+    <th>姓名</th>
+    <th>管理员</th>
+    <th>身份证号</th>
+    <th>手机号</th>
+    <th>QQ</th>
+    <th>微信</th>
+    <th>电子邮箱</th>
+
+    <%if current_user.can_manage_basic_data?%>
+    <th colspan="2"></th>
+    <%end%>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @employees.each do |emp| %>
+      <tr>
+
+        <td><%= link_to emp.name, employee_path(emp) %></td>
+        <td><%= emp.admin? ? '是':''  %></td>
+
+        <td><%= emp.user.try(:identify_card)  %></td>
+        <td><%= emp.user.try(:phone_number)  %></td>
+        <td><%= emp.user.try(:qq_number) %></td>
+        <td><%= emp.user.try(:tinypost_number)  %></td>
+        <td><%= emp.user.try(:email)   %></td>
+
+
+        <%if current_user.can_manage_basic_data?%>
+            <td><%= link_to '修改', edit_employee_path(emp) ,{class: 'ui green button'}%></td>
+            <td>
+            <%if emp.freezing_flag%>
+                <%= link_to '解冻', unfreezing_employee_path(emp),{class: 'ui green button', method: :patch }%>
+            <%else%>
+                <%= link_to '冻结', freezing_employee_path(emp),{class: 'ui blue button', method: :patch }%>
+            <%end%>
+            <%= link_to '删除', emp, {class:'ui red button',method: :delete, data: { confirm: '确认删除员工?' }} %></td>
+        <%end%>
+
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+<%if current_user.can_manage_basic_data?%>
+<%= link_to '新建 员工', new_employee_path ,{class: 'ui blue button'}%>
+<%end%>
+

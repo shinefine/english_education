@@ -1,0 +1,152 @@
+<%= simple_form_for @student,wrapper: :semantic do |f| %>
+  <%= f.error_notification %>
+
+    <div class="ui blue ribbon label">(一)  学员基本信息</div>
+    <br>
+
+    <%= f.fields_for(:user) do |user_f| %>
+
+        <div class="ui five fields">
+            <div class="field">
+              <%= user_f.input :name,label:"名称" %>
+            </div>
+
+          <div class="field">
+
+            <%= render 'shared/upload_user_photo', form_builder: user_f%>
+
+          </div>
+
+        </div>
+          <div class="ui five fields">
+
+            <%if current_user.can_view_student_personal_info? %>
+                <div class="field">
+                  <%= user_f.input :phone_number,label:"手机号" %>
+                </div>
+              <div class="field">
+                <%= user_f.input :identify_card,label:"身份证号" %>
+              </div>
+
+              <div class="field">
+                <%= user_f.input :email ,label:"Email"%>
+              </div>
+
+
+              <div class="field">
+                <%= user_f.input :tinypost_number ,label:"微信"%>
+              </div>
+
+              <div class="field">
+                <%= user_f.input :qq_number ,label:"QQ"%>
+              </div>
+            <%end%>
+        </div>
+
+    <% end %>
+
+
+
+    <%if current_user.can_view_student_personal_info? %>
+        <div class="ui five fields">
+          <div class="field">
+            <%= f.input :school ,label:"学校"%>
+          </div>
+          <div class="field">
+            <%= f.label "生日" %>
+            <%= f.date_field :birth_day ,{class:'ui tiny input'}%>
+
+          </div>
+        </div>
+
+        <div class="ui five fields">
+          <div class="field">
+            <%= f.input :parent_name,label:"家长名称" %>
+          </div>
+
+          <div class="field">
+            <%= f.input :parent_tel ,label:"家长电话"%>
+          </div>
+
+          <div class="field">
+            <%= f.input :parent2_name,label:"家长名称2" %>
+          </div>
+
+          <div class="field">
+            <%= f.input :parent2_tel ,label:"家长电话2"%>
+          </div>
+        </div>
+    <%end%>
+
+
+
+
+    <div class="ui red ribbon label">(二)  学习背景</div>
+    <p></p>
+    <div class="ui purple horizontal label">A.学习期望</div>
+
+
+    <div class="ui five fields">
+      <div class="field">
+        <%= f.input :school_rank ,label:"申请学校排名"%>
+      </div>
+    </div>
+
+
+
+
+
+    <div class="ui purple horizontal label">B.学习进度</div>
+    <p></p>
+    <div class="ui green circular label">
+      1.托福
+    </div>
+
+    <div class="ui five fields">
+        <div class="field">
+          <%= f.input :total_toefl_times,label:"已考试次数" %>
+        </div>
+
+      <div class="field">
+        <%= f.input :expect_toefl_times, label:"之后希望考试的次数" %>
+      </div>
+    </div>
+
+
+
+    <div class="ui green circular label">
+      2.SAT
+    </div>
+
+    <div class="ui two fields">
+    <div class="ui five fields">
+        <div class="field">
+          <%= f.input :total_sat_times,label:"已考试次数" %>
+        </div>
+    </div>
+
+
+    </div>
+    <%if nil %>
+        参加培训前做过的考题
+        <div class ="field">
+          <!--f.association :students,label:"指定学生做过的考题",   as: :check_boxes-->
+          <%= collection_check_boxes(:student, :test_paper_ids, TestPaper.all, :id, :name,{},{class:"ui"} ) do |b| %>
+
+              <div class="ui slider checkbox">
+                <%= b.check_box + b.label %>
+              </div>
+              <br>
+          <% end %>
+        </div>
+
+    <% end %>
+
+
+  <div class="form-actions">
+    <%= f.button :submit ,'保存',inner_html: {class:"ui blue submit button"} %>
+    <% if current_user.can_manage_basic_data? %>
+        <%= link_to '返回到学员列表', students_path, {class:"ui blue submit button"} %>
+    <%end%>
+  </div>
+<% end %>

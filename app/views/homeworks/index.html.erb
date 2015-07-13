@@ -1,0 +1,107 @@
+
+<h1></h1>
+<!--该 模考的index 页面 不是展示所有作业记录,而是针对指定培训班展示其对应的作业记录-->
+<div class="ui green horizontal label"><h2> 培训班<%=@training_class.name %> 的作业列表</h2></div>
+<br>
+<br>
+
+<div class="ui purple horizontal label"> 培训班有学员<%= @training_class.students.count%>人</div>
+
+<table  class ="ui celled table segment">
+  <thead>
+    <tr>
+
+      <th>讲师</th>
+      <th>课程类型</th>
+      <th>作业题目</th>
+      <th>布置日期</th>
+      <th>要求完成时间</th>
+      <th>完成情况</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @homeworks.each do |homework| %>
+      <tr>
+
+        <td><%= homework.teacher.try(:name) %></td>
+        <td><%= homework.subject_type %></td>
+        <td >
+          <% if current_user.student? %>
+              <%= link_to truncate(homework.title,length:20),   training_class_homework_path(@training_class, homework) %>
+          <% else %>
+              <%= link_to truncate(homework.title,length:20) , edit_training_class_homework_path(@training_class,homework) %></td>
+          <% end %>
+
+        <td><%= homework.distribution_date %></td>
+        <td><%= homework.submit_date %></td>
+
+        <td>
+
+          <%if current_user.student?%>
+             <%= homework.homework_finishs.one?{|hw_finish| hw_finish.status=='submitted' && hw_finish.student ==current_user.student} ? '完成':'未完成' %>
+          <%else%>
+            <%= homework.homework_finishs.select{|hw_finish| hw_finish.status=='submitted'}.count %> 人完成
+          <%end%>
+        </td>
+
+        <% if current_user.student? %>
+
+            <td></td>
+
+
+        <% else %>
+
+
+            <td>
+
+              <% if current_user.can_recieve_homework?(homework) %>
+                <%= link_to '录入完成情况', edit_training_class_homework_path(@training_class,homework) ,  {class:"ui green  button"  }%>
+              <%end%>
+              <% if current_user.can_edit_homework?(homework) %>
+                  <%= link_to '删除', training_class_homework_path(@training_class, homework),  {class:"ui red  button" ,method: :delete, data: { confirm: '确认删除?' } }%>
+               <%else%>
+
+              <%end %>
+            </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% if current_user.teacher? %>
+
+     <% teacher =current_user.teacher %>
+        <%= link_to('布置CR作业', new_training_class_homework_path(@training_class,subject:'CR'), {class:"ui blue  button"}) if teacher.is_teach_subject?(@training_class,:sat_cr) %>
+    <%= link_to('布置Math作业', new_training_class_homework_path(@training_class,subject:'Math'), {class:"ui blue  button"}) if teacher.is_teach_subject?(@training_class,:sat_math) %>
+    <%= link_to('布置Grammar作业', new_training_class_homework_path(@training_class,subject:'Grammar'), {class:"ui blue  button"}) if teacher.is_teach_subject?(@training_class,:sat_grammar) %>
+    <%= link_to('布置Essay作业', new_training_class_homework_path(@training_class,subject:'Essay'), {class:"ui blue  button"}) if teacher.is_teach_subject?(@training_class,:sat_essay)%>
+    <%= link_to('布置听力作业', new_training_class_homework_path(@training_class,subject:'Listening'), {class:"ui blue  button"}) if teacher.is_teach_subject?(@training_class,:toelf_listen) %>
+    <%= link_to('布置口语作业', new_training_class_homework_path(@training_class,subject:'Speaking'), {class:"ui blue  button"}) if teacher.is_teach_subject?(@training_class,:toelf_talk) %>
+    <%= link_to('布置阅读作业', new_training_class_homework_path(@training_class,subject:'Reading'), {class:"ui blue  button"}) if teacher.is_teach_subject?(@training_class,:toelf_read) %>
+    <%= link_to('布置写作作业', new_training_class_homework_path(@training_class,subject:'Writing'), {class:"ui blue  button"}) if teacher.is_teach_subject?(@training_class,:toelf_write) %>
+
+<%elsif current_user.is_training_class_master?(@training_class)%>
+    <!--班主任也可以布置作业-->
+
+        <%if @training_class.exam_type =='SAT'%>
+        <%= link_to('布置CR作业', new_training_class_homework_path(@training_class,subject:'CR'), {class:"ui blue  button"}) %>
+        <%= link_to('布置Math作业', new_training_class_homework_path(@training_class,subject:'Math'), {class:"ui blue  button"})  %>
+        <%= link_to('布置Grammar作业', new_training_class_homework_path(@training_class,subject:'Writing'), {class:"ui blue  button"}) %>
+        <%= link_to('布置Essay作业', new_training_class_homework_path(@training_class,subject:'Writing'), {class:"ui blue  button"}) %>
+
+         <%elsif @training_class.exam_type =='TOEFL'%>
+            <%= link_to('布置听力作业', new_training_class_homework_path(@training_class,subject:'Listening'), {class:"ui blue  button"}) %>
+        <%= link_to('布置口语作业', new_training_class_homework_path(@training_class,subject:'Speaking'), {class:"ui blue  button"})  %>
+        <%= link_to('布置阅读作业', new_training_class_homework_path(@training_class,subject:'Reading'), {class:"ui blue  button"}) %>
+        <%= link_to('布置写作作业', new_training_class_homework_path(@training_class,subject:'Writing'), {class:"ui blue  button"}) %>
+
+         <%end%>
+
+<% end %>
+<br>
+<%= link_to '返回到班级列表', training_classes_path , {class:"ui blue  button"}%>

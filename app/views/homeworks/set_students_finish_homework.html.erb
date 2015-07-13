@@ -1,0 +1,48 @@
+<h1></h1>
+<div class="ui green horizontal label"><h2> </h2></div>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @homework.title %>
+</p>
+
+<p>
+  <strong>Distribution date:</strong>
+  <%= @homework.distribution_date %>
+</p>
+
+<p>
+  <strong>Teacher:</strong>
+  <%= @homework.teacher_id %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @homework.subject_type %>
+</p>
+
+
+
+<p>
+  <strong>Training class:</strong>
+  <%= @homework.training_class_id %>
+</p>
+
+<%= simple_form_for(@homework,url: save_students_finish_homework_homework_path(@homework))  do |f| %>
+
+<div class ="field">
+  <%= collection_check_boxes(:homework,
+                             :student_ids,
+                             @homework.training_class.students,
+                             :id,
+                             :name,{},{class:'ui'} ) do |b| %>
+      <div class='ui slider checkbox'>
+        <%= b.check_box + b.label %>
+      </div>
+  <% end%>
+</div>
+<div class="form-actions">
+  <%= f.button :submit ,"保存"%>
+</div>
+<%end%>

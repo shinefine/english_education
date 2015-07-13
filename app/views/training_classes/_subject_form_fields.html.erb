@@ -1,0 +1,30 @@
+<fieldset>
+
+
+  <div class="inline fields">
+
+
+    <div class="field">
+      <%= f.label "科目名称" %>
+
+      <!--f.collection_radio_buttons :name, @subject_types, :first, :last -->
+
+      <%= f.collection_select :name, @subject_types, :first, :last, {include_blank: true},{ class:"select optional ui selection dropdown" ,style:"visibility: visible;"}  %>
+
+    </div>
+    <div class="field">
+    </div>
+    <div class="field">
+      <%= f.label "讲师" %>
+      <%= f.collection_select :teacher_id, Teacher.all, :id, :name, {include_blank: true},{ class:"select optional ui selection dropdown",style:"visibility: visible;"} %>
+
+    </div>
+
+
+    <%= f.hidden_field :_destroy %>     <!-- accepts_nested_attributes_for的删除操作需要提供"_destroy" -->
+
+    <a href="#" class ="remove_nest_form_field_link"><i class="red close icon"></i></a>
+
+  </div>
+
+</fieldset>
