@@ -108,9 +108,9 @@
                 raw('<i class="edit icon"> </i>')
             end
 
-            html << link_to(set_students_training_class_path(training_class), {class:'ui blue icon button popup_tip_button','data-content'=>'设置学员'}) do
-                raw('<i class="edit icon"> </i>')
-            end
+            # html << link_to(set_students_training_class_path(training_class), {class:'ui blue icon button popup_tip_button','data-content'=>'设置学员'}) do
+            #     raw('<i class="edit icon"> </i>')
+            # end
             if current_user.admin?
                 html << link_to(training_class, {class:'ui red icon button popup_tip_button' ,
                                                  method: :delete,
