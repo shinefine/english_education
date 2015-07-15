@@ -107,10 +107,10 @@
             html = link_to(edit_training_class_path(training_class), {class:'ui green icon button popup_tip_button','data-content'=>"修改培训班:#{training_class.name}"}) do
                 raw('<i class="edit icon"> </i>')
             end
- 
-            # html << link_to(set_students_training_class_path(training_class), {class:'ui blue icon button popup_tip_button','data-content'=>'设置学员'}) do
-            #     raw('<i class="edit icon"> </i>')
-            # end
+
+            html << link_to(set_students_training_class_path(training_class), {class:'ui blue icon button popup_tip_button','data-content'=>'设置学员'}) do
+                raw('<i class="edit icon"> </i>')
+            end
             if current_user.admin?
                 html << link_to(training_class, {class:'ui red icon button popup_tip_button' ,
                                                  method: :delete,
@@ -228,8 +228,7 @@ end %>
                     <% if current_user.employee? %>
 
                           <%= link_to '修改', edit_training_class_path(training_class), {class:'ui green button'} %>
-                      1234
-                      <% link_to '设置学员', set_students_training_classes_path(training_class), {class:'ui green button'} %>
+                          <% link_to '设置学员', set_students_training_classes_path(training_class), {class:'ui green button'} %>
                           <%if current_user.admin?%>
                             <%= link_to '删除培训班', training_class, {class:'ui red button' ,method: :delete, data: { confirm: '确认删除?' } }%>
                           <%end%>
