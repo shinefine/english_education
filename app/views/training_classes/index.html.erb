@@ -228,7 +228,7 @@ end %>
                     <% if current_user.employee? %>
 
                           <%= link_to '修改', edit_training_class_path(training_class), {class:'ui green button'} %>
-                          <%= link_to '设置学员', set_students_training_classes_path(training_class), {class:'ui green button'} %>
+                          <% link_to '设置学员', set_students_training_classes_path(training_class), {class:'ui green button'} %>
                           <%if current_user.admin?%>
                             <%= link_to '删除培训班', training_class, {class:'ui red button' ,method: :delete, data: { confirm: '确认删除?' } }%>
                           <%end%>
