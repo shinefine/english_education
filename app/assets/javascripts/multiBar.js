@@ -1,11 +1,12 @@
 nv.addGraph(function() {
     var chart = nv.models.multiBarChart()
       .transitionDuration(350)
-      .reduceXTicks(false)   //If 'false', every single x-axis tick label will be rendered.
-      .rotateLabels(0)      //Angle to rotate x-axis labels.
-      .showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
-      .groupSpacing(0.3)    //Distance between each group of bars.
+            .reduceXTicks(false)   //If 'false', every single x-axis tick label will be rendered.
+            .rotateLabels(0)      //Angle to rotate x-axis labels.
+            .showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
+            .groupSpacing(0.3)    //Distance between each group of bars.
             .staggerLabels(true)    //Too many bars and not enough room? Try staggering labels.
+            .showValues(true)
 
 
         ;

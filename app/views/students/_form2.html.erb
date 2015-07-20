@@ -1,0 +1,140 @@
+<div class="ui two column grid">
+
+  <div class="column">
+    <%= simple_form_for @student ,wrapper:false do |f| %>
+        <h4 class="ui dividing teal header">学员基本信息</h4>
+        <%= f.error_notification %>
+        <%= f.fields_for(:user) do |user_f| %>
+            <div class="field">
+              <div class="ui five fields">
+                <div class="field">
+                  <%= user_f.input :name,label:"名称",wrapper:false %>
+                </div>
+
+                <div class="field">
+                  <%= render 'shared/upload_user_photo', form_builder: user_f%>
+                </div>
+
+                <%if current_user.can_view_student_personal_info? %>
+                    <div class="field">
+                      <%= user_f.input :phone_number,label:"手机号",wrapper:false %>
+                    </div>
+                    <div class="field">
+                      <%= f.label "生日" %>
+                      <%= f.date_field :birth_day %>
+                    </div>
+                    <div class="field">
+                      <%= f.input :school ,label:"学校",wrapper:false%>
+                    </div>
+                <%end%>
+
+              </div>
+            </div>
+            <%if current_user.can_view_student_personal_info? %>
+                <div class="field">
+                  <div class="ui two fields">
+                        <div class="field">
+                          <%= user_f.input :identify_card,label:"身份证号",wrapper:false %>
+                        </div>
+
+                        <div class="field">
+                          <%= user_f.input :email ,label:"Email",wrapper:false%>
+                        </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="ui five fields">
+
+                    <div class="field">
+                      <%= user_f.input :tinypost_number ,label:"微信",wrapper:false%>
+                    </div>
+
+                    <div class="field">
+                      <%= user_f.input :qq_number ,label:"QQ",wrapper:false%>
+                    </div>
+                  </div>
+                </div>
+            <%end%>
+        <% end %>
+
+
+        <%if current_user.can_view_student_personal_info? %>
+            <div class="field">
+                <div class="ui five fields">
+                  <div class="field">
+                    <%= f.input :parent_name,label:"家长名称" ,wrapper:false%>
+                  </div>
+
+                  <div class="field">
+                    <%= f.input :parent_tel ,label:"家长电话",wrapper:false%>
+                  </div>
+
+                  <div class="field">
+                    <%= f.input :parent2_name,label:"家长名称2" ,wrapper:false%>
+                  </div>
+
+                  <div class="field">
+                    <%= f.input :parent2_tel ,label:"家长电话2",wrapper:false%>
+                  </div>
+                </div>
+            </div>
+        <%end%>
+
+        <h4 class="ui dividing teal header">学习背景</h4>
+        <div class="ui purple horizontal label">A.学习期望</div>
+        <div class="field">
+          <div class="ui five fields">
+            <div class="field">
+              <%= f.input :school_rank ,label:"申请学校排名",wrapper:false%>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="ui purple horizontal label">B.学习进度</div>
+        <br>
+        <div class="ui green circular label">
+          1.托福
+        </div>
+        <div class="field">
+          <div class="ui five fields">
+          <div class="field">
+            <%= f.input :total_toefl_times,label:"已考试次数",wrapper:false %>
+          </div>
+
+          <div class="field">
+            <%= f.input :expect_toefl_times, label:"之后希望考试的次数" ,wrapper:false%>
+          </div>
+        </div>
+        </div>
+
+        <div class="ui green circular label">
+          2.SAT
+        </div>
+        <div class="field">
+          <div class="ui two fields">
+          <div class="ui five fields">
+            <div class="field">
+              <%= f.input :total_sat_times,label:"已考试次数",wrapper:false %>
+            </div>
+          </div>
+        </div>
+        </div>
+
+
+        <div class="form-actions">
+          <%= f.button :submit ,'保存'%>
+          <% if current_user.can_manage_basic_data? %>
+              <%= link_to '返回到学员列表', students_path%>
+          <%end%>
+        </div>
+
+    <%end%>
+
+  </div>
+
+
+
+  <div class="column">
+  </div>
+</div>

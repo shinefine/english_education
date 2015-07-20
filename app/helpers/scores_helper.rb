@@ -12,9 +12,7 @@ module ScoresHelper
   end
 
   def wrap_scores_for_nvd3_chart(scores_2d_arr,training_class,current_user)
-
     return_arr=[]
-
     cr_scores = []
     math_scores = []
     writing_scores=[]
@@ -23,7 +21,6 @@ module ScoresHelper
     read_scores = []
 
     exam_type =training_class.exam_type
-
 
     scores_2d_arr.each do |arr_element|
         key_str=arr_element[0]

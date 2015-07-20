@@ -5,20 +5,16 @@
     <br>
 
     <%= f.fields_for(:user) do |user_f| %>
-
         <div class="ui five fields">
-            <div class="field">
-              <%= user_f.input :name,label:"名称" %>
-            </div>
-
           <div class="field">
-
-            <%= render 'shared/upload_user_photo', form_builder: user_f%>
-
+            <%= user_f.input :name,label:"名称" %>
           </div>
 
+          <div class="field">
+            <%= render 'shared/upload_user_photo', form_builder: user_f%>
+          </div>
         </div>
-          <div class="ui five fields">
+        <div class="ui five fields">
 
             <%if current_user.can_view_student_personal_info? %>
                 <div class="field">
@@ -42,10 +38,7 @@
               </div>
             <%end%>
         </div>
-
     <% end %>
-
-
 
     <%if current_user.can_view_student_personal_info? %>
         <div class="ui five fields">
@@ -77,9 +70,6 @@
           </div>
         </div>
     <%end%>
-
-
-
 
     <div class="ui red ribbon label">(二)  学习背景</div>
     <p></p>
@@ -119,13 +109,11 @@
     </div>
 
     <div class="ui two fields">
-    <div class="ui five fields">
-        <div class="field">
-          <%= f.input :total_sat_times,label:"已考试次数" %>
+        <div class="ui five fields">
+            <div class="field">
+              <%= f.input :total_sat_times,label:"已考试次数" %>
+            </div>
         </div>
-    </div>
-
-
     </div>
     <%if nil %>
         参加培训前做过的考题
