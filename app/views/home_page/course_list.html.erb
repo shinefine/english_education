@@ -27,13 +27,47 @@
           <div class="sub-title" style="text-align: left;"><%=simple_format(@course_description)%>
           </div>
         </div>
+        <% if @courses.count>0 %>
+            <div class="posts-grid posts-grid-3 clearfix">
+              <table class="ui celled selectable table">
+                <thead>
+                <tr><th>课程</th>
+                  <th>课时</th>
+                </tr></thead>
+                <tbody>
+                <%@courses.each do |course|%>
+                    <% 1+1 #render partial: "course", object: course  # 不再输出此内容,用表格替换%>
+                    <tr>
+                      <td class="positive"><%=course[:name]%></td>
+                      <td><%=course[:time_length]%></td>
+                    </tr>
+                <%end%>
+                </tbody>
+              </table>
+            </div>
+        <%end%>
+    <%else%>
+        <%@courses.group_by{|course| course[:category_code]}.each_pair do |key,values|%>
+            <table class="ui celled selectable table">
+              <thead>
+              <tr class="positive"><th colspan="2" >
+                <%=HomePageData.courseCategory_code2name[key.to_s] %>
+              </th>
+              <tr><th>课程</th>
+                <th>课时</th>
+              </tr></thead>
+              <tbody>
+              <%values.each do |course|%>
+                  <tr>
+                    <td class="positive"><%=course[:name]%></td>
+                    <td><%=course[:time_length]%></td>
+                  </tr>
+              <%end%>
+              </tbody>
+            </table>
+        <%end%>
     <%end%>
 
-    <div class="posts-grid posts-grid-3 clearfix">
-      <%@courses.each do |course|%>
-        <%= render partial: "course", object: course %>
-      <%end%>
 
-    </div>
-  </div>
+      </div>
 </section>
