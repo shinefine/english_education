@@ -1,20 +1,28 @@
 <article id="post-693" class="post-grid post-693 ib_educator_course type-ib_educator_course status-publish has-post-thumbnail hentry ib_educator_category-educator">
   <div class="post-thumb">
-    <a href="#"><img width="360" height="224" src="/demo_files/gear-to-success-360x224.jpg" class="attachment-ib-educator-grid wp-post-image" alt="Business Process" srcset="/demo_files/gear-to-success-360x224.jpg 360w, /demo_files/gear-to-success-360x224@2x.jpg 720w" sizes="(min-width: 768px) 360px, 96vw"></a>
+    <a href="#">
+      <img width="360" height="224"
+           src="/demo_files/<%=HomePageData.coursePic_imagecode2url[course[:image_code]]%>"
+           class="attachment-ib-educator-grid wp-post-image"
+           alt="Business Process"
+           srcset="/demo_files/<%=HomePageData.coursePic_imagecode2url[course[:image_code]]%> 360w, /demo_files/<%=HomePageData.coursePic_imagecode2url[course[:image_code]]%>@2x.jpg 720w"
+           sizes="(min-width: 768px) 360px, 96vw">
+    </a>
   </div>
 
   <div class="post-body">
     <h2 class="entry-title"><a href="#" rel="bookmark"><%= course[:name]%></a></h2>
     <div class="price">
-        开班日期:<%=course[:startDate]%>
+        开班日期:近期开班
     </div>
-    <div class="post-excerpt"><p>
-      <%=course[:description]%>
-    </p>
-    </div>
+    <!--<div class="post-excerpt">-->
+      <!--<p>-->
+      <!--<%=course[:description]%>-->
+      <!--</p>-->
+    <!--</div>-->
   </div>
 
   <footer class="post-meta">
-    <span class="num-lessons"><%=course[:weeks]%>周	</span><span class="difficulty"><%=course[:difficulty]%></span>
+    <span class="num-lessons">课时:<%=course[:time_length]%>	</span><span class="difficulty"><%=course[:rank]%></span>
   </footer>
 </article>

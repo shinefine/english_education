@@ -6,12 +6,25 @@
 #course-social-360x224.jpg
 #girl-with-computer-360x224.jpg
 #new-business-owner-360x224.jpg
-
+#students-recommend-360x224
 class HomePageData
   def self.all_courses
     courses_categoryCode2hash.values.map{|hash| hash.values}.flatten
   end
+
+  def self.coursePic_imagecode2url
+    {
+        1=>'gear-to-success-360x224.jpg',
+        2=>'idea-360x224.jpg',
+        3=>'course-investment-360x224.jpg',
+        4=>'students-recommend-360x224.jpg',
+        5=>'idea-360x224.jpg',
+    }
+  end
+
+
   def self.lecturers
+    #返回讲师集合
     lecturers ={
         1=>{
             id:1,
@@ -89,81 +102,97 @@ class HomePageData
         'TOEFL_IELTS_BASIC'=>{
             1=>{
                 id:1,
+                image_code:1,
                 name: '托福听力班',
                 category_code:'TOEFL_IELTS_BASIC',
                 teacherID: 1,
                 time_length:'8+4次课/16小时',
                 difficulty:'初级',
+                rank:'基础',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             2=>{
                 id:2,
+                image_code:1,
                 name: '托福阅读班',
                 category_code:'TOEFL_IELTS_BASIC',
                 teacherID: 1,
                 time_length:'6+3次课/12小时',
                 difficulty:'初级',
+                rank:'基础',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             3=>{
                 id:3,
+                image_code:1,
                 name: '托福口语班',
                 category_code:'TOEFL_IELTS_BASIC',
                 teacherID: 1,
                 time_length:'6+3次课/12小时',
                 difficulty:'初级',
+                rank:'基础',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             4=>{
                 id:4,
+                image_code:1,
                 name: '托福写作班',
                 category_code:'TOEFL_IELTS_BASIC',
                 teacherID: 1,
                 time_length:'6+4次课/12小时',
                 difficulty:'初级',
+                rank:'基础',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             5=>{
                 id:5,
+                image_code:1,
                 name: '雅思听力班',
                 category_code:'TOEFL_IELTS_BASIC',
                 teacherID: 1,
                 time_length:'6+3次课/12小时',
                 difficulty:'初级',
+                rank:'基础',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             6=>{
                 id:6,
+                image_code:1,
                 name: '雅思阅读班',
                 category_code:'TOEFL_IELTS_BASIC',
                 teacherID: 1,
                 time_length:'6+3次课/12小时',
                 difficulty:'初级',
+                rank:'基础',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             7=>{
                 id:7,
+                image_code:1,
                 name: '雅思口语班',
                 category_code:'TOEFL_IELTS_BASIC',
                 teacherID: 1,
                 time_length:'6+3次课/12小时',
                 difficulty:'初级',
+                rank:'基础',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             8=>{
                 id:8,
+                image_code:1,
                 name: '雅思写作班',
                 category_code:'TOEFL_IELTS_BASIC',
                 teacherID: 1,
                 time_length:'6+4次课/12小时',
                 difficulty:'初级',
+                rank:'基础',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
@@ -171,81 +200,97 @@ class HomePageData
         'TOEFL_IELTS_PLUS'=>{
             9=>{
                 id:9,
+                image_code:2,
                 name: '托福听力班',
                 category_code:'TOEFL_IELTS_PLUS',
                 teacherID: 1,
                 time_length:'10+5次课/20小时',
                 difficulty:'初级',
+                rank:'强化',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             10=>{
                 id:10,
+                image_code:2,
                 name: '托福阅读班',
                 category_code:'TOEFL_IELTS_PLUS',
                 teacherID: 1,
                 time_length:'8+4次课/16小时',
                 difficulty:'初级',
+                rank:'强化',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             11=>{
                 id:11,
+                image_code:2,
                 name: '托福口语班',
                 category_code:'TOEFL_IELTS_PLUS',
                 teacherID: 1,
                 time_length:'7+5次课/24小时',
                 difficulty:'初级',
+                rank:'强化',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             12=>{
                 id:12,
+                image_code:2,
                 name: '托福写作班',
                 category_code:'TOEFL_IELTS_PLUS',
                 teacherID: 1,
                 time_length:'7+4次课/22小时',
                 difficulty:'初级',
+                rank:'强化',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             13=>{
                 id:13,
+                image_code:2,
                 name: '雅思听力班',
                 category_code:'TOEFL_IELTS_PLUS',
                 teacherID: 1,
                 time_length:'10+5次课/20小时',
                 difficulty:'初级',
+                rank:'强化',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             14=>{
                 id:14,
+                image_code:2,
                 name: '雅思阅读班',
                 category_code:'TOEFL_IELTS_PLUS',
                 teacherID: 1,
                 time_length:'8+4次课/16小时',
                 difficulty:'初级',
+                rank:'强化',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             15=>{
                 id:15,
+                image_code:2,
                 name: '雅思口语班',
                 category_code:'TOEFL_IELTS_PLUS',
                 teacherID: 1,
                 time_length:'7+5次课/24小时',
                 difficulty:'初级',
+                rank:'强化',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             16=>{
                 id:16,
+                image_code:2,
                 name: '雅思写作班',
                 category_code:'TOEFL_IELTS_PLUS',
                 teacherID: 1,
                 time_length:'7+4次课/22小时',
                 difficulty:'初级',
+                rank:'强化',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
@@ -253,51 +298,56 @@ class HomePageData
         'SAT'=>{
             21=>{
                 id:21,
-                name: 'SAT词汇',
+                image_code:1,name: 'SAT词汇',
                 category_code:'SAT',
                 teacherID: 1,
                 time_length:'10次课/20小时',
                 difficulty:'中级',
+                rank:'基础',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             22=>{
                 id:22,
-                name: 'SAT阅读',
+                image_code:1,name: 'SAT阅读',
                 category_code:'SAT',
                 teacherID: 1,
                 time_length:'12次课/24小时',
                 difficulty:'初级',
+                rank:'基础',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             23=>{
                 id:23,
-                name: 'SAT语法',
+                image_code:1,name: 'SAT语法',
                 category_code:'SAT',
                 teacherID: 1,
                 time_length:'10次课/20小时',
                 difficulty:'初级',
+                rank:'基础',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             24=>{
                 id:24,
-                name: 'SAT写作',
+                image_code:1,name: 'SAT写作',
                 category_code:'SAT',
                 teacherID: 1,
                 time_length:'8次课/16小时',
                 difficulty:'初级',
+                rank:'基础',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             25=>{
                 id:25,
-                name: 'SAT数学',
+                image_code:1,name: 'SAT数学',
                 category_code:'SAT',
                 teacherID: 1,
                 time_length:'2次课/4小时',
                 difficulty:'初级',
+                rank:'基础',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
@@ -306,51 +356,61 @@ class HomePageData
         'SSAT'=>{
             31=>{
                 id:31,
+                image_code:4,
                 name: 'SSAT词汇',
                 category_code:'SAT',
                 teacherID: 1,
                 time_length:'10次课/20小时',
                 difficulty:'中级',
+                rank:'中级',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             32=>{
                 id:32,
+                image_code:4,
                 name: 'SSAT阅读',
                 category_code:'SSAT',
                 teacherID: 1,
                 time_length:'12次课/24小时',
                 difficulty:'初级',
+                rank:'中级',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             33=>{
                 id:33,
+                image_code:4,
                 name: 'SSAT语法',
                 category_code:'SSAT',
                 teacherID: 1,
                 time_length:'10次课/20小时',
                 difficulty:'初级',
+                rank:'中级',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             34=>{
                 id:34,
+                image_code:4,
                 name: 'SSAT写作',
                 category_code:'SSAT',
                 teacherID: 1,
                 time_length:'8次课/16小时',
                 difficulty:'初级',
+                rank:'中级',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
             35=>{
                 id:35,
+                image_code:4,
                 name: 'SSAT数学',
                 category_code:'SSAT',
                 teacherID: 1,
                 time_length:'6次课/12小时',
                 difficulty:'初级',
+                rank:'中级',
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },

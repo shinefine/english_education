@@ -38,8 +38,9 @@ class HomePageController < ApplicationController
     @category_code =params[:category].upcase
 
     @courseCategory_code2name =HomePageData.courseCategory_code2name
+
     @courses = HomePageData.all_courses
-    @courses = (HomePageData.courses_categoryCode2hash[@category_code].try(:values)  unless @category_code =='ALL' )||{}
+    @courses = (HomePageData.courses_categoryCode2hash[@category_code].try(:values) )||{}  unless @category_code =='ALL'
 
     @course_description=HomePageData.course_code2description[@category_code]
 
