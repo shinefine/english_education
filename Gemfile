@@ -59,7 +59,7 @@ gem 'mysql2', '~> 0.3.16'
 gem 'simple_form'
 
 #分页
-gem 'kaminari','~> 0.16.1'
+gem 'kaminari','0.16.3'
 
 # 表格功能增强  bundle install 之后需要 rails g wice_grid:install ，项目内需要引用js文件 //= require wice_grid  （需要jquery支持）
 gem 'wice_grid', '3.4.7'

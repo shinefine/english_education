@@ -6,6 +6,7 @@ class StudentsController < ApplicationController
 
   before_action :set_years_and_months,only: [:new, :edit,:set_real_scores,:set_entry_and_target_scores]
 
+  I18n.locale = I18n.default_locale
 
   # GET /students
   # GET /students.json

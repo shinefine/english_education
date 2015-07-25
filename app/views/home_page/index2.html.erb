@@ -9,9 +9,9 @@
           <div class="container">
             <div class="caption-inner"><h2 class="slide-title"><%=@school_name%></h2>
 
-              <div class="slide-description">这里是学校口号标语</div>
+              <div class="slide-description">致力于国外考试TOEFL，IELTS，Sat，SSAT，AP，ACT，国外名校高中衔接课程等教学和考试技能开发。</div>
               <div class="buttons">
-                <a class="button button-white" href="#" target="_blank">详细说明</a></div>
+                <a class="button button-white" href="#" target="_blank">更多信息</a></div>
             </div>
           </div>
         </div>
@@ -22,12 +22,10 @@
         </div>
         <div class="slide-caption light left" style="top: 149px;">
           <div class="container">
-            <div class="caption-inner"><h2 class="slide-title">标题2</h2>
+            <div class="caption-inner"><h2 class="slide-title">教师师资</h2>
 
-              <div class="slide-description">Nam libero tempore, cum soluta nobis est eligendi</div>
-              <div class="buttons">
-                <a class="button button-white" href="#" target="_blank">详细</a>
-              </div>
+              <div class="slide-description">主创团队由四川留学和培训行业超过10年的资深导师组建</div>
+
             </div>
           </div>
         </div>
@@ -38,11 +36,8 @@
         </div>
         <div class="slide-caption light left" style="top: 149px;">
           <div class="container">
-            <div class="caption-inner"><h2 class="slide-title">标题3</h2>
-
-              <div class="slide-description">Neque porro quisquam est, qui dolorem ipsum quia</div>
-              <div class="buttons">
-                <a class="button button-white" href="#" target="_self">了解详细</a></div>
+            <div class="caption-inner"><h2 class="slide-title">辅课模式</h2>
+              <div class="slide-description">让孩子课余外还有老师跟进作业完成，单词听写等，让孩子可以充分吸收当天的学习内容</div>
             </div>
           </div>
         </div>
@@ -109,205 +104,32 @@
 <div class="entry-content">
 <div class="title1 clearfix">
   <div class="text">
-    <h2>Latest Courses</h2>
+    <h2>近期课程</h2>
   </div>
   <div class="sub-title">
-    <%= link_to '查看所有课程', courseList_path %>
+    <%= link_to '查看所有课程', courseList_path(category:'all') %>
    </div>
 </div>
-
-  <div class="title1 clearfix">
-    <div class="text"><h2>近期课程</h2></div>
-  </div>
   <div class="dm3-tabs-testimonials" data-autoscroll="8">
     <div class="entry-content dm3-tabs" style="height: 334px;">
-      <div class="dm3-tab" style="position: absolute; left: 0px; width: 100%; display: none; opacity: 0;">
-        <div class="dm3-tab-inner">
-          <article class="post-grid post-142 ib_educator_course type-ib_educator_course status-publish has-post-thumbnail hentry ib_educator_category-business ib_educator_category-entrepreneurship">
-            <div class="post-thumb">
-              <a href="#"><img width="360" height="224" src="./demo_files/bookshop-managers-360x224.jpg" class="attachment-ib-educator-grid wp-post-image" alt="Online Bookshop" srcset="http://educator.incrediblebytes.com/wp-content/uploads/2014/10/bookshop-managers-360x224.jpg 360w, http://educator.incrediblebytes.com/wp-content/uploads/2014/10/bookshop-managers-360x224@2x.jpg 720w" sizes="(min-width: 768px) 360px, 96vw"></a>
+
+      <% @lastest_9_Courses.each_with_index do |course,index | %>
+        <%if (index + 1) % 3 == 1%>
+            <div class="dm3-tab" style="position: absolute; left: 0px; width: 100%; display: block; opacity: 1;">
+            <div class="dm3-tab-inner">
+        <%end%>
+
+          <%= render partial: "course", object: course %>
+
+
+
+        <%if (index + 1) %3 == 0 %>
             </div>
-            <div class="post-body"><h2 class="entry-title">
-              <a href="#">SAT 起步
-              </a></h2>
-
-              <div class="price">$ 9.99</div>
-              <div class="post-excerpt">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                  labore et dolore magna aliqua.</p>
-              </div>
             </div>
-            <footer class="post-meta">
-              <span class="num-lessons">3 周课时</span><span class="difficulty">初学者</span>
+        <%end%>
 
+      <%end%>
 
-            </footer>
-          </article>
-          <article class="post-grid post-691 ib_educator_course type-ib_educator_course status-publish has-post-thumbnail hentry ib_educator_category-entrepreneurship">
-
-            <div class="post-thumb">
-              <a href="#"><img width="360" height="224" src="./demo_files/idea-360x224.jpg" class="attachment-ib-educator-grid wp-post-image" alt="Dream" srcset="http://educator.incrediblebytes.com/wp-content/uploads/2014/10/idea-360x224.jpg 360w, http://educator.incrediblebytes.com/wp-content/uploads/2014/10/idea-360x224@2x.jpg 720w" sizes="(min-width: 768px) 360px, 96vw"></a>
-            </div>
-            <div class="post-body"><h2 class="entry-title">
-              <a href="#">Toefl 中级</a></h2>
-
-              <div class="price">$ 50</div>
-              <div class="post-excerpt">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                  labore et dolore magna aliqua.</p>
-              </div>
-            </div>
-            <footer class="post-meta"><span class="difficulty">中级</span>
-
-
-            </footer>
-          </article>
-          <article class="post-grid post-233 ib_educator_course type-ib_educator_course status-publish has-post-thumbnail hentry ib_educator_category-business ib_educator_category-statistics">
-            <div class="post-thumb">
-              <a href="#"><img width="360" height="224" src="./demo_files/course-investment-360x224.jpg" class="attachment-ib-educator-grid wp-post-image" alt="Diagrams" srcset="http://educator.incrediblebytes.com/wp-content/uploads/2014/10/course-investment-360x224.jpg 360w, http://educator.incrediblebytes.com/wp-content/uploads/2014/10/course-investment-360x224@2x.jpg 720w" sizes="(min-width: 768px) 360px, 96vw"></a>
-            </div>
-            <div class="post-body"><h2 class="entry-title">
-              <a href="#">商业分析</a></h2>
-
-              <div class="price">$ 30</div>
-              <div class="post-excerpt">
-                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-                  voluptatum deleniti.</p>
-              </div>
-            </div>
-            <footer class="post-meta"><span class="num-lessons">4 周课时</span>
-
-            </footer>
-          </article>
-
-        </div>
-      </div>
-      <div class="dm3-tab" style="position: absolute; left: 0px; width: 100%; display: block; opacity: 1;">
-        <div class="dm3-tab-inner">
-          <article class="post-grid post-689 ib_educator_course type-ib_educator_course status-publish has-post-thumbnail hentry ib_educator_category-business">
-            <div class="post-thumb">
-              <a href="#"><img width="360" height="224" src="./demo_files/course-investment-360x224.jpg" class="attachment-ib-educator-grid wp-post-image" alt="Diagrams" srcset="http://educator.incrediblebytes.com/wp-content/uploads/2014/10/course-investment-360x224.jpg 360w, http://educator.incrediblebytes.com/wp-content/uploads/2014/10/course-investment-360x224@2x.jpg 720w" sizes="(min-width: 768px) 360px, 96vw"></a>
-            </div>
-            <div class="post-body"><h2 class="entry-title">
-              <a href="#">Course With Vimeo
-                Video</a></h2>
-
-              <div class="price">$ 90</div>
-              <div class="post-excerpt">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                  labore et dolore magna aliqua.</p>
-              </div>
-            </div>
-            <footer class="post-meta">
-              <span class="num-lessons">2 周课时</span><span class="difficulty">Intermediate</span>
-
-
-            </footer>
-          </article>
-          <article class="post-grid post-231 ib_educator_course type-ib_educator_course status-publish has-post-thumbnail hentry ib_educator_category-business ib_educator_category-entrepreneurship">
-            <div class="post-thumb">
-              <a href="#"><img width="360" height="224" src="./demo_files/course-business-360x224.jpg" class="attachment-ib-educator-grid wp-post-image" alt="Success" srcset="http://educator.incrediblebytes.com/wp-content/uploads/2014/10/course-business-360x224.jpg 360w, http://educator.incrediblebytes.com/wp-content/uploads/2014/10/course-business-360x224@2x.jpg 720w" sizes="(min-width: 768px) 360px, 96vw"></a>
-            </div>
-            <div class="post-body"><h2 class="entry-title">
-              <a href="#">Web Design Business</a>
-            </h2>
-
-              <div class="price">￥ 1200</div>
-              <div class="post-excerpt">
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                  laudantium, totam rem aperiam, eaque ipsa quae.</p>
-              </div>
-            </div>
-            <footer class="post-meta">
-              <span class="num-lessons">3 周课时</span><span class="difficulty">中级</span>
-
-
-            </footer>
-          </article>
-          <article class="post-grid post-161 ib_educator_course type-ib_educator_course status-publish has-post-thumbnail hentry ib_educator_category-educator">
-            <div class="post-thumb">
-              <a href="#"><img width="360" height="224" src="./demo_files/idea-360x224.jpg" class="attachment-ib-educator-grid wp-post-image" alt="Dream" srcset="http://educator.incrediblebytes.com/wp-content/uploads/2014/10/idea-360x224.jpg 360w, http://educator.incrediblebytes.com/wp-content/uploads/2014/10/idea-360x224@2x.jpg 720w" sizes="(min-width: 768px) 360px, 96vw"></a>
-            </div>
-            <div class="post-body"><h2 class="entry-title">
-              <a href="#">Online Advertising</a>
-            </h2>
-
-              <div class="price">Free</div>
-              <div class="post-excerpt">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                  labore et dolore magna aliqua.</p>
-              </div>
-            </div>
-            <footer class="post-meta"><span class="num-lessons">2 周课时</span>
-
-
-            </footer>
-          </article>
-
-        </div>
-      </div>
-      <div class="dm3-tab" style="position: absolute; left: 0px; width: 100%; display: none; opacity: 0;">
-        <div class="dm3-tab-inner">
-          <article class="post-grid post-237 ib_educator_course type-ib_educator_course status-publish has-post-thumbnail hentry ib_educator_category-business">
-            <div class="post-thumb">
-              <a href="#"><img width="360" height="224" src="./demo_files/course-social-360x224.jpg" class="attachment-ib-educator-grid wp-post-image" alt="Image #3 caption" srcset="http://educator.incrediblebytes.com/wp-content/uploads/2014/10/course-social-360x224.jpg 360w, http://educator.incrediblebytes.com/wp-content/uploads/2014/10/course-social-360x224@2x.jpg 720w" sizes="(min-width: 768px) 360px, 96vw"></a>
-            </div>
-            <div class="post-body"><h2 class="entry-title">
-              <a href="#">Social Media</a></h2>
-
-              <div class="price">Free</div>
-              <div class="post-excerpt">
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                  commodo consequat.</p>
-              </div>
-            </div>
-            <footer class="post-meta">
-              <span class="num-lessons">2 周课时</span><span class="difficulty">Beginner</span>
-
-
-            </footer>
-          </article>
-          <article class="post-grid post-235 ib_educator_course type-ib_educator_course status-publish has-post-thumbnail hentry ib_educator_category-business ib_educator_category-statistics">
-            <div class="post-thumb">
-              <a href="#"><img width="360" height="224" src="./demo_files/girl-with-computer-360x224.jpg" class="attachment-ib-educator-grid wp-post-image" alt="Working" srcset="http://educator.incrediblebytes.com/wp-content/uploads/2014/10/girl-with-computer-360x224.jpg 360w, http://educator.incrediblebytes.com/wp-content/uploads/2014/10/girl-with-computer-360x224@2x.jpg 720w" sizes="(min-width: 768px) 360px, 96vw"></a>
-            </div>
-            <div class="post-body"><h2 class="entry-title">
-              <a href="#">Data Analysis</a></h2>
-
-              <div class="price">$ 30</div>
-              <div class="post-excerpt">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                  labore et dolore magna aliqua.</p>
-              </div>
-            </div>
-            <footer class="post-meta"><span class="num-lessons">3 周课时</span>
-
-
-            </footer>
-          </article>
-          <article class="post-grid post-155 ib_educator_course type-ib_educator_course status-publish has-post-thumbnail hentry ib_educator_category-educator ib_educator_category-wordpress">
-            <div class="post-thumb">
-              <a href="#"><img width="360" height="224" src="./demo_files/new-business-owner-360x224.jpg" class="attachment-ib-educator-grid wp-post-image" alt="new-business-owner" srcset="http://educator.incrediblebytes.com/wp-content/uploads/2014/10/new-business-owner-360x224.jpg 360w, http://educator.incrediblebytes.com/wp-content/uploads/2014/10/new-business-owner-360x224@2x.jpg 720w" sizes="(min-width: 768px) 360px, 96vw"></a>
-            </div>
-            <div class="post-body"><h2 class="entry-title">
-              <a href="#">Introduction to
-                Educator</a></h2>
-
-              <div class="price">Free</div>
-              <div class="post-excerpt">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                  labore et dolore magna aliqua.</p>
-              </div>
-            </div>
-            <footer class="post-meta"><span class="num-lessons">6 周课时</span>
-
-
-            </footer>
-          </article>
-
-        </div>
-      </div>
     </div>
     <ul class="dm3-tabs-nav">
       <li class=""><a href="#">1</a></li>
@@ -330,67 +152,142 @@
   <div class="container clearfix">
     <div class="entry-content">
       <div class="title1 clearfix">
-        <div class="text"><h2>赛尔教育</h2></div>
-        <div class="sub-title">了解赛尔教育的几大优势</div>
+        <div class="text"><h2><%=@school_name%></h2></div>
+        <div class="sub-title">了解<%=@school_name%>的几大优势</div>
       </div>
       <div class="dm3-one-third">
-        <h3>一对一教学指导</h3>
 
-        <p>我们针对学员提供一对一教学指导.详细信息..........</p>
-        <ul>
-          <li><a href="#" >Visit Educator WP on WordPress.org&nbsp;»</a>
-          </li>
-          <li><a href="#">View Educator WP
-            Documentation&nbsp;»</a></li>
-          <li>
-            <a href="#">How Educator WP Works&nbsp;»</a>
-          </li>
-        </ul>
+        <p>成都睿希国际教育，主创团队由四川留学和培训行业超过10年的资深导师组建。团队致力于国外考试TOEFL，IELTS，Sat，SSAT，AP，ACT，国外名校高中衔接课程等教学和考试技能开发。
+
+          </p>
+        <p>
+          睿希国际教育区别于其他培训机构特点为：</p>
       </div>
+
+
       <div class="dm3-two-third dm3-column-last">
         <div class="dm3-accordion">
+
+
           <div class="dm3-collapse-item dm3-collapse-open">
-            <div class="dm3-collapse-trigger">
-              <a href="#">Add Quiz to Any Lesson</a></div>
-            <div class="dm3-collapse-body dm3-in dm3-collapse" style="height: 70px;">
-              <div class="dm3-collapse-inner">Educator WP supports two types of questions: multiple choice and written
-                answer. Quizzes can be graded automatically or manually by a lecturer.
+            <div class="dm3-collapse-trigger"><a href="#">成绩反馈</a>
+            </div>
+
+            <div class="dm3-collapse-body dm3-in  dm3-collapse">
+              <div class="dm3-collapse-inner">
+                <div class="dm3-info dm3-alert-success">
+                  睿希教育:
+                  <br/>
+                  学生有自己一对一的班主任，班主任每周及时跟家长沟通反馈在校学习状况，心里状态，家长放心，让孩子快乐学习
+                </div>
+                <div class="dm3-info dm3-alert-warning">
+                  其他培训机构:
+                  <br/>
+                  大型机构没有老师跟进孩子学习，学习完了没有任何反馈就结束。
+                </div>
               </div>
+
             </div>
           </div>
           <div class="dm3-collapse-item">
-            <div class="dm3-collapse-trigger"><a href="#">收费方式</a>
+            <div class="dm3-collapse-trigger"><a href="#">学习和作业消化</a>
             </div>
+
             <div class="dm3-collapse-body dm3-collapse">
-              <div class="dm3-collapse-inner">我们支持三种收费方式: 信用卡, 现金以及银行转账:)
+              <div class="dm3-collapse-inner">
+                <div class="dm3-info dm3-alert-success">
+                  睿希教育:
+                  <br/>
+                  睿希的辅课模式，让孩子课余外还有老师跟进作业完成，单词听写等，让孩子可以充分吸收当天的学习内容
+                </div>
+                <div class="dm3-info dm3-alert-warning">
+                  其他培训机构:
+                  <br/>
+                  很多机构辅课要收费，或者辅课老师英文程度低，没有办法辅导作业和听写单词等
+                </div>
               </div>
+
+            </div>
+          </div>
+
+          <div class="dm3-collapse-item">
+            <div class="dm3-collapse-trigger"><a href="#">教学研讨频率</a>
+            </div>
+
+            <div class="dm3-collapse-body dm3-collapse">
+              <div class="dm3-collapse-inner">
+                <div class="dm3-info dm3-alert-success">
+                  睿希教育:
+                  <br/>
+                  每周教学团队定期磨课和研讨，根据最新的考试趋势，不同年龄阶段的孩子的能动性和性格特色，老师的特长，研发自己特色的教学模式和考试技能
+                </div>
+                <div class="dm3-info dm3-alert-warning">
+                  其他培训机构:
+                  <br/>
+                  大机构基本人多流动性大，一两个月都不研讨教学，小机构大多是兼职老师，也没有时间做教学研讨
+                </div>
+              </div>
+
             </div>
           </div>
           <div class="dm3-collapse-item">
-            <div class="dm3-collapse-trigger"><a href="#">Email Notifications</a>
+            <div class="dm3-collapse-trigger"><a href="#">教师师资</a>
             </div>
+
             <div class="dm3-collapse-body dm3-collapse">
-              <div class="dm3-collapse-inner">Students receive email notifications. You can configure templates of
-                email notifications from admin panel.
+              <div class="dm3-collapse-inner">
+                <div class="dm3-info dm3-alert-success">
+                  睿希教育:
+                  <br/>
+                  主创团队超过10年留学和培训行业经验，资深教学团队业内3-5年以上教龄，很多是海外工作或学习的老师
+                </div>
+                <div class="dm3-info dm3-alert-warning">
+                  其他培训机构:
+                  <br/>
+                  部分为国内英文专业毕业生，教龄低于3年，师资参差不齐
+                </div>
               </div>
+
             </div>
           </div>
           <div class="dm3-collapse-item">
-            <div class="dm3-collapse-trigger">
-              <a href="#">Roles for Lecturers and Students</a></div>
+            <div class="dm3-collapse-trigger"><a href="#">教学进度和课程设置</a>
+            </div>
+
             <div class="dm3-collapse-body dm3-collapse">
-              <div class="dm3-collapse-inner">Students and lecturers have different roles – lecturer, student.
-                Lecturers can create courses and add grades.
+              <div class="dm3-collapse-inner">
+                <div class="dm3-info dm3-alert-success">
+                  睿希教育:
+                  <br/>
+                  我们根据孩子的模考成绩，分阶段安排教学，在上课的过程中，老师也根据孩子听课的反应和反馈及时调整教学进度和难度
+                </div>
+                <div class="dm3-info dm3-alert-warning">
+                  其他培训机构:
+                  <br/>
+                  流程化模板教学，在一开始就安排全程教学计划，中途严格跟着计划走，呈现模式化
+                </div>
               </div>
+
             </div>
           </div>
           <div class="dm3-collapse-item">
-            <div class="dm3-collapse-trigger"><a href="#">Course Categories</a>
+            <div class="dm3-collapse-trigger"><a href="#">费用性价比</a>
             </div>
+
             <div class="dm3-collapse-body dm3-collapse">
-              <div class="dm3-collapse-inner">Categorize courses to make it easier for students to find what they
-                need.
+              <div class="dm3-collapse-inner">
+                <div class="dm3-info dm3-alert-success">
+                  睿希教育:
+                  <br/>
+                  我们的课程费用比很多大型机构低，但是老师全部是3年以上优秀教师教学，此外，除了正课外，赠送学生每日辅课，学生可以在学校有充分时间学习和消化
+                </div>
+                <div class="dm3-info dm3-alert-warning">
+                  其他培训机构:
+                  <br/>
+                  大机构正课收费高，没有辅课，小机构有辅课，老师不能帮助学生学习
+                </div>
               </div>
+
             </div>
           </div>
         </div>

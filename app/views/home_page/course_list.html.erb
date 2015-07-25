@@ -5,27 +5,29 @@
 
     </div>
     <div id="courses-filter" class="clearfix">
-      <div class="drop-down">
+      <div class="drop-down" >
         <a href="#">
-          <span class="text">分类</span>
+          <span class="text" style="width:200px;"><%=@courseCategory_code2name[@category_code]%></span>
           <span class="icon"></span>
         </a>
         <ul>
+          <% @courseCategory_code2name.keys.each  do |courseCategoryCode|%>
           <li>
-            <a href="./course_list?category=ALL">全部课程</a>
+            <a href="./course_list?category=<%=courseCategoryCode %>"><%=@courseCategory_code2name[courseCategoryCode]%></a>
           </li>
-          <li>
-            <a href="./course_list?category=TOEFL">TOEFL</a>
-          </li>
-          <li>
-            <a href="./course_list?category=SAT">SAT</a>
-          </li>
-          <li>
-            <a href="./course_list?category=IELTS">IELTS</a>
-          </li>
+          <%end%>
         </ul>
       </div>
     </div>
+
+    <%if @category_code!='ALL'%>
+        <div class="title1 clearfix" >
+          <div class="text"><h4>课程特色</h4></div>
+
+          <div class="sub-title" style="text-align: left;"><%=simple_format(@course_description)%>
+          </div>
+        </div>
+    <%end%>
     <div class="posts-grid posts-grid-3 clearfix">
       <%@courses.each do |course|%>
         <%= render partial: "course", object: course %>
