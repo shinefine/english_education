@@ -4,7 +4,7 @@ edu_school: &edu_school
   home_page_view_name: 'index'
   home_page_layout_name: false
 
-#  school_name: '塞尔教育'
+#  school_name: '成都睿希国际教育'
 #  home_page_view_name: 'index2'
 #  home_page_layout_name: 'home_page_demo_layout'
 

@@ -10,7 +10,8 @@ class HomePageController < ApplicationController
 
   def index
 
-    @lastest_9_Courses=HomePageData.all_courses.shuffle.take 9
+    #@lastest_9_Courses=HomePageData.all_courses.shuffle.take 9
+    @courses = HomePageData.all_courses
     render SchoolSettings.home_page_view_name
   end
 

@@ -98,69 +98,56 @@
   </div>
 </section>
 
-<!--培训班课程介绍 段-->
-<section class="section-content">
+<%if nil #课程这部分不显示在首页上%>
+    <section class="section-content">
 
 <div class="container clearfix">
+
     <div class="entry-content">
-        <div class="title1 clearfix">
-          <div class="text">
-            <h2>课程</h2>
-          </div>
-        </div>
-        <div class="dm3-accordion">
-        <%HomePageData.courseCategory_code2name.each_pair do|key_code,value_name|%>
-           <%courses =(HomePageData.courses_categoryCode2hash[key_code].try(:values) )||{} %>
+    <div class="title1 clearfix">
+      <div class="text">
+        <h2>近期课程</h2>
+      </div>
+      <div class="sub-title">
+        <%= link_to '查看所有课程', courseList_path(category:'all') %>
+       </div>
+    </div>
+      <div class="dm3-tabs-testimonials" data-autoscroll="8">
+        <div class="entry-content dm3-tabs" style="height: 334px;">
 
-            <div class="dm3-collapse-item dm3-collapse-open">
-              <div class="dm3-collapse-trigger">
-                <a href="#" style="background-color: #cff7ff;"><h3 style="color: #9f1d1d;"> <%=value_name%></h3></a>
-              </div>
-              <div class="dm3-collapse-body dm3-in  dm3-collapse">
-                <div class="dm3-collapse-inner">
-                  <div style="color:#86ddef;">
-                    <%=simple_format(HomePageData.course_code2descriptionB[key_code])%>
-                  </div>
-                  <div class="title1 clearfix" style="text-align: left;" >
-                    <div class="text"><h4>课程特色</h4></div>
+          <% @lastest_9_Courses.each_with_index do |course,index | %>
+            <%if (index + 1) % 3 == 1%>
+                <div class="dm3-tab" style="position: absolute; left: 0px; width: 100%; display: block; opacity: 1;">
+                <div class="dm3-tab-inner">
+            <%end%>
 
-                    <div class="sub-title" style="text-align: left; margin: 0;"><%=simple_format(HomePageData.course_code2description[key_code])%>
-                    </div>
-                  </div>
-                  <% if courses.length>0%>
-                      <table class="ui celled selectable table">
-                        <thead>
-                        <tr>
-                          <th>课程</th>
-                          <th>课时</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <%courses.each do |course|%>
-                            <tr>
-                              <td class="positive"><%=course[:name]%></td>
-                              <td><%=course[:time_length]%></td>
-                            </tr>
-                        <%end%>
-                        </tbody>
-                      </table>
-                  <%end%>
+              <%= render partial: "course", object: course %>
+
+            <%if (index + 1) %3 == 0 %>
                 </div>
+                </div>
+            <%end%>
 
-              </div>
-            </div>
+          <%end%>
 
-
-        <%end%>
-
-
+        </div>
+        <ul class="dm3-tabs-nav">
+          <li class=""><a href="#">1</a></li>
+          <li class=""><a href="#">2</a></li>
+          <li class=""><a href="#">3</a></li>
+        </ul>
       </div>
     </div>
 </div>
 </section>
-
+<%end%>
 <!--讲师介绍 区域-->
+
 <%= render 'home_page/partical_lecturers', locals: {lecturers: @lecturers} %>
+
+
+
+
 <section class="section-content">
   <div class="container clearfix">
     <div class="entry-content">
@@ -168,12 +155,24 @@
         <div class="text"><h2><%=@school_name%></h2></div>
         <div class="sub-title">了解<%=@school_name%>的几大优势</div>
       </div>
+      <div class="dm3-one-third">
+
+        <p>成都睿希国际教育，主创团队由四川留学和培训行业超过10年的资深导师组建。团队致力于国外考试TOEFL，IELTS，Sat，SSAT，AP，ACT，国外名校高中衔接课程等教学和考试技能开发。
+
+          </p>
+        <p>
+          睿希国际教育区别于其他培训机构特点为：</p>
+      </div>
+
+
+      <div class="dm3-two-third dm3-column-last">
+
           <table class="ui celled  selectable table">
             <thead>
             <tr>
               <th style="width: 20%">
-              <th style="width: 40%"><h3>睿希教育</h3></th>
-              <th><h3>其他培训机构</h3></th>
+              <th style="width: 40%">睿希教育</th>
+              <th>其他培训机构</th>
             </tr></thead>
             <tbody>
             <%HomePageData.school_compareInfo.each_pair do |key_str,value_arr|%>
@@ -187,6 +186,35 @@
             </tbody>
           </table>
 
+
+        <div class="dm3-accordion">
+          <%HomePageData.school_compareInfo.each_pair do |key_str,value_arr|%>
+
+
+            <div class="dm3-collapse-item dm3-collapse-open">
+            <div class="">
+              <a href="#"><%=key_str%></a>
+            </div>
+            <div class="dm3-collapse-body dm3-in  dm3-collapse">
+              <div class="dm3-collapse-inner">
+                <div class="dm3-info dm3-alert-success">
+                  睿希教育:
+                  <br/>
+                  <%=value_arr[0]%>
+                </div>
+                <div class="dm3-info dm3-alert-warning">
+                  其他培训机构:
+                  <br/>
+                  <%=value_arr[1]%>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <%end%>
+
+        </div>
+      </div>
       <div class="clear"></div>
     </div>
   </div>

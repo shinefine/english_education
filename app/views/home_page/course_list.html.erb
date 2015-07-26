@@ -21,10 +21,14 @@
     </div>
 
     <%if @category_code!='ALL'%>
-        <div class="title1 clearfix" >
+        <div style="color:#86ddef;">
+          <%=simple_format(HomePageData.course_code2descriptionB[@category_code])%>
+        </div>
+        <div class="title1 clearfix" style="text-align: left;">
           <div class="text"><h4>课程特色</h4></div>
 
-          <div class="sub-title" style="text-align: left;"><%=simple_format(@course_description)%>
+          <div class="sub-title" style="text-align: left;margin: 0;">
+            <%=simple_format(@course_description)%>
           </div>
         </div>
         <% if @courses.count>0 %>

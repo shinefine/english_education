@@ -57,16 +57,36 @@ class HomePageData
 
   def self.courseCategory_code2name
     {
-        'ALL'=> '全部课程',
         'TOEFL_IELTS_BASIC'=>'托福雅思基础课程',
         'TOEFL_IELTS_PLUS'=>'托福雅思强化冲刺课程',
         'TPO_EXERCISES'=>'TPO真题模考实战',
         'SAT'=>'SAT课程',
         'SSAT'=>'SSAT课程',
+        'HIGHSCHOOL_LINK'=>'美高衔接课程',
     }
 
   end
 
+  def self.course_code2descriptionB
+    {
+        'TOEFL_IELTS_BASIC'=>'适合英语水平薄弱、词汇量未达到3500的学员，
+    雅思分数体现在3.5，托福分数40分的初阶学习者。
+    课程目标以实现学员有能力进入雅思或者托福考试备考阶段。',
+
+        'TOEFL_IELTS_PLUS'=>'适合具备听、说、读、写基础备考能力的学员，雅思达到4-5.5分、托福达到45-65分的学习者。课程目标以实现学员有能力冲刺雅思6.0以上，托福80以上的优秀分数。',
+
+        'TPO_EXERCISES'=>'适合完成了雅思，托福，SAT考试技巧训练，有一定基础，近期内有考试计划的学员。',
+
+        'SAT'=>'适合托福达到75分，雅思达到6.0以上的学员，课程目标以实现学生词汇量10000以上，全面掌握SAT备考要求。',
+
+        'SSAT'=>'适合词汇量实现3500以上的学员。课程目标以实现学员词汇量6000以上，全面掌握SSAT以及接轨美国高中的语言能力。',
+
+        'HIGHSCHOOL_LINK'=>'适合将要去英语国家留学的低龄留学生。',
+
+
+
+    }
+  end
   def self.course_code2description
     #课程的 介绍信息
     {
@@ -93,10 +113,42 @@ class HomePageData
         'SSAT'=>'1.      成都市一流师资，拥有3年以上教学经验，熟悉低龄教学管理和心理辅导，避免了孩子年龄小，自觉性不强的特点
 2.      主课+辅课的学习模式，避免了学生在家无人看管的状态，课后更有辅课老师免费辅导作业和抽查词汇
 3.      班主任老师每周跟进学生状况，及时反馈家长，让家长省钱省心，跟孩子分享心得，让孩子快乐学习
-4.      报名前测试，制定个性化的教学方案，课程中，根据孩子的情况，及时调整教学进度和难度，让孩子最大化吸收'
+4.      报名前测试，制定个性化的教学方案，课程中，根据孩子的情况，及时调整教学进度和难度，让孩子最大化吸收',
+
+
+        'HIGHSCHOOL_LINK'=>'1.帮助小留学生在出国前缩小中美文化差距，提前适应美国高中生活。
+2. 减轻学生及家长的分离焦虑，建立学生出国后学习的自信。
+3. 授课老师具有海外学习经历及所授课程背景，拥有3年以上教学经验，熟悉低龄教学管理和心理辅导，避免了孩子年龄小，自觉性不强的问题。
+4.主课+辅课的学习模式，避免了学生在家无人看管的状态，课后更有辅课老师免费辅导作业和抽查词汇；
+5.班主任老师每周跟进学生状况，及时反馈家长，让家长省钱省心，跟孩子分享心得，让孩子快乐学习
+6报名前测试，制定个性化的教学方案，课程中，根据孩子的情况，及时调整教学进度和难
+',
 
     }
   end
+
+  def self.school_compareInfo
+    {
+        '成绩反馈'=>['学生有自己一对一的班主任，班主任每周及时跟家长沟通反馈在校学习状况，心里状态，家长放心，让孩子快乐学习',
+                  '大型机构没有老师跟进孩子学习，学习完了没有任何反馈就结束。'],
+
+        '学习和作业消化'=>['睿希的辅课模式，让孩子课余外还有老师跟进作业完成，单词听写等，让孩子可以充分吸收当天的学习内容',
+                 '很多机构辅课要收费，或者辅课老师英文程度低，没有办法辅导作业和听写单词等'],
+
+        '教学研讨频率'=>['每周教学团队定期磨课和研讨，根据最新的考试趋势，不同年龄阶段的孩子的能动性和性格特色，老师的特长，研发自己特色的教学模式和考试技能',
+                 '大机构基本人多流动性大，一两个月都不研讨教学，小机构大多是兼职老师，也没有时间做教学研讨']    ,
+
+        '教师师资'=>['主创团队超过10年留学和培训行业经验，资深教学团队业内3-5年以上教龄，很多是海外工作或学习的老师',
+                 '部分为国内英文专业毕业生，教龄低于3年，师资参差不齐'],
+
+        '教学进度和课程设置'=>['我们根据孩子的模考成绩，分阶段安排教学，在上课的过程中，老师也根据孩子听课的反应和反馈及时调整教学进度和难度',
+                 '流程化模板教学，在一开始就安排全程教学计划，中途严格跟着计划走，呈现模式化'],
+
+        '费用性价比'=>['我们的课程费用比很多大型机构低，但是老师全部是3年以上优秀教师教学，此外，除了正课外，赠送学生每日辅课，学生可以在学校有充分时间学习和消化',
+                 '大机构正课收费高，没有辅课，小机构有辅课，老师不能帮助学生学习'],
+    }
+  end
+
   def self.courses_categoryCode2hash
     {
         'TOEFL_IELTS_BASIC'=>{
@@ -358,7 +410,7 @@ class HomePageData
                 id:31,
                 image_code:4,
                 name: 'SSAT词汇',
-                category_code:'SAT',
+                category_code:'SSAT',
                 teacherID: 1,
                 time_length:'10次课/20小时',
                 difficulty:'中级',
@@ -414,6 +466,167 @@ class HomePageData
                 description: '课程描诉--课程描诉--课程描诉',
                 startDate: '2015-8-1'
             },
+
+        },
+        'HIGHSCHOOL_LINK'=>{
+            41=>{
+                id:41,
+                image_code:4,
+                name: '地理',
+                category_code:'HIGHSCHOOL_LINK',
+                teacherID: 1,
+                time_length:'12次课/24小时',
+                difficulty:'中级',
+                rank:'中级',
+                description: '课程描诉--课程描诉--课程描诉',
+                startDate: '2015-8-1'
+            },
+            42=>{
+                id:42,
+                image_code:4,
+                name: '化学',
+                category_code:'HIGHSCHOOL_LINK',
+                teacherID: 1,
+                time_length:'12次课/24小时',
+                difficulty:'中级',
+                rank:'中级',
+                description: '课程描诉--课程描诉--课程描诉',
+                startDate: '2015-8-1'
+            },
+            43=>{
+                id:43,
+                image_code:4,
+                name: '科学',
+                category_code:'HIGHSCHOOL_LINK',
+                teacherID: 1,
+                time_length:'12次课/24小时',
+                difficulty:'中级',
+                rank:'中级',
+                description: '课程描诉--课程描诉--课程描诉',
+                startDate: '2015-8-1'
+            },
+            44=>{
+                id:44,
+                image_code:4,
+                name: '物理',
+                category_code:'HIGHSCHOOL_LINK',
+                teacherID: 1,
+                time_length:'12次课/24小时',
+                difficulty:'中级',
+                rank:'中级',
+                description: '课程描诉--课程描诉--课程描诉',
+                startDate: '2015-8-1'
+            },
+            45=>{
+                id:45,
+                image_code:4,
+                name: '历史',
+                category_code:'HIGHSCHOOL_LINK',
+                teacherID: 1,
+                time_length:'12次课/24小时',
+                difficulty:'中级',
+                rank:'中级',
+                description: '课程描诉--课程描诉--课程描诉',
+                startDate: '2015-8-1'
+            },
+            46=>{
+                id:46,
+                image_code:4,
+                name: '文学',
+                category_code:'HIGHSCHOOL_LINK',
+                teacherID: 1,
+                time_length:'12次课/24小时',
+                difficulty:'中级',
+                rank:'中级',
+                description: '课程描诉--课程描诉--课程描诉',
+                startDate: '2015-8-1'
+            },
+            47=>{
+                id:47,
+                image_code:4,
+                name: '美国基础政治',
+                category_code:'HIGHSCHOOL_LINK',
+                teacherID: 1,
+                time_length:'12次课/24小时',
+                difficulty:'中级',
+                rank:'中级',
+                description: '课程描诉--课程描诉--课程描诉',
+                startDate: '2015-8-1'
+            },
+            48=>{
+                id:48,
+                image_code:4,
+                name: '社会经济学',
+                category_code:'HIGHSCHOOL_LINK',
+                teacherID: 1,
+                time_length:'12次课/24小时',
+                difficulty:'中级',
+                rank:'中级',
+                description: '课程描诉--课程描诉--课程描诉',
+                startDate: '2015-8-1'
+            },
+            49=>{
+                id:49,
+                image_code:4,
+                name: '生物学',
+                category_code:'HIGHSCHOOL_LINK',
+                teacherID: 1,
+                time_length:'12次课/24小时',
+                difficulty:'中级',
+                rank:'中级',
+                description: '课程描诉--课程描诉--课程描诉',
+                startDate: '2015-8-1'
+            },
+            50=>{
+                id:50,
+                image_code:4,
+                name: '几何代数',
+                category_code:'HIGHSCHOOL_LINK',
+                teacherID: 1,
+                time_length:'12次课/24小时',
+                difficulty:'中级',
+                rank:'中级',
+                description: '课程描诉--课程描诉--课程描诉',
+                startDate: '2015-8-1'
+            },
+            51=>{
+                id:51,
+                image_code:4,
+                name: '卫生与健康',
+                category_code:'HIGHSCHOOL_LINK',
+                teacherID: 1,
+                time_length:'12次课/24小时',
+                difficulty:'中级',
+                rank:'中级',
+                description: '课程描诉--课程描诉--课程描诉',
+                startDate: '2015-8-1'
+            },
+            52=>{
+                id:52,
+                image_code:4,
+                name: '艺术',
+                category_code:'HIGHSCHOOL_LINK',
+                teacherID: 1,
+                time_length:'12次课/24小时',
+                difficulty:'中级',
+                rank:'中级',
+                description: '课程描诉--课程描诉--课程描诉',
+                startDate: '2015-8-1'
+            },
+            53=>{
+                id:53,
+                image_code:4,
+                name: '语文',
+                category_code:'HIGHSCHOOL_LINK',
+                teacherID: 1,
+                time_length:'12次课/24小时',
+                difficulty:'中级',
+                rank:'中级',
+                description: '课程描诉--课程描诉--课程描诉',
+                startDate: '2015-8-1'
+            },
+
+
 
         },
 
