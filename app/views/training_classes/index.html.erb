@@ -9,7 +9,7 @@
 
 <%end%>
 
-
+<%if nil%>
 <%= grid(@training_classes_grid,html:{class: "ui celled collapsing table segment"}) do |g|
 
     g.column name: '名称', attribute: 'name' ,ordering:false do |training_class|
@@ -126,23 +126,10 @@
 
 end %>
 
-<% if current_user.can_manage_basic_data? %>
 
-    <div class="ui bottom right pointing dropdown blue button" tabindex="0">
-      新建培训班
-      <div class="menu transition hidden" tabindex="-1">
-        <div class="ui blue item"><%= link_to 'SAT   培训班', new_training_class_path(exam_type: 'SAT')  %></div>
-        <div class="ui blue item"><%= link_to 'TOEFL 培训班', new_training_class_path(exam_type: 'TOEFL')%></div>
+<%end%>
 
-        <div class=" item">(AP 培训班)</div>
-        <div class=" item">(西语 培训班)</div>
-      </div>
-    </div>
-
-
-<% end %>
-
-<%if nil%>
+<%unless nil%>
     <table class ="ui celled collapsing table segment">
       <thead>
         <tr>
@@ -227,12 +214,25 @@ end %>
                 <td>
                     <% if current_user.employee? %>
 
-                          <%= link_to '修改', edit_training_class_path(training_class), {class:'ui green button'} %>
-                          <% link_to '设置学员', set_students_training_classes_path(training_class), {class:'ui green button'} %>
+                      <div class ="operation_buttons">
+                      <%=link_to(edit_training_class_path(training_class), {class:'ui green icon button popup_tip_button','data-content'=>"修改培训班:#{training_class.name}"}) do
+                      raw('<i class="edit icon"> </i>')
+                      end
+                      %>
+
+
                           <%if current_user.admin?%>
-                            <%= link_to '删除培训班', training_class, {class:'ui red button' ,method: :delete, data: { confirm: '确认删除?' } }%>
+                              <%=
+                                  link_to(training_class, {class:'ui red icon button popup_tip_button' ,
+                                                           method: :delete,
+                                                           data: { confirm: "确认删除培训班:#{training_class.name}?",content:"删除培训班:#{training_class.name}" } }) do
+                                    raw('<i class="delete icon"> </i>')
+                                  end
+                              %>
+
                           <%end%>
 
+                      </div>
                     <% end %>
                 </td>
               </tr>
@@ -240,5 +240,20 @@ end %>
         <% end %>
       </tbody>
     </table>
-
 <%end%>
+<%= paginate @training_classes %>
+<% if current_user.can_manage_basic_data? %>
+
+    <div class="ui bottom right pointing dropdown blue button" tabindex="0">
+      新建培训班
+      <div class="menu transition hidden" tabindex="-1">
+        <div class="ui blue item"><%= link_to 'SAT   培训班', new_training_class_path(exam_type: 'SAT')  %></div>
+        <div class="ui blue item"><%= link_to 'TOEFL 培训班', new_training_class_path(exam_type: 'TOEFL')%></div>
+
+        <div class=" item">(AP 培训班)</div>
+        <div class=" item">(西语 培训班)</div>
+      </div>
+    </div>
+
+
+<% end %>

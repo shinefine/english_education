@@ -4242,7 +4242,7 @@ input[type="submit"]::-moz-focus-inner {
 #main-nav > ul > li > a {
     color: #999;
     display: block;
-    font-size: 12px;
+    font-size: 18px;
     line-height: 94px;
     padding: 0 18px;
     position: relative;
@@ -7305,7 +7305,7 @@ button.custom-radio {
 body {
     color: #555;
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px
+    font-size: 18px
 }
 
 h1, h2, h3, h4, h5, h6 {

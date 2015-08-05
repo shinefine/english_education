@@ -53,52 +53,93 @@
 <section class="section-content section-bg" style="background-color:#f5f5f5;">
   <div class="container clearfix">
     <div class="entry-content">
-      <div class="dm3-one-fourth">
-        <div class="dm3-box-icon dm3-box-icon-center">
-          <div class="dm3-box-icon-icon"><span class="fa fa-star"></span></div>
-          <div class="dm3-box-icon-content">
-            <h2>优秀教材</h2>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+      <div class="dm3-accordion">
+        <%HomePageData.school_features.each_pair do |key,value|%>
+        <div class="dm3-collapse-item ">
+          <div class="dm3-collapse-trigger"><a><%=key%></a></div>
+          <div class="dm3-collapse-body dm3-collapse" >
+            <div class="dm3-collapse-inner"><%=value%></div>
           </div>
         </div>
-      </div>
-      <div class="dm3-one-fourth">
-        <div class="dm3-box-icon dm3-box-icon-center">
-          <div class="dm3-box-icon-icon"><span class="fa fa-cogs"></span></div>
-          <div class="dm3-box-icon-content">
-            <h2>高品质</h2>
+        <%end%>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-          </div>
-        </div>
-      </div>
-      <div class="dm3-one-fourth">
-        <div class="dm3-box-icon dm3-box-icon-center">
-          <div class="dm3-box-icon-icon"><span class="fa fa-heart"></span></div>
-          <div class="dm3-box-icon-content">
-            <h2>轻松学习</h2>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-          </div>
-        </div>
-      </div>
-      <div class="dm3-one-fourth dm3-column-last">
-        <div class="dm3-box-icon dm3-box-icon-center">
-          <div class="dm3-box-icon-icon"><span class="fa fa-check"></span></div>
-          <div class="dm3-box-icon-content">
-            <h2>简单高效</h2>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-          </div>
-        </div>
       </div>
       <div class="clear"></div>
     </div>
   </div>
 </section>
+<!--学校优势区块-->
+<section class="section-content" >
+  <div class="container clearfix">
+    <div class="entry-content">
+      <div class="title1 clearfix">
+        <div class="text"><h2><%=@school_name%></h2></div>
+        <div class="sub-title">了解<%=@school_name%>的几大优势</div>
+      </div>
+      <table class="ui celled  selectable table">
+        <thead>
+        <tr>
+          <th style="width: 20%">
+          <th style="width: 40%"><h3>睿希教育</h3></th>
+          <th><h3>其他培训机构</h3></th>
+        </tr></thead>
+        <tbody>
+        <%HomePageData.school_compareInfo.each_pair do |key_str,value_arr|%>
+            <% 1+1 #render partial: "course", object: course  # 不再输出此内容,用表格替换%>
+            <tr>
+              <td><%=key_str%></td>
+              <td class="positive"><%=value_arr[0]%></td>
+              <td  class="warning"><%=value_arr[1]%></td>
+            </tr>
+        <%end%>
+        </tbody>
+      </table>
 
-<!--培训班课程介绍 段-->
+      <div class="clear"></div>
+    </div>
+  </div>
+</section>
+
+<!--教学报告区块-->
+<section class="section-content" style="background-color:#f5f5f5;">
+  <div class="container clearfix">
+    <div class="entry-content">
+      <div class="title1 clearfix">
+        <div class="text"><h2>教学报告</h2></div>
+        <div class="sub-title">美国高中生物课程衔接学习情况</div>
+      </div>
+      <table class="ui celled  selectable table">
+        <tbody>
+        <%HomePageData.report1.each_pair do |key_str,value_str|%>
+            <tr>
+              <td><%=key_str%></td>
+              <td ><%=value_str%></td>
+            </tr>
+        <%end%>
+        </tbody>
+      </table>
+
+      <div class="title1 clearfix">
+        <div class="sub-title">辅导学习情况</div>
+      </div>
+      <table class="ui celled  selectable table">
+        <tbody>
+        <%HomePageData.report2.each_pair do |key_str,value_str|%>
+            <tr>
+              <td><%=key_str%></td>
+              <td ><%=value_str%></td>
+            </tr>
+        <%end%>
+        </tbody>
+      </table>
+
+      <div class="clear"></div>
+    </div>
+  </div>
+</section>
+
+<!--培训班课程介绍 段  此段内容放置到二级页面上了-->
+<%if nil%>
 <section class="section-content">
 
 <div class="container clearfix">
@@ -158,39 +199,10 @@
     </div>
 </div>
 </section>
-
+<%end%>
 <!--讲师介绍 区域-->
 <%= render 'home_page/partical_lecturers', locals: {lecturers: @lecturers} %>
-<section class="section-content">
-  <div class="container clearfix">
-    <div class="entry-content">
-      <div class="title1 clearfix">
-        <div class="text"><h2><%=@school_name%></h2></div>
-        <div class="sub-title">了解<%=@school_name%>的几大优势</div>
-      </div>
-          <table class="ui celled  selectable table">
-            <thead>
-            <tr>
-              <th style="width: 20%">
-              <th style="width: 40%"><h3>睿希教育</h3></th>
-              <th><h3>其他培训机构</h3></th>
-            </tr></thead>
-            <tbody>
-            <%HomePageData.school_compareInfo.each_pair do |key_str,value_arr|%>
-                <% 1+1 #render partial: "course", object: course  # 不再输出此内容,用表格替换%>
-                <tr>
-                  <td><%=key_str%></td>
-                  <td class="positive"><%=value_arr[0]%></td>
-                  <td  class="warning"><%=value_arr[1]%></td>
-                </tr>
-            <%end%>
-            </tbody>
-          </table>
 
-      <div class="clear"></div>
-    </div>
-  </div>
-</section>
 
 <!--学员感言-->
 <section class="section-content section-bg" style="background-color:#f5f5f5;">

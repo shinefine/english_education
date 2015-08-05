@@ -1,4 +1,65 @@
 <section class="section-content">
+
+  <div class="container clearfix">
+    <div class="entry-content">
+      <div class="title1 clearfix">
+        <div class="text">
+          <h2>课程</h2>
+        </div>
+      </div>
+      <div class="dm3-accordion">
+        <%HomePageData.courseCategory_code2name.each_pair do|key_code,value_name|%>
+            <%courses =(HomePageData.courses_categoryCode2hash[key_code].try(:values) )||{} %>
+
+            <div class="dm3-collapse-item dm3-collapse-open">
+              <div class="dm3-collapse-trigger">
+                <a href="#" style="background-color: #cff7ff;"><h3 style="color: #9f1d1d;"> <%=value_name%></h3></a>
+              </div>
+              <div class="dm3-collapse-body dm3-in  dm3-collapse">
+                <div class="dm3-collapse-inner">
+                  <div style="color:#86ddef;">
+                    <%=simple_format(HomePageData.course_code2descriptionB[key_code])%>
+                  </div>
+                  <div class="title1 clearfix" style="text-align: left;" >
+                    <div class="text"><h4>课程特色</h4></div>
+
+                    <div class="sub-title" style="text-align: left; margin: 0;"><%=simple_format(HomePageData.course_code2description[key_code])%>
+                    </div>
+                  </div>
+                  <% if courses.length>0%>
+                      <table class="ui celled selectable table">
+                        <thead>
+                        <tr>
+                          <th>课程</th>
+                          <th>课时</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%courses.each do |course|%>
+                            <tr>
+                              <td class="positive"><%=course[:name]%></td>
+                              <td><%=course[:time_length]%></td>
+                            </tr>
+                        <%end%>
+                        </tbody>
+                      </table>
+                  <%end%>
+                </div>
+
+              </div>
+            </div>
+
+
+        <%end%>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<%if nil%>
+    <section class="section-content">
   <div class="container clearfix">
     <div id="page-title">
       <h1>课程</h1>
@@ -15,7 +76,7 @@
           <li>
             <a href="./course_list?category=<%=courseCategoryCode %>"><%=@courseCategory_code2name[courseCategoryCode]%></a>
           </li>
-          <%end%>
+          <%end%>s
         </ul>
       </div>
     </div>
@@ -75,3 +136,4 @@
 
       </div>
 </section>
+<%end%>
