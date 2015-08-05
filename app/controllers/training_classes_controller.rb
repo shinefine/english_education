@@ -42,6 +42,8 @@ class TrainingClassesController < ApplicationController
                                                  order_direction: 'desc')
       end
     end
+
+    @training_classes =Kaminari.paginate_array(@training_classes).page(params[:page]).per(10)
   end
 
   # GET /training_classes/1
